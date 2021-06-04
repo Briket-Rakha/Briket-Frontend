@@ -1,0 +1,109 @@
+@import '../color';
+@import '../base';
+
+.login {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 10px;
+  min-height: 100vh;
+
+  &-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    width: clamp(360px, 40%, 600px);
+
+    &-header {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 30px;
+    }
+
+    &-logo {
+      width: 100px;
+      margin: 10px auto;
+
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+
+    &-title {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+
+    &-field {
+      margin: 5px auto !important;
+      width: 100%;
+
+      & > div {
+        width: 100% !important;
+
+        & > input {
+          background-color: white;
+        }
+      }
+
+      .MuiFormHelperText-root {
+        color: $error;
+      }
+    }
+
+    &-checkbox {
+      display: inline-flex;
+
+      & > span {
+        padding-left: 0 !important;
+      }
+
+      .check-label {
+        color: black !important;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &-button {
+      margin-top: 30px;
+      width: 100%;
+
+      button {
+        width: 100%;
+        border: 2px solid $primary;
+        background-color: $primary;
+        margin-bottom: 10px;
+
+        span {
+          font-size: 1rem;
+          color: white;
+        }
+      }
+
+      &:hover {
+        span {
+          color: $primary;
+        }
+      }
+    }
+
+    &-no-acc {
+      text-align: center;
+
+      a {
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+          color: $ternary;
+        }
+      }
+    }
+  }
+}

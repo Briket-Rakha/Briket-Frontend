@@ -1,0 +1,37 @@
+$primary: #287094;
+$secondary: #F6F6F6;
+$ternary: #023246;
+$accent: #D4D4CE;
+$error: #d32f2f;
+
+.text-primary {
+  color: $primary;
+}
+
+.text-secondary {
+  color: $secondary;
+}
+
+.text-ternery {
+  color: $ternary;
+}
+
+.text-primary {
+  color: $accent;
+}
+
+.bg-primary {
+  background-color: $primary;
+}
+
+.bg-secondary {
+  background-color: $secondary;
+}
+
+.bg-ternery {
+  background-color: $ternary;
+}
+
+.bg-primary {
+  background-color: $accent;
+}

@@ -1,0 +1,40 @@
+@import "./color";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap");
+
+$primary-font: "Roboto", sans-serif;
+
+* {
+  box-sizing: border-box;
+  font-family: $primary-font;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body,
+main {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  line-height: 1;
+  margin-block: 0;
+  margin-inline: 0;
+}
