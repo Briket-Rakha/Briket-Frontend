@@ -11,7 +11,6 @@ const authReducer = (state = initialState, action) => {
         user: { ...action.payload },
       };
     case 'LOG_OUT':
-      console.log('LOG_OUT NHI BOS');
       localStorage.clear();
       return {
         loggedIn: false,

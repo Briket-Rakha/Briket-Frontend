@@ -2,7 +2,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-const Landing = (props) => {
+const ProductionModel = (props) => {
   return (
     <Grid container>
       <h1>TEST LANDING</h1>
@@ -10,4 +10,4 @@ const Landing = (props) => {
   );
 };
 
-export default Landing;
+export default ProductionModel;

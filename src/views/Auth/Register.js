@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import MaterialUiPhoneNumber from 'material-ui-phone-number';
 import { Redirect } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
+
+// Import Component
+import CustomAlert from '../../components/Alert';
 
 // Import styling
 import '../../styles/views/login.scss';
-import axios from 'axios';
-import Modal from '../../components/Modal';
 
 // Import Route List
 import Routes from '../../router/RouteList';
@@ -31,7 +32,8 @@ const Register = (props) => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [error, setError] = useState({
     username: '',
@@ -60,7 +62,6 @@ const Register = (props) => {
   const handleRegister = () => {
     const { password, confirmPassword } = credentials;
     const keys = Object.keys(credentials);
-    console.log(credentials);
 
     if (!loading) {
       setLoading(true);
@@ -74,7 +75,6 @@ const Register = (props) => {
       });
 
       if (password !== confirmPassword) {
-        console.log(password, confirmPassword);
         setError((prev) => ({
           ...prev,
           confirmPassword: 'Password and Password Confirmation aren\'t match!',
@@ -94,10 +94,8 @@ const Register = (props) => {
             })
             .catch((err) => {
               console.log(err);
-              setModal({
-                title: 'Gagal Register User',
-                description: err.message,
-              });
+              setErrorMessage('User is already registered!');
+              setOpenAlert(true);
             });
       }
 
@@ -109,6 +107,12 @@ const Register = (props) => {
 
   return (
     <Grid container className="login">
+      {openAlert && (
+        <CustomAlert
+          type="error"
+          message={errorMessage}
+          onClose={() => setOpenAlert(false )} />
+      )}
       <Grid item className="login-box">
         <Grid item className="login-box-header">
           <Grid item className="login-box-logo">
@@ -200,7 +204,6 @@ const Register = (props) => {
           {'Already have account?'} <a href="/Login">Sign In Here!</a>
         </Grid>
       </Grid>
-      <Modal modal={modal} setModal={setModal} />
     </Grid>
   );
 };

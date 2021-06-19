@@ -13,7 +13,7 @@ import PrivateRoute from './PrivateRoute';
 // Import Views
 const Login = lazy(() => import('../views/Auth/Login'));
 const Register = lazy(() => import('../views/Auth/Register'));
-const Landing = lazy(() => import('../views/Landing'));
+const ProductionModel = lazy(() => import('../views/ProductionModel'));
 
 // Create Browser History
 const browserHistory = createBrowserHistory();
@@ -25,7 +25,7 @@ const MyRouter = () => {
         <Switch>
           <PrivateRoute
             path={Routes.landing.root}
-            component={Landing}
+            component={ProductionModel}
             exact
           />
           <Route path={Routes.login.root} component={Login} exact />
