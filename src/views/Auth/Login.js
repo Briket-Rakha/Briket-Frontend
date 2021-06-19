@@ -6,22 +6,15 @@ import {
   Checkbox,
   InputLabel,
   Button,
-  CircularProgress,
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Import redux action (signIn)
-import { signIn } from '../../actions';
+import { signIn } from '../../actions/authActions';
 
 // Import styling
 import '../../styles/views/login.scss';
-
-// Import Route List
-import Routes from '../../router/RouteList';
-
-// Import Component
-import CustomAlert from '../../components/Alert';
 
 const Login = (props) => {
   const token = localStorage.getItem('token');
@@ -30,18 +23,19 @@ const Login = (props) => {
     return <Redirect to="/" />;
   }
 
+  const user = useSelector((state) => state.authReducer);
   const dispatch = useDispatch();
 
+  console.log(user);
+
   const [credentials, setCredentials] = useState({
-    email: '',
+    username: '',
     password: '',
     remember: false,
   });
-  const [loading, setLoading] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+
   const [error] = useState({
-    email: '',
+    username: '',
     password: '',
   });
 
@@ -62,34 +56,14 @@ const Login = (props) => {
   };
 
   const handleLogin = () => {
-    if (!loading) {
-      setLoading(true);
-      dispatch(signIn(credentials))
-          .then((res) => {
-            // eslint-disable-next-line react/prop-types
-            const { history } = props;
-            // eslint-disable-next-line react/prop-types
-            history.push(Routes.landing.root);
-          })
-          .catch((error) => {
-            console.log(error);
-            setErrorMessage('Login Gagal');
-            setOpenAlert(true);
-            setLoading(false);
-          });
-    }
+    console.log(credentials);
+    dispatch(signIn(credentials));
   };
 
-  const { email, password, remember } = credentials;
+  const { username, password, remember } = credentials;
 
   return (
     <Grid container className="login">
-      {openAlert && (
-        <CustomAlert
-          type="error"
-          message={errorMessage}
-          onClose={() => setOpenAlert(false)} />
-      )}
       <Grid item className="login-box">
         <Grid item className="login-box-header">
           <Grid item className="login-box-logo">
@@ -104,17 +78,17 @@ const Login = (props) => {
         </Grid>
         <Grid item className="login-box-field">
           <TextField
-            id="email"
-            name="email"
+            id="username"
+            name="username"
             className="login-box-field"
-            placeholder="Email*"
+            placeholder="Username*"
             size="small"
-            value={email}
+            value={username}
             type="text"
             variant="outlined"
             required
             onChange={handleChange}
-            helperText={error.email}
+            helperText={error.username}
           />
         </Grid>
         <Grid item className="login-box-field">
@@ -147,7 +121,7 @@ const Login = (props) => {
         </Grid>
         <Grid item className="login-box-button">
           <Button color="primary" onClick={handleLogin} size="small">
-            {loading ? <CircularProgress size={10} thickness={4} /> : 'SIGN IN'}
+            SIGN IN
           </Button>
         </Grid>
         <Grid item className="login-box-no-acc">

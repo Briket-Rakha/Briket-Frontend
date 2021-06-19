@@ -8,8 +8,10 @@ $primary-font: "Roboto", sans-serif;
 $tablet: 992px;
 $mobile: 640px;
 
+
 * {
   box-sizing: border-box;
+  line-height: 1 !important;
   font-family: $primary-font;
 }
 
@@ -38,27 +40,8 @@ h3,
 h4,
 h5,
 h6,
-p,
-span {
+p {
   line-height: 1;
   margin-block: 0;
   margin-inline: 0;
-}
-
-.MuiGrid-item {
-  line-height: 1;
-}
-
-.MuiAlert-root {
-  position: absolute;
-  z-index: 2000;
-  margin: 0 15px;
-  margin-top: 25px;
-  left: 0;
-  width: calc(100% - 30px);
-  top: 0;
-}
-
-main {
-  padding: 30px clamp(20px, 5%, 60px);
 }
