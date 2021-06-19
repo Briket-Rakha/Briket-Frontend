@@ -1,25 +1,44 @@
 // Import Module
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import MaterialUiPhoneNumber from 'material-ui-phone-number';
+import { Redirect } from 'react-router-dom';
+// import axios from 'axios';
 
 // Import styling
 import '../../styles/views/login.scss';
+import axios from 'axios';
+import Modal from '../../components/Modal';
+
+// Import Route List
+import Routes from '../../router/RouteList';
+
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const Register = (props) => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    return <Redirect to="/" />;
+  }
+
   const [credentials, setCredentials] = useState({
     username: '',
     email: '',
     password: '',
-    passConfirm: '',
+    confirmPassword: '',
     phone: '',
   });
+
+  const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const [error, setError] = useState({
     username: '',
     email: '',
     phone: '',
     password: '',
+    confirmPassword: '',
   });
 
   const handleChange = (e) => {
@@ -39,21 +58,54 @@ const Register = (props) => {
   };
 
   const handleRegister = () => {
-    const { password, passConfirm } = credentials;
-    console.log(password, passConfirm);
-    if (password !== passConfirm) {
-      console.log(password, passConfirm);
-      setError((prev) => ({
-        ...prev,
-        password: 'Password dan Konfirmasi Password tidak sama!',
-      }));
-    }
-
+    const { password, confirmPassword } = credentials;
+    const keys = Object.keys(credentials);
     console.log(credentials);
-    console.log(error);
+
+    if (!loading) {
+      setLoading(true);
+      keys.forEach((key) => {
+        if (!credentials[key].length) {
+          setError((prev) => ({
+            ...prev,
+            [key]: `Field mustn't be empty!`,
+          }));
+        }
+      });
+
+      if (password !== confirmPassword) {
+        console.log(password, confirmPassword);
+        setError((prev) => ({
+          ...prev,
+          confirmPassword: 'Password and Password Confirmation aren\'t match!',
+        }));
+      }
+
+      const isValid = Object
+          .values(credentials)
+          .every((x) => x !== '');
+
+      if (isValid) {
+        axios
+            .post(`${apiBaseUrl}/user/register`, credentials)
+            .then((res) => {
+              // eslint-disable-next-line react/prop-types
+              props.history.push(Routes.login.root);
+            })
+            .catch((err) => {
+              console.log(err);
+              setModal({
+                title: 'Gagal Register User',
+                description: err.message,
+              });
+            });
+      }
+
+      setLoading(false);
+    }
   };
 
-  const { username, password, email, passConfirm } = credentials;
+  const { username, password, email, confirmPassword } = credentials;
 
   return (
     <Grid container className="login">
@@ -103,10 +155,10 @@ const Register = (props) => {
           <MaterialUiPhoneNumber
             regions={['america', 'asia', 'europe']}
             size="small"
-            placeholder="82288888888"
             variant="outlined"
             defaultCountry={'id'}
             onChange={handlePhone}
+            helperText={error.phone}
           />
         </Grid>
         <Grid item className="login-box-field">
@@ -121,32 +173,34 @@ const Register = (props) => {
             variant="outlined"
             required
             onChange={handleChange}
+            helperText={error.password}
           />
         </Grid>
         <Grid item className="login-box-field">
           <TextField
-            id="passConfirm"
-            name="passConfirm"
+            id="confirmPassword"
+            name="confirmPassword"
             type="password"
             className="login-box-field"
             placeholder="Password Confirmation*"
             size="small"
-            value={passConfirm}
+            value={confirmPassword}
             variant="outlined"
             required
             onChange={handleChange}
-            helperText={error.password}
+            helperText={error.confirmPassword}
           />
         </Grid>
         <Grid item className="login-box-button">
           <Button color="primary" onClick={handleRegister} size="small">
-            SIGN IN
+            {loading ? <CircularProgress size={10} thickness={4} /> : 'SIGN UP'}
           </Button>
         </Grid>
         <Grid item className="login-box-no-acc">
           {'Already have account?'} <a href="/Login">Sign In Here!</a>
         </Grid>
       </Grid>
+      <Modal modal={modal} setModal={setModal} />
     </Grid>
   );
 };

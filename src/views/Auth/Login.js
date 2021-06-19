@@ -7,11 +7,27 @@ import {
   InputLabel,
   Button,
 } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
+// Import redux action (signIn)
+import { signIn } from '../../actions/authActions';
 
 // Import styling
 import '../../styles/views/login.scss';
 
 const Login = (props) => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    return <Redirect to="/" />;
+  }
+
+  const user = useSelector((state) => state.authReducer);
+  const dispatch = useDispatch();
+
+  console.log(user);
+
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
@@ -41,6 +57,7 @@ const Login = (props) => {
 
   const handleLogin = () => {
     console.log(credentials);
+    dispatch(signIn(credentials));
   };
 
   const { username, password, remember } = credentials;

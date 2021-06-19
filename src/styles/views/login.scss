@@ -20,12 +20,13 @@
     &-header {
       display: flex;
       flex-direction: column;
-      margin-bottom: 30px;
+      align-items: center;
+      margin-bottom: 30px !important;
     }
 
     &-logo {
       width: 100px;
-      margin: 10px auto;
+      margin: 10px auto !important;
 
       img {
         width: 100%;
@@ -40,8 +41,14 @@
     }
 
     &-field {
-      margin: 5px auto !important;
+      margin: 5px auto 10px !important;
       width: 100%;
+
+      .MuiFormHelperText-contained {
+        position: absolute;
+        bottom: -16px;
+        margin: 0 !important;
+      }
 
       & > div {
         width: 100% !important;
@@ -71,7 +78,7 @@
     }
 
     &-button {
-      margin-top: 30px;
+      margin-top: 30px !important;
       width: 100%;
 
       button {
@@ -79,16 +86,25 @@
         border: 2px solid $primary;
         background-color: $primary;
         margin-bottom: 10px;
+        padding: 10px;
 
         span {
           font-size: 1rem;
           color: white;
+
+          .MuiCircularProgress-root {
+            color: white !important;
+          }
         }
       }
 
       &:hover {
         span {
           color: $primary;
+
+          .MuiCircularProgress-root {
+            color: $primary !important;
+          }
         }
       }
     }

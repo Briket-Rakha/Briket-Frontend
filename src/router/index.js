@@ -7,9 +7,13 @@ import { LastLocationProvider } from 'react-router-last-location';
 // Import Route List
 import Routes from './RouteList';
 
+// Import Private Route
+import PrivateRoute from './PrivateRoute';
+
 // Import Views
 const Login = lazy(() => import('../views/Auth/Login'));
 const Register = lazy(() => import('../views/Auth/Register'));
+const Landing = lazy(() => import('../views/Landing'));
 
 // Create Browser History
 const browserHistory = createBrowserHistory();
@@ -19,7 +23,11 @@ const MyRouter = () => {
     <Router history={browserHistory}>
       <LastLocationProvider watchOnlyPathname>
         <Switch>
-          {/* <Route path={Routes.landing.root} component={Login} exact /> */}
+          <PrivateRoute
+            path={Routes.landing.root}
+            component={Landing}
+            exact
+          />
           <Route path={Routes.login.root} component={Login} exact />
           <Route path={Routes.register.root} component={Register} exact />
         </Switch>

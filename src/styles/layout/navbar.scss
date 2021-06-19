@@ -1,0 +1,45 @@
+@import '../color';
+@import '../base';
+
+.hamburger-btn {
+  display: none !important;
+
+  svg {
+    color: black;
+  }
+
+  @media (max-width: $tablet) {
+    display: inline-block !important;
+  }
+}
+
+.navbar {
+  background: white !important;
+  justify-content: space-between;
+
+  &-brand {
+    max-width: 100px;
+    padding: 10px;
+
+    img {
+      border-radius: 8px;
+    }
+  }
+
+  &-list {
+    justify-content: space-between;
+    align-items: center;
+    max-width: 992px;
+
+    &-item {
+      color: black;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+
+      .logout-btn {
+        color: $error;
+      }
+    }
+  }
+}
