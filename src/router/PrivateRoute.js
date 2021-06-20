@@ -1,5 +1,6 @@
 // Import Library
 import React from 'react';
+import { Container } from '@material-ui/core';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -19,7 +20,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         render={(props) =>
           token ? (
             <Layout>
-              <Component {...props} />
+              <Container maxWidth="md" fixed>
+                <Component {...props} />
+              </Container>
             </Layout>
           ) : (
             <Redirect to={Routes.login.root} />

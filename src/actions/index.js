@@ -2,32 +2,39 @@ import axios from 'axios';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
+// For User
 const setUser = (payload) => ({ type: 'SET_USER', payload });
 
 export const logOut = () => (dispatch) => {
   dispatch({ type: 'LOG_OUT' });
 };
 
-export const signIn = (credentials) => (dispatch) => {
-  axios
-      .post(`${apiBaseUrl}/user/login`, credentials, {
+export const signIn = (credentials) => async (dispatch) => {
+  await axios
+      .post(`${apiBaseUrl}/auth/login`, credentials, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
       })
       .then((res) => {
-        console.log(res);
-        localStorage.setItem('token', res.token);
+        localStorage.setItem('token', res.data.data.token);
         dispatch(setUser(res.user));
       })
       .catch((error) => {
-        console.log(error);
         dispatch({
           type: 'ERROR_AUTH',
         });
+
+        throw error;
       });
 };
+
+// For tab
+export const setTab = (tab) => (dispatch) => {
+  dispatch({ type: tab });
+};
+
 
 // export const getAuthenticated = () => (dispatch) => {
 //   axios

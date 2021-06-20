@@ -1,79 +1,42 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable require-jsdoc */
+// Import Library
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+import { Modal, Backdrop, Grid, Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-const styles = (theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-    padding: '5px',
-  },
-});
+// Import Styling
+import '../../styles/components/modal.scss';
 
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          className={classes.closeButton}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-
-// eslint-disable-next-line require-jsdoc
-function Modal(props) {
-  const { modal, setModal } = props;
-
-  const isOpen = Boolean(modal);
+export default function CustomModal(props) {
+  const { title, open, setOpen, children } = props;
 
   return (
-    <div>
-      <Dialog
-        onClose={() => setModal(false)}
-        aria-labelledby="customized-dialog-title"
-        open={isOpen}
-      >
-        <DialogTitle onClose={() => setModal(false)}>
-          {modal?.title}
-        </DialogTitle>
-        <DialogContent dividers>
-          {modal?.description}
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Modal
+      className="custom-modal"
+      open={open}
+      onClose={() => setOpen(false)}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+      disableEnforceFocus
+      BackdropComponent ={Backdrop}
+    >
+      <Paper elevation={2} className="custom-modal-wrapper">
+        {title &&(
+          <Grid item className="custom-modal-title">
+            <h3>{title}</h3>
+            <br />
+          </Grid>
+        )}
+        <br />
+        {children}
+      </Paper>
+    </Modal>
   );
 }
-Modal.propTypes = {
-  modal: PropTypes.any.isRequired,
-  setModal: PropTypes.func.isRequired,
-};
 
-export default Modal;
+CustomModal.propTypes = {
+  title: PropTypes.string,
+  open: PropTypes.bool.isRequired,
+  children: PropTypes.any,
+  setOpen: PropTypes.func.isRequired,
+};

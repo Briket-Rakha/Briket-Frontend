@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import MaterialUiPhoneNumber from 'material-ui-phone-number';
 import { Redirect } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
+
+// Import Component
+import CustomAlert from '../../components/Alert';
 
 // Import styling
 import '../../styles/views/login.scss';
-import axios from 'axios';
-import Modal from '../../components/Modal';
 
 // Import Route List
 import Routes from '../../router/RouteList';
@@ -31,7 +32,8 @@ const Register = (props) => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [error, setError] = useState({
     username: '',
@@ -60,7 +62,6 @@ const Register = (props) => {
   const handleRegister = () => {
     const { password, confirmPassword } = credentials;
     const keys = Object.keys(credentials);
-    console.log(credentials);
 
     if (!loading) {
       setLoading(true);
@@ -74,7 +75,6 @@ const Register = (props) => {
       });
 
       if (password !== confirmPassword) {
-        console.log(password, confirmPassword);
         setError((prev) => ({
           ...prev,
           confirmPassword: 'Password and Password Confirmation aren\'t match!',
@@ -94,10 +94,8 @@ const Register = (props) => {
             })
             .catch((err) => {
               console.log(err);
-              setModal({
-                title: 'Gagal Register User',
-                description: err.message,
-              });
+              setErrorMessage('User is already registered!');
+              setOpenAlert(true);
             });
       }
 
@@ -109,6 +107,12 @@ const Register = (props) => {
 
   return (
     <Grid container className="login">
+      {openAlert && (
+        <CustomAlert
+          type="error"
+          message={errorMessage}
+          onClose={() => setOpenAlert(false )} />
+      )}
       <Grid item className="login-box">
         <Grid item className="login-box-header">
           <Grid item className="login-box-logo">
@@ -127,7 +131,7 @@ const Register = (props) => {
             name="username"
             className="login-box-field"
             placeholder="Username*"
-            size="small"
+            size="medium"
             value={username}
             type="text"
             variant="outlined"
@@ -142,7 +146,7 @@ const Register = (props) => {
             name="email"
             className="login-box-field"
             placeholder="Email*"
-            size="small"
+            size="medium"
             value={email}
             type="email"
             variant="outlined"
@@ -154,7 +158,7 @@ const Register = (props) => {
         <Grid item className="login-box-field">
           <MaterialUiPhoneNumber
             regions={['america', 'asia', 'europe']}
-            size="small"
+            size="medium"
             variant="outlined"
             defaultCountry={'id'}
             onChange={handlePhone}
@@ -168,7 +172,7 @@ const Register = (props) => {
             type="password"
             className="login-box-field"
             placeholder="Password*"
-            size="small"
+            size="medium"
             value={password}
             variant="outlined"
             required
@@ -183,7 +187,7 @@ const Register = (props) => {
             type="password"
             className="login-box-field"
             placeholder="Password Confirmation*"
-            size="small"
+            size="medium"
             value={confirmPassword}
             variant="outlined"
             required
@@ -193,14 +197,13 @@ const Register = (props) => {
         </Grid>
         <Grid item className="login-box-button">
           <Button color="primary" onClick={handleRegister} size="small">
-            {loading ? <CircularProgress size={10} thickness={4} /> : 'SIGN UP'}
+            {loading ? <CircularProgress size={15} thickness={5} /> : 'SIGN UP'}
           </Button>
         </Grid>
         <Grid item className="login-box-no-acc">
           {'Already have account?'} <a href="/Login">Sign In Here!</a>
         </Grid>
       </Grid>
-      <Modal modal={modal} setModal={setModal} />
     </Grid>
   );
 };

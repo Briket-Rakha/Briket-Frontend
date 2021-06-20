@@ -4,11 +4,11 @@ import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 // Import Navigation Bar
-import Navbar from './Navbar';
+import Navbar from './Navbar/index';
 
 const Layout = ({ children }) => {
   return (
-    <Grid container className="page-wrapper">
+    <Grid item className="page-wrapper">
       <Navbar />
       <main>{children}</main>
     </Grid>

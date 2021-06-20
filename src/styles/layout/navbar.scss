@@ -30,16 +30,54 @@
     justify-content: space-between;
     align-items: center;
     max-width: 992px;
+    padding: 0 30px;
 
     &-item {
+      display: inline-block;
+      transition: all .25s;
       color: black;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       text-transform: uppercase;
+      padding: 8px 4px;
+
+      &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+
+      &.active-tab {
+        border-bottom: 3px solid $primary;
+      }
+
+      &-sub {
+        &-item {
+          padding: 18px 12px;
+          font-weight: 500;
+          font-size: 14px;
+
+          &:hover {
+            cursor: pointer;
+            background-color: $primary;
+            color: white;
+          }
+
+          svg {
+            display: block;
+            margin-left: auto;
+            font-size: 14px;
+          }
+        }
+      }
 
       .logout-btn {
         color: $error;
       }
     }
   }
+}
+
+div[id*="simple-popover-tab"] {
+  z-index: 3000;
+  min-width: 160px !important;
 }

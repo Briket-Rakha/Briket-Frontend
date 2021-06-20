@@ -1,5 +1,6 @@
 @import "./color";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap");
+@import "./variable";
 
 // Font Family
 $primary-font: "Roboto", sans-serif;
@@ -8,10 +9,8 @@ $primary-font: "Roboto", sans-serif;
 $tablet: 992px;
 $mobile: 640px;
 
-
 * {
   box-sizing: border-box;
-  line-height: 1 !important;
   font-family: $primary-font;
 }
 
@@ -40,8 +39,80 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+span {
   line-height: 1;
   margin-block: 0;
   margin-inline: 0;
 }
+
+.MuiGrid-item {
+  line-height: 1;
+}
+
+.MuiAlert-root {
+  position: absolute;
+  z-index: 2000;
+  margin: 0 15px;
+  margin-top: 25px;
+  left: 0;
+  width: calc(100% - 30px);
+  top: 0;
+}
+
+.MuiContainer-root {
+  padding: 48px 0;
+}
+
+.MuiPaper-elevation2 {
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.1),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.07), 0px 1px 5px 0px rgba(0, 0, 0, 0.06) !important;
+}
+
+.align-end {
+  align-self: flex-end;
+}
+
+.btn {
+  padding: $btnPaddingSm;
+  background-color: $primary;
+  color: white;
+  margin-bottom: 20px;
+  border: 1px solid $primary;
+  text-transform: capitalize;
+
+  &:hover, &:active {
+    color: $primary;
+  }
+
+  span {
+    font-weight: 500;
+    font-size: 13px;
+  }
+}
+
+.btn-md {
+  padding: $btnPaddingMd;
+
+  span {
+    font-weight: 500;
+    font-size: 15px;;
+  }
+}
+
+.btn-lg {
+  padding: $btnPaddingLg;
+
+  span {
+    font-weight: 500;
+    font-size: 17px;;
+  }
+}
+
+.MuiTextField-root {
+  margin-bottom: 20px;
+}
+
+// .MuiMenu-paper.MuiPopover-paper {
+//   transform: translateY(60px) !important;
+// }
