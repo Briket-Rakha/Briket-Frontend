@@ -104,9 +104,20 @@ span {
   margin-bottom: 20px;
   border: 1px solid $primary;
   text-transform: capitalize;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  .MuiCircularProgress-root {
+    color: white;
+  }
 
   &:hover, &:active {
     color: $primary;
+    
+    .MuiCircularProgress-root {
+      color: $primary;
+    }
   }
 
   span {

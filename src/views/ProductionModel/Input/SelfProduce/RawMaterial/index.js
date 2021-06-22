@@ -15,11 +15,11 @@ import TambahPenjual from './TambahPenjual';
 import '../../../../../styles/views/raw-material.scss';
 
 const RawMaterial = () => {
-  const [pabrik, setPabrik] = useState(null);
-  const [material, setMaterial] = useState(null);
-  const [jumlah, setJumlah] = useState(null);
-  const [penjual, setPenjual] = useState(null );
-  const [harga, setHarga] = useState(null);
+  const [pabrik, setPabrik] = useState('');
+  const [material, setMaterial] = useState('');
+  const [jumlah, setJumlah] = useState('');
+  const [penjual, setPenjual] = useState('');
+  const [harga, setHarga] = useState('');
   // const [pj, setPj] = useState('');
   const [date, setDate] = useState(null);
 
