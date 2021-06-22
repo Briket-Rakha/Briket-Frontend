@@ -21,6 +21,10 @@ const TambahMaterial = () => {
     setName(e.target.value);
   };
 
+  const resetInput = () => {
+    setName('');
+  };
+
   const handleClickSimpan = async () => {
     if (!loading) {
       setLoading(true);
@@ -36,6 +40,8 @@ const TambahMaterial = () => {
             setErrorMessage(err?.message ?? 'Server Error');
             setLoading(false);
           });
+
+      resetInput();
     }
   };
 
