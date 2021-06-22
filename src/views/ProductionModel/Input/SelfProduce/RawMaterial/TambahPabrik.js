@@ -51,7 +51,7 @@ const TambahPabrik = () => {
             setLoading(false);
           })
           .catch((err) => {
-            setErrorMessage(err.message);
+            setErrorMessage(err?.message ? err.message : 'Server Error');
             setLoading(false);
           });
     }
@@ -64,8 +64,11 @@ const TambahPabrik = () => {
       {Boolean(errorMessage) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
-          message={errorMessage}
-          onClose={() => setErrorMessage('')}
+          message={successMessage ? successMessage : errorMessage}
+          onClose={successMessage ?
+            () => setSuccessMessage('') :
+            () => setErrorMessage('')
+          }
         />
       )}
       <Grid item className="tambah-pabrik-form">
