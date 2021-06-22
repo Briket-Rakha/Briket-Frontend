@@ -259,7 +259,7 @@ const Navbar = (props) => {
 
 
   return (
-    <AppBar position="static">
+    <AppBar position="absolute">
       <Toolbar className="navbar">
         <Grid item className="navbar-brand">
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />

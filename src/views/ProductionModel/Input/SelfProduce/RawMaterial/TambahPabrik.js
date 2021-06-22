@@ -32,6 +32,16 @@ const TambahPabrik = () => {
     }));
   };
 
+  const resetInput = () => {
+    setInputState((prev) => (
+      Object.fromEntries(
+          Object.entries(prev).map(
+              ([key, value], index) => [key, ''],
+          ),
+      )
+    ));
+  };
+
   const handleClickSimpan = async () => {
     if (!loading) {
       setLoading(true);
@@ -54,14 +64,17 @@ const TambahPabrik = () => {
             setErrorMessage(err?.message ? err.message : 'Server Error');
             setLoading(false);
           });
+
+      resetInput();
     }
   };
 
   const { name, address, city, zipcode, phone } = inputState;
+  console.log(inputState);
 
   return (
     <Grid item className="tambah-pabrik">
-      {Boolean(errorMessage) && (
+      {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
           message={successMessage ? successMessage : errorMessage}
