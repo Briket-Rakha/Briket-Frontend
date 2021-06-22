@@ -1,12 +1,15 @@
 // Import Library
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 
 // Import Component
 import CustomAlert from '../../../../../components/Alert';
 
 // Import Styling
 import '../../../../../styles/views/tambah-pabrik.scss';
+
+// Import API
+import { apiPostPenjual } from '../../../../../api/penjual.api';
 
 const TambahPenjual = () => {
   const [inputState, setInputState] = useState({
@@ -16,7 +19,9 @@ const TambahPenjual = () => {
     zipcode: '',
     phone: '',
   });
-  const [openAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,15 +32,55 @@ const TambahPenjual = () => {
     }));
   };
 
+  const handleClickSimpan = async () => {
+    if (!loading) {
+      setLoading(true);
+
+      const payload = {
+        name,
+        address,
+        city,
+        zipcode,
+        phone,
+      };
+      await apiPostPenjual(payload)
+          .then((i) => {
+            const { response: { data } } = i;
+            console.log(data);
+            setSuccessMessage(data?.message);
+            setLoading(false);
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
+
+      resetInput();
+    }
+  };
+
+  const resetInput = () => {
+    setInputState((prev) => (
+      Object.fromEntries(
+          Object.entries(prev).map(
+              ([key, value], index) => [key, ''],
+          ),
+      )
+    ));
+  };
+
   const { name, address, city, zipcode, phone } = inputState;
 
   return (
     <Grid item className="tambah-pabrik">
-      {openAlert && (
+      {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
-          type="error"
-          message={errorMessage}
-          onClose={() => setOpenAlert(false)}
+          type={successMessage ? 'success' : 'error'}
+          message={successMessage ? successMessage : errorMessage}
+          onClose={successMessage ?
+            () => setSuccessMessage('') :
+            () => setErrorMessage('')
+          }
         />
       )}
       <Grid item className="tambah-pabrik-form">
@@ -44,7 +89,7 @@ const TambahPenjual = () => {
           name="name"
           className="input-field"
           label="Nama Penjual"
-          placeholder="Masukkan Nama Penjual"
+          placeholder="Masukkan Nama Penjual*"
           size="medium"
           value={name}
           type="text"
@@ -68,7 +113,7 @@ const TambahPenjual = () => {
         />
         <TextField
           id="kota"
-          name="kota"
+          name="city"
           className="input-field"
           placeholder="Masukkan Kota*"
           label="Kota"
@@ -107,8 +152,11 @@ const TambahPenjual = () => {
           onChange={handleChange}
         />
       </Grid>
-      <Button className="btn btn-md simpan-btn">
-        SIMPAN
+      <Button
+        className="btn btn-lg simpan-btn"
+        onClick={handleClickSimpan}
+      >
+        {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
       </Button>
     </Grid>
   );
