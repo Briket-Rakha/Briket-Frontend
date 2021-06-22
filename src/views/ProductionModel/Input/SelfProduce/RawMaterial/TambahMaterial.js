@@ -73,7 +73,7 @@ const TambahMaterial = () => {
         />
       </Grid>
       <Button
-        className="btn btn-md simpan-btn"
+        className="btn btn-lg simpan-btn"
         onClick={handleClickSimpan}
       >
         {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
