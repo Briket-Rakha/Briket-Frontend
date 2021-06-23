@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 
 // Import Component
-import CustomAlert from '../../../../../components/Alert';
+import CustomAlert from '../../../components/Alert';
 
 // Import Styling
-import '../../../../../styles/views/tambah-pabrik.scss';
+import '../../../styles/views/tambah-pabrik.scss';
 
 // Import API
-import { apiPostPenjual } from '../../../../../api/penjual.api';
+import { apiPostPabrik } from '../../../api/pabrik.api';
 
-const TambahPenjual = () => {
+const TambahPabrik = () => {
   const [inputState, setInputState] = useState({
     name: '',
     address: '',
@@ -32,7 +32,18 @@ const TambahPenjual = () => {
     }));
   };
 
-  const handleClickSimpan = async () => {
+  const resetInput = () => {
+    setInputState((prev) => (
+      Object.fromEntries(
+          Object.entries(prev).map(
+              ([key, value], index) => [key, ''],
+          ),
+      )
+    ));
+  };
+
+  const handleClickSimpan = async (e) => {
+    e.preventDefault();
     if (!loading) {
       setLoading(true);
 
@@ -43,7 +54,7 @@ const TambahPenjual = () => {
         zipcode,
         phone,
       };
-      await apiPostPenjual(payload)
+      await apiPostPabrik(payload)
           .then((i) => {
             const { response: { data } } = i;
             console.log(data);
@@ -59,20 +70,11 @@ const TambahPenjual = () => {
     }
   };
 
-  const resetInput = () => {
-    setInputState((prev) => (
-      Object.fromEntries(
-          Object.entries(prev).map(
-              ([key, value], index) => [key, ''],
-          ),
-      )
-    ));
-  };
-
   const { name, address, city, zipcode, phone } = inputState;
+  console.log(inputState);
 
   return (
-    <Grid item className="tambah-pabrik">
+    <form className="tambah-pabrik" onSubmit={handleClickSimpan}>
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
@@ -88,8 +90,8 @@ const TambahPenjual = () => {
           id="name"
           name="name"
           className="input-field"
-          label="Nama Penjual"
-          placeholder="Masukkan Nama Penjual*"
+          label="Nama Pabrik"
+          placeholder="Masukkan Nama Pabrik*"
           size="medium"
           value={name}
           type="text"
@@ -108,7 +110,9 @@ const TambahPenjual = () => {
           type="text"
           variant="outlined"
           required
-          rows={2}
+          multiline
+          rows={1}
+          rowsMax={3}
           onChange={handleChange}
         />
         <TextField
@@ -148,18 +152,14 @@ const TambahPenjual = () => {
           type="text"
           variant="outlined"
           required
-          rows={2}
           onChange={handleChange}
         />
       </Grid>
-      <Button
-        className="btn btn-lg simpan-btn"
-        onClick={handleClickSimpan}
-      >
+      <Button type="submit" className="btn btn-lg simpan-btn">
         {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
       </Button>
-    </Grid>
+    </form>
   );
 };
 
-export default TambahPenjual;
+export default TambahPabrik;

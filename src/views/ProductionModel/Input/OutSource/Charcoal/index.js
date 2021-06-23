@@ -5,57 +5,41 @@ import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Component
 import CustomSelect from '../../../../../components/Select';
-import DatePicker from '../../../../../components/DatePicker';
 import CustomModal from '../../../../../components/Modal';
-import TambahPabrik from '../../TambahPabrik';
-import TambahMaterial from '../../TambahMaterial';
+import TambahBrand from '../../TambahBrand';
 import TambahPenjual from '../../TambahPenjual';
 
 // Import Styling
 import '../../../../../styles/views/raw-material.scss';
 
-const RawMaterial = () => {
-  const [pabrik, setPabrik] = useState('');
-  const [material, setMaterial] = useState('');
+const Charcoal = () => {
+  const [brand, setBrand] = useState('');
+  const [completePayment, setCompletePayment] = useState('');
+  const [commission, setCommission] = useState('');
   const [jumlah, setJumlah] = useState('');
   const [penjual, setPenjual] = useState('');
-  const [harga, setHarga] = useState('');
-  // const [pj, setPj] = useState('');
-  const [date, setDate] = useState(null);
+  const [pembayaran, setPembayaran] = useState('');
+  const [pj, setPj] = useState('');
 
-  const [openPabrik, setOpenPabrik] = useState(false);
-  const [openMaterial, setOpenMaterial] = useState(false);
+  const [openBrand, setOpenBrand] = useState(false);
   const [openPenjual, setOpenPenjual] = useState(false);
 
   return (
     <form className="raw-material">
-      <h3 className="raw-material-title">Input Material</h3>
+      <h3 className="raw-material-title">Input Charcoal Outsource </h3>
       <Grid container className="raw-material-form" direction="column">
         <CustomSelect
-          label="Pabrik"
-          value={pabrik}
+          label="Brand"
+          value={brand}
           getValues={console.log}
-          setValue={setPabrik}
+          setValue={setBrand}
           required
         />
         <Button
           className="align-end btn tambah-item-btn"
-          onClick={() => setOpenPabrik(true)}
+          onClick={() => setOpenBrand(true)}
         >
-          Tambah Pabrik
-        </Button>
-        <CustomSelect
-          label="Material"
-          value={material}
-          getValues={console.log}
-          setValue={setMaterial}
-          required
-        />
-        <Button
-          className="align-end btn tambah-item-btn"
-          onClick={() => setOpenMaterial(true)}
-        >
-          Tambah Material
+          Tambah Brand
         </Button>
         <TextField
           id="jumlah"
@@ -71,14 +55,37 @@ const RawMaterial = () => {
           onChange={(e) => setJumlah(e.target.value)}
         />
         <CurrencyTextField
-          label="Harga"
+          label="Complete Payment Fee"
           variant="outlined"
-          value={harga}
+          required
+          value={completePayment}
           currencySymbol="Rp"
           outputFormat="number"
           decimalCharacter=","
           digitGroupSeparator="."
-          onChange={(event, value)=> setHarga(value)}
+          onChange={(event, value)=> setCompletePayment(value)}
+        />
+        <CurrencyTextField
+          label="Commission Fee"
+          variant="outlined"
+          value={commission}
+          required
+          currencySymbol="Rp"
+          outputFormat="number"
+          decimalCharacter=","
+          digitGroupSeparator="."
+          onChange={(event, value)=> setCommission(value)}
+        />
+        <CurrencyTextField
+          label="Pembayaran"
+          variant="outlined"
+          value={pembayaran}
+          required
+          currencySymbol="Rp"
+          outputFormat="number"
+          decimalCharacter=","
+          digitGroupSeparator="."
+          onChange={(event, value)=> setPembayaran(value)}
         />
         <CustomSelect
           label="Penjual"
@@ -93,8 +100,7 @@ const RawMaterial = () => {
         >
           Tambah Penjual
         </Button>
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-        {/* <TextField
+        <TextField
           id="penanggung-jawab"
           name="pj"
           className="input-field"
@@ -106,16 +112,13 @@ const RawMaterial = () => {
           variant="outlined"
           required
           onChange={(e) => setPj(e.target.value)}
-        /> */}
+        />
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
           SIMPAN
         </Button>
       </Grid>
-      <CustomModal open={openPabrik} setOpen={setOpenPabrik}>
-        <TambahPabrik />
-      </CustomModal>
-      <CustomModal open={openMaterial} setOpen={setOpenMaterial}>
-        <TambahMaterial />
+      <CustomModal open={openBrand} setOpen={setOpenBrand}>
+        <TambahBrand />
       </CustomModal>
       <CustomModal open={openPenjual} setOpen={setOpenPenjual}>
         <TambahPenjual />
@@ -124,4 +127,4 @@ const RawMaterial = () => {
   );
 };
 
-export default RawMaterial;
+export default Charcoal;
