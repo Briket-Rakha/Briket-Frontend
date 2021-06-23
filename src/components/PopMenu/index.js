@@ -50,10 +50,11 @@ function PopMenu(props) {
                     container
                     alignContent="space-between"
                   >
+                    {console.log(childAnchor?.textContent)}
                     {item.name}
-                    {Boolean(childAnchor) && <ArrowForwardIos />}
+                    {childAnchor?.textContent === item.name && <ArrowForwardIos />}
                   </Grid>
-                  {Boolean(childAnchor) && (
+                  {childAnchor?.textContent === item.name && (
                     <Popper
                       id={`child-${id}`}
                       open={Boolean(childAnchor)}
@@ -76,9 +77,9 @@ function PopMenu(props) {
                                   onClick={handleGChild}
                                 >
                                   {child.name}
-                                  {Boolean(gChildAnchor) && <ArrowForwardIos />}
+                                  {gChildAnchor?.textContent === child.name && <ArrowForwardIos />}
                                 </Grid>
-                                {Boolean(gChildAnchor) && (
+                                {gChildAnchor?.textContent === child.name && (
                                   <Popper
                                     id={`grandchild-${id}`}
                                     open={Boolean(gChildAnchor)}

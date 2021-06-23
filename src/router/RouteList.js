@@ -6,6 +6,10 @@ const RouteList = {
         rawMaterial: '/raw-material',
         hasilProduksi: '/hasil-produksi',
       },
+      outSource: {
+        charcoal: '/outsource/charcoal',
+        payment: '/outsource/payment',
+      },
     },
     payment: 'production/payment',
   },

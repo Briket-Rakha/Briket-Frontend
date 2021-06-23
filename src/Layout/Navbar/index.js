@@ -116,9 +116,26 @@ const Navbar = (props) => {
             {
               id: 1,
               name: 'OUTSOURCE',
-              onClick: () => {
-                history.push(Routes.production.input);
-              },
+              sub: [
+                {
+                  id: 0,
+                  name: 'CHARCOAL',
+                  onClick: () => {
+                    history.push(
+                        Routes.production.input.outSource.charcoal,
+                    );
+                  },
+                },
+                {
+                  id: 1,
+                  name: 'PAYMENT',
+                  onClick: () => {
+                    history.push(
+                        Routes.production.input.outSource.payment,
+                    );
+                  },
+                },
+              ],
             },
             {
               id: 2,
