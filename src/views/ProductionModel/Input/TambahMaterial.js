@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 
 // Import Component
-import CustomAlert from '../../../../../components/Alert';
+import CustomAlert from '../../../components/Alert';
 
 // Import Styling
-import '../../../../../styles/views/tambah-pabrik.scss';
+import '../../../styles/views/tambah-pabrik.scss';
 
 // Import API
-import { apiPostMaterial } from '../../../../../api/material.api';
+import { apiPostMaterial } from '../../../api/material.api';
 
 const TambahMaterial = () => {
   const [name, setName] = useState('');
@@ -25,7 +25,8 @@ const TambahMaterial = () => {
     setName('');
   };
 
-  const handleClickSimpan = async () => {
+  const handleClickSimpan = async (e) => {
+    e.preventDefault();
     if (!loading) {
       setLoading(true);
 
@@ -46,7 +47,7 @@ const TambahMaterial = () => {
   };
 
   return (
-    <Grid item className="tambah-pabrik">
+    <form item className="tambah-pabrik" onSubmit={handleClickSimpan}>
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
@@ -72,13 +73,10 @@ const TambahMaterial = () => {
           onChange={handleChange}
         />
       </Grid>
-      <Button
-        className="btn btn-lg simpan-btn"
-        onClick={handleClickSimpan}
-      >
+      <Button type="submit" className="btn btn-lg simpan-btn">
         {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
       </Button>
-    </Grid>
+    </form>
   );
 };
 

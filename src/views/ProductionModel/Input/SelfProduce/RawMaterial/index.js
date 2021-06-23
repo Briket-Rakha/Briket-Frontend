@@ -7,9 +7,9 @@ import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import CustomSelect from '../../../../../components/Select';
 import DatePicker from '../../../../../components/DatePicker';
 import CustomModal from '../../../../../components/Modal';
-import TambahPabrik from './TambahPabrik';
-import TambahMaterial from './TambahMaterial';
-import TambahPenjual from './TambahPenjual';
+import TambahPabrik from '../../TambahPabrik';
+import TambahMaterial from '../../TambahMaterial';
+import TambahPenjual from '../../TambahPenjual';
 
 // Import Styling
 import '../../../../../styles/views/raw-material.scss';
@@ -28,7 +28,7 @@ const RawMaterial = () => {
   const [openPenjual, setOpenPenjual] = useState(false);
 
   return (
-    <Grid item className="raw-material">
+    <form className="raw-material">
       <h3 className="raw-material-title">Input Material</h3>
       <Grid container className="raw-material-form" direction="column">
         <CustomSelect
@@ -107,7 +107,7 @@ const RawMaterial = () => {
           required
           onChange={(e) => setPj(e.target.value)}
         /> */}
-        <Button className="align-end btn btn-lg simpan-btn">
+        <Button type="submit" className="align-end btn btn-lg simpan-btn">
           SIMPAN
         </Button>
       </Grid>
@@ -120,7 +120,7 @@ const RawMaterial = () => {
       <CustomModal open={openPenjual} setOpen={setOpenPenjual}>
         <TambahPenjual />
       </CustomModal>
-    </Grid>
+    </form>
   );
 };
 

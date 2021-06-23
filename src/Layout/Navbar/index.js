@@ -272,9 +272,6 @@ const Navbar = (props) => {
     // },
   ];
 
-  console.log('DARI TUTUP', Boolean(childAnchor), Boolean(gChildAnchor), Boolean(anchorEl));
-
-
   return (
     <AppBar position="absolute">
       <Toolbar className="navbar">

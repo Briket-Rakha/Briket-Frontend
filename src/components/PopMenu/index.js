@@ -38,6 +38,7 @@ function PopMenu(props) {
       <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom">
         <Paper elevation={2} className="navbar-list-item-sub">
           {items.map((item) => {
+            const showChild = childAnchor?.textContent === item.name;
             if (item.sub) {
               return (
                 <Grid
@@ -50,11 +51,10 @@ function PopMenu(props) {
                     container
                     alignContent="space-between"
                   >
-                    {console.log(childAnchor?.textContent)}
                     {item.name}
-                    {childAnchor?.textContent === item.name && <ArrowForwardIos />}
+                    {showChild && <ArrowForwardIos />}
                   </Grid>
-                  {childAnchor?.textContent === item.name && (
+                  {showChild && (
                     <Popper
                       id={`child-${id}`}
                       open={Boolean(childAnchor)}
@@ -63,6 +63,7 @@ function PopMenu(props) {
                     >
                       <Paper elevation={2} className="navbar-list-item-sub">
                         {item.sub.map((child) => {
+                          const showGChild = gChildAnchor?.textContent == child.name;
                           if (child.sub) {
                             return (
                               <Grid
@@ -77,9 +78,9 @@ function PopMenu(props) {
                                   onClick={handleGChild}
                                 >
                                   {child.name}
-                                  {gChildAnchor?.textContent === child.name && <ArrowForwardIos />}
+                                  {showGChild && <ArrowForwardIos />}
                                 </Grid>
-                                {gChildAnchor?.textContent === child.name && (
+                                {showGChild && (
                                   <Popper
                                     id={`grandchild-${id}`}
                                     open={Boolean(gChildAnchor)}

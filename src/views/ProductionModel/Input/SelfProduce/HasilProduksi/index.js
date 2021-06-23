@@ -7,8 +7,8 @@ import CustomSelect from '../../../../../components/Select';
 import RadioSelect from '../../../../../components/RadioSelect';
 import DatePicker from '../../../../../components/DatePicker';
 import CustomModal from '../../../../../components/Modal';
-import TambahPabrik from '../RawMaterial/TambahPabrik';
-import TambahBrand from './TambahBrand';
+import TambahPabrik from '../../TambahPabrik';
+import TambahBrand from '../../TambahBrand';
 
 // Import Styling
 import '../../../../../styles/views/hasil-produksi.scss';
@@ -38,7 +38,7 @@ const HasilProduksi = () => {
     setInputList([...inputList, { material: '', jumlah: '' }]);
   };
   return (
-    <Grid item className="hasil-produksi">
+    <form className="hasil-produksi">
       <h3 className="hasil-produksi-title">Input Hasil Produksi</h3>
       <Grid container className="hasil-produksi-form" direction="column">
         <CustomSelect
@@ -145,7 +145,7 @@ const HasilProduksi = () => {
           </Button>
         }
         <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-        <Button className="align-end btn btn-lg simpan-btn">
+        <Button type="submit" className="align-end btn btn-lg simpan-btn">
           SIMPAN
         </Button>
       </Grid>
@@ -155,7 +155,7 @@ const HasilProduksi = () => {
       <CustomModal open={openBrand} setOpen={setOpenBrand}>
         <TambahBrand />
       </CustomModal>
-    </Grid>
+    </form>
   );
 };
 
