@@ -11,7 +11,8 @@ import PropTypes from 'prop-types';
 import '../../styles/components/select.scss';
 
 export default function CustomSelect(props) {
-  const { label, value, setValue, required } = props;
+  const { label, value, setValue, required,
+    customSetFunction, name, index } = props;
   return (
     <div>
       <FormControl
@@ -35,7 +36,9 @@ export default function CustomSelect(props) {
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          name={name}
+          onChange={customSetFunction?((e) =>setValue(e, index)):
+            ((e) => setValue(e.target.value))}
           label={label}
         >
           <MenuItem value={10}>Ten</MenuItem>
@@ -53,4 +56,7 @@ CustomSelect.propTypes = {
   getValues: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
   required: PropTypes.bool,
+  customSetFunction: PropTypes.bool,
+  name: PropTypes.string,
+  index: PropTypes.any,
 };
