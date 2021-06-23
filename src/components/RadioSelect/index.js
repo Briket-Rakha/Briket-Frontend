@@ -18,16 +18,6 @@ export default function RadioSelect(props) {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-  const selectionItems = [];
-  for (let i = 0; i < arraySelection.length; i++) {
-    selectionItems.push(
-        <FormControlLabel
-          value={arraySelection[i]}
-          control={<Radio color="default"/>}
-          label={arraySelection[i]}
-        />,
-    );
-  }
   return (
 
     <div>
@@ -43,7 +33,14 @@ export default function RadioSelect(props) {
           value={value}
           onChange={handleChange}
         >
-          {selectionItems}
+          {arraySelection.map((el)=>
+            <FormControlLabel
+              value={el}
+              control={<Radio color="default"/>}
+              label={el}
+              key={el}
+            />,
+          )}
         </RadioGroup>
       </FormControl>
     </div>
