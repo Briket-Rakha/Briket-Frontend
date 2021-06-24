@@ -11,13 +11,13 @@ import PropTypes from 'prop-types';
 // Import Styling
 import '../../styles/components/radioSelect.scss';
 
-
 export default function RadioSelect(props) {
   const { arraySelection, title, required, value, setValue } = props;
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
   return (
 
     <div>
@@ -33,14 +33,16 @@ export default function RadioSelect(props) {
           value={value}
           onChange={handleChange}
         >
-          {arraySelection.map((el)=>
-            <FormControlLabel
-              value={el}
-              control={<Radio color="default"/>}
-              label={el}
-              key={el}
-            />,
-          )}
+          {arraySelection.map((el) => {
+            return (
+              <FormControlLabel
+                value={el.value}
+                control={<Radio color="default"/>}
+                label={el.name}
+                key={el.id}
+              />
+            );
+          })}
         </RadioGroup>
       </FormControl>
     </div>

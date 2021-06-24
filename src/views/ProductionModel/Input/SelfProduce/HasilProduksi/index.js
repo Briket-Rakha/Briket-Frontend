@@ -18,7 +18,7 @@ const HasilProduksi = () => {
   const [brand, setBrand] = useState('');
   const [jumlah, setJumlah] = useState('');
   const [date, setDate] = useState(null);
-  const [isRaw, setIsRaw] = useState('Tidak');
+  const [isRaw, setIsRaw] = useState('no');
   // raw material
   const [inputList, setInputList] = useState([{ material: '', jumlah: '' }]);
   // on click button
@@ -37,6 +37,20 @@ const HasilProduksi = () => {
   const handleAddClick = () => {
     setInputList([...inputList, { material: '', jumlah: '' }]);
   };
+
+  const arraySelection = [
+    {
+      id: 0,
+      name: 'Ya',
+      value: 'yes',
+    },
+    {
+      id: 1,
+      name: 'Tidak',
+      value: 'no',
+    },
+  ];
+
   return (
     <form className="hasil-produksi">
       <h3 className="hasil-produksi-title">Input Hasil Produksi</h3>
@@ -81,13 +95,13 @@ const HasilProduksi = () => {
           onChange={(e) => setJumlah(e.target.value)}
         />
         <RadioSelect
-          arraySelection={['Ya', 'Tidak']}
+          arraySelection={arraySelection}
           title="Ubah Raw Material?"
           value={isRaw}
           setValue={setIsRaw}
           required
         />
-        {isRaw=='Ya'?(
+        {isRaw=='yes' ? (
           <div>
             {inputList.map((x, i) => {
               return (
@@ -136,7 +150,7 @@ const HasilProduksi = () => {
         ):
         ''
         }
-        {isRaw=='Ya'&&
+        {isRaw &&
           <Button
             className="align-end btn tambah-item-btn"
             onClick={handleAddClick}
