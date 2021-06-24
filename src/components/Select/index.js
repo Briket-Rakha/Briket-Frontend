@@ -41,7 +41,7 @@ export default function CustomSelect(props) {
   };
 
   useEffect(() => {
-    setValue('');
+    !customSetFunction?setValue(''):setValue(name, '', index);
     getListData().then((data) => {
       if (data) {
         setListData(data);
@@ -81,7 +81,8 @@ export default function CustomSelect(props) {
           id="demo-simple-select-outlined"
           value={value}
           name={name}
-          onChange={customSetFunction?((e) =>setValue(e, index)):
+          onChange={customSetFunction?
+            ((e) => setValue(e.target.name, e.target.value, index)):
             ((e) => setValue(e.target.value))}
           label={label}
         >
