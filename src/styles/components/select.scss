@@ -1,4 +1,9 @@
 .custom-select {
   width: 100%;
   margin-bottom: 10px !important;
+  &-no-data{
+    padding: 10px;
+    color: rgba(255, 0, 0, 0.7);
+    font-weight: 500;
+  }
 }

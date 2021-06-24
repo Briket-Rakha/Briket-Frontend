@@ -19,3 +19,12 @@ export function apiPostPabrik(payload) {
         });
   });
 }
+
+export async function apiGetPabrik() {
+  try {
+    const res = await axios.get(apiPabrikBaseUrl.root);
+    return (await res?.data);
+  } catch (err) {
+    console.error(err.response);
+  }
+}
