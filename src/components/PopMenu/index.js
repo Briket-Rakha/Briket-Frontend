@@ -38,6 +38,7 @@ function PopMenu(props) {
       <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom">
         <Paper elevation={2} className="navbar-list-item-sub">
           {items.map((item) => {
+            const showChild = childAnchor?.textContent === item.name;
             if (item.sub) {
               return (
                 <Grid
@@ -51,9 +52,9 @@ function PopMenu(props) {
                     alignContent="space-between"
                   >
                     {item.name}
-                    {Boolean(childAnchor) && <ArrowForwardIos />}
+                    {showChild && <ArrowForwardIos />}
                   </Grid>
-                  {Boolean(childAnchor) && (
+                  {showChild && (
                     <Popper
                       id={`child-${id}`}
                       open={Boolean(childAnchor)}
@@ -62,6 +63,7 @@ function PopMenu(props) {
                     >
                       <Paper elevation={2} className="navbar-list-item-sub">
                         {item.sub.map((child) => {
+                          const showGChild = gChildAnchor?.textContent == child.name;
                           if (child.sub) {
                             return (
                               <Grid
@@ -76,9 +78,9 @@ function PopMenu(props) {
                                   onClick={handleGChild}
                                 >
                                   {child.name}
-                                  {Boolean(gChildAnchor) && <ArrowForwardIos />}
+                                  {showGChild && <ArrowForwardIos />}
                                 </Grid>
-                                {Boolean(gChildAnchor) && (
+                                {showGChild && (
                                   <Popper
                                     id={`grandchild-${id}`}
                                     open={Boolean(gChildAnchor)}

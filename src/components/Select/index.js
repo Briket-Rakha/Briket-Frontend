@@ -15,7 +15,8 @@ import CustomAlert from '../../components/Alert';
 import '../../styles/components/select.scss';
 
 export default function CustomSelect(props) {
-  const { label, value, setValue, required, getValues, id } = props;
+  const { label, value, setValue, required, getValues,
+    id, customSetFunction, name, index } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   // dropdown data
@@ -79,7 +80,9 @@ export default function CustomSelect(props) {
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          name={name}
+          onChange={customSetFunction?((e) =>setValue(e, index)):
+            ((e) => setValue(e.target.value))}
           label={label}
         >
           {listData.length>0 && !loading && listData.map((el)=>
@@ -101,4 +104,7 @@ CustomSelect.propTypes = {
   setValue: PropTypes.func.isRequired,
   required: PropTypes.bool,
   id: PropTypes.number,
+  customSetFunction: PropTypes.bool,
+  name: PropTypes.string,
+  index: PropTypes.any,
 };
