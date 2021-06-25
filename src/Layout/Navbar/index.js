@@ -141,7 +141,7 @@ const Navbar = (props) => {
               id: 2,
               name: 'PACKAGING',
               onClick: () => {
-                history.push(Routes.production.input);
+                history.push(Routes.production.input.packaging);
               },
             },
           ],
