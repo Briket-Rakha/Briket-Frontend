@@ -16,7 +16,7 @@ import '../../styles/components/select.scss';
 
 export default function CustomSelect(props) {
   const { label, value, setValue, required, getValues,
-    id, customSetFunction, name, index } = props;
+    customSetFunction, name, index } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   // dropdown data
@@ -26,7 +26,7 @@ export default function CustomSelect(props) {
   const getListData = async () => {
     if (!loading) {
       setLoading(true);
-      await (id?getValues(id) : getValues())
+      await getValues()
           .then((res) => {
             const { response: { data } } = res;
             setListData(data.data);
@@ -41,13 +41,12 @@ export default function CustomSelect(props) {
   };
 
   useEffect(() => {
-    !customSetFunction?setValue(''):setValue(name, '', index);
     getListData().then((data) => {
       if (data) {
         setListData(data);
       }
     });
-  }, [id]);
+  }, []);
 
 
   return (
@@ -89,7 +88,7 @@ export default function CustomSelect(props) {
           {listData.length>0 && !loading && listData.map((el)=>
             <MenuItem value={el.id} key={el.id}>{el.name}</MenuItem>,
           )}
-          {!listData.length && <p className="custom-select-no-data">
+          {!listData.length && !loading && <p className="custom-select-no-data">
             Tidak ada data yang tersedia!</p>}
           {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
         </Select>
@@ -104,7 +103,6 @@ CustomSelect.propTypes = {
   getValues: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
   required: PropTypes.bool,
-  id: PropTypes.any,
   customSetFunction: PropTypes.bool,
   name: PropTypes.string,
   index: PropTypes.any,

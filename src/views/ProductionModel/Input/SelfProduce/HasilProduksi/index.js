@@ -71,44 +71,41 @@ const HasilProduksi = () => {
         >
           Tambah Pabrik
         </Button>
-        {pabrik &&
-        <>
-          {/* TODO: ganti getValues jadi apiGetBrand */}
-          <CustomSelect
-            label="Brand Charcoal"
-            value={brand}
-            getValues={apiGetMaterial}
-            setValue={setBrand}
-            id={pabrik}
-            required
-          />
-          <Button
-            className="align-end btn tambah-item-btn"
-            onClick={() => setOpenBrand(true)}
-          >
+        {/* TODO: ganti getValues jadi apiGetBrand */}
+        <CustomSelect
+          label="Brand Charcoal"
+          value={brand}
+          getValues={apiGetMaterial}
+          setValue={setBrand}
+          required
+        />
+        <Button
+          className="align-end btn tambah-item-btn"
+          onClick={() => setOpenBrand(true)}
+        >
           Tambah Brand
-          </Button>
-          <TextField
-            id="jumlah"
-            name="jumlah"
-            className="input-field"
-            placeholder="Masukkan jumlah (dalam kg)"
-            label="Jumlah"
-            size="medium"
-            value={jumlah}
-            type="text"
-            variant="outlined"
-            required
-            onChange={(e) => setJumlah(e.target.value)}
-          />
-          <RadioSelect
-            arraySelection={arraySelection}
-            title="Ubah Raw Material?"
-            value={isRaw}
-            setValue={setIsRaw}
-            required
-          />
-          {isRaw=='yes' ? (
+        </Button>
+        <TextField
+          id="jumlah"
+          name="jumlah"
+          className="input-field"
+          placeholder="Masukkan jumlah (dalam kg)"
+          label="Jumlah"
+          size="medium"
+          value={jumlah}
+          type="text"
+          variant="outlined"
+          required
+          onChange={(e) => setJumlah(e.target.value)}
+        />
+        <RadioSelect
+          arraySelection={arraySelection}
+          title="Ubah Raw Material?"
+          value={isRaw}
+          setValue={setIsRaw}
+          required
+        />
+        {isRaw=='yes' ? (
           <div>
             {inputList.map((x, i) => {
               return (
@@ -124,7 +121,6 @@ const HasilProduksi = () => {
                       setValue={handleInputChange}
                       getValues={apiGetMaterial}
                       index={i}
-                      id={pabrik}
                       required
                       customSetFunction
                     />
@@ -159,21 +155,19 @@ const HasilProduksi = () => {
           </div>
         ):
         ''
-          }
-          {isRaw &&
+        }
+        {isRaw &&
           <Button
             className="align-end btn tambah-item-btn"
             onClick={handleAddClick}
           >
               Tambah Material
           </Button>
-          }
-          <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-          <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          SIMPAN
-          </Button>
-        </>
         }
+        <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
+        <Button type="submit" className="align-end btn btn-lg simpan-btn">
+          SIMPAN
+        </Button>
       </Grid>
       <CustomModal open={openPabrik} setOpen={setOpenPabrik}>
         <TambahPabrik />
