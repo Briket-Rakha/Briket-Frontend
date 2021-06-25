@@ -19,3 +19,16 @@ export function apiPostPabrik(payload) {
         });
   });
 }
+
+export async function apiGetPabrik() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(apiPabrikBaseUrl.root)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}

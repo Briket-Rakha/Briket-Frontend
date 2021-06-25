@@ -13,6 +13,10 @@ import TambahBrand from '../../TambahBrand';
 // Import Styling
 import '../../../../../styles/views/hasil-produksi.scss';
 
+// Import API
+import { apiGetPabrik } from '../../../../../api/pabrik.api';
+import { apiGetMaterial } from '../../../../../api/material.api';
+
 const HasilProduksi = () => {
   const [pabrik, setPabrik] = useState('');
   const [brand, setBrand] = useState('');
@@ -26,8 +30,7 @@ const HasilProduksi = () => {
   const [openBrand, setOpenBrand] = useState(false);
 
   // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
+  const handleInputChange = (name, value, index) => {
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
@@ -58,7 +61,7 @@ const HasilProduksi = () => {
         <CustomSelect
           label="Pabrik"
           value={pabrik}
-          getValues={console.log}
+          getValues={apiGetPabrik}
           setValue={setPabrik}
           required
         />
@@ -68,40 +71,44 @@ const HasilProduksi = () => {
         >
           Tambah Pabrik
         </Button>
-        <CustomSelect
-          label="Brand Charcoal"
-          value={brand}
-          getValues={console.log}
-          setValue={setBrand}
-          required
-        />
-        <Button
-          className="align-end btn tambah-item-btn"
-          onClick={() => setOpenBrand(true)}
-        >
+        {pabrik &&
+        <>
+          {/* TODO: ganti getValues jadi apiGetBrand */}
+          <CustomSelect
+            label="Brand Charcoal"
+            value={brand}
+            getValues={apiGetMaterial}
+            setValue={setBrand}
+            id={pabrik}
+            required
+          />
+          <Button
+            className="align-end btn tambah-item-btn"
+            onClick={() => setOpenBrand(true)}
+          >
           Tambah Brand
-        </Button>
-        <TextField
-          id="jumlah"
-          name="jumlah"
-          className="input-field"
-          placeholder="Masukkan jumlah (dalam kg)"
-          label="Jumlah"
-          size="medium"
-          value={jumlah}
-          type="text"
-          variant="outlined"
-          required
-          onChange={(e) => setJumlah(e.target.value)}
-        />
-        <RadioSelect
-          arraySelection={arraySelection}
-          title="Ubah Raw Material?"
-          value={isRaw}
-          setValue={setIsRaw}
-          required
-        />
-        {isRaw=='yes' ? (
+          </Button>
+          <TextField
+            id="jumlah"
+            name="jumlah"
+            className="input-field"
+            placeholder="Masukkan jumlah (dalam kg)"
+            label="Jumlah"
+            size="medium"
+            value={jumlah}
+            type="text"
+            variant="outlined"
+            required
+            onChange={(e) => setJumlah(e.target.value)}
+          />
+          <RadioSelect
+            arraySelection={arraySelection}
+            title="Ubah Raw Material?"
+            value={isRaw}
+            setValue={setIsRaw}
+            required
+          />
+          {isRaw=='yes' ? (
           <div>
             {inputList.map((x, i) => {
               return (
@@ -111,11 +118,13 @@ const HasilProduksi = () => {
                   alignItems="center" key={i}>
                   <Grid item xs={5}>
                     <CustomSelect
-                      name="material"
+                      name='material'
                       label={'Material '+i}
                       value={x.material}
                       setValue={handleInputChange}
+                      getValues={apiGetMaterial}
                       index={i}
+                      id={pabrik}
                       required
                       customSetFunction
                     />
@@ -131,13 +140,14 @@ const HasilProduksi = () => {
                   <Grid item xs={5}>
                     <TextField
                       id="jumlah"
-                      name="jumlah"
+                      name='jumlah'
                       className="input-field"
                       placeholder="Masukkan jumlah"
                       label="Jumlah"
                       size="medium"
                       value={x.jumlah}
-                      onChange={(e) => handleInputChange(e, i)}
+                      onChange={(e) =>
+                        handleInputChange(e.target.name, e.target.value, i)}
                       type="text"
                       variant="outlined"
                       required
@@ -149,19 +159,21 @@ const HasilProduksi = () => {
           </div>
         ):
         ''
-        }
-        {isRaw &&
+          }
+          {isRaw &&
           <Button
             className="align-end btn tambah-item-btn"
             onClick={handleAddClick}
           >
               Tambah Material
           </Button>
-        }
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-        <Button type="submit" className="align-end btn btn-lg simpan-btn">
+          }
+          <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
+          <Button type="submit" className="align-end btn btn-lg simpan-btn">
           SIMPAN
-        </Button>
+          </Button>
+        </>
+        }
       </Grid>
       <CustomModal open={openPabrik} setOpen={setOpenPabrik}>
         <TambahPabrik />

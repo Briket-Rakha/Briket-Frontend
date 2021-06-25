@@ -48,7 +48,6 @@ const TambahPenjual = () => {
       await apiPostPenjual(payload)
           .then((i) => {
             const { response: { data } } = i;
-            console.log(data);
             setSuccessMessage(data?.message);
             setLoading(false);
           })
