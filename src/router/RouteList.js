@@ -10,6 +10,7 @@ const RouteList = {
         charcoal: '/outsource/charcoal',
         payment: '/outsource/payment',
       },
+      packaging: '/packaging',
     },
     payment: 'production/payment',
   },
