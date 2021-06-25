@@ -8,10 +8,14 @@ const apiSupplierBaseUrl = {
 };
 
 export async function apiGetSupplierMaterial(idMaterial) {
-  try {
-    const res = await axios.get(`${apiSupplierBaseUrl.root}/${idMaterial}`);
-    return (await res?.data);
-  } catch (err) {
-    console.error(err.response);
-  }
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiSupplierBaseUrl.root}/${idMaterial}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
 }

@@ -26,12 +26,12 @@ export default function CustomSelect(props) {
   const getListData = async () => {
     if (!loading) {
       setLoading(true);
-      await (id?getValues(id):getValues())
+      await (id?getValues(id) : getValues())
           .then((res) => {
-            console.log(res.data);
-            setListData(res.data);
+            const { response: { data } } = res;
+            setListData(data.data);
             setLoading(false);
-            return (res.data);
+            return (data.data);
           })
           .catch((err) => {
             setErrorMessage(err?.message ? err.message : 'Server Error');
@@ -101,10 +101,10 @@ export default function CustomSelect(props) {
 CustomSelect.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.any.isRequired,
-  getValues: PropTypes.any.isRequired,
+  getValues: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
   required: PropTypes.bool,
-  id: PropTypes.number,
+  id: PropTypes.any,
   customSetFunction: PropTypes.bool,
   name: PropTypes.string,
   index: PropTypes.any,

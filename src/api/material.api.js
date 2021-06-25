@@ -21,12 +21,14 @@ export function apiPostMaterial(payload) {
 }
 
 export async function apiGetMaterial(idPabrik) {
-  try {
-    const res = await axios.get(`${apiMaterialBaseUrl.root}/${idPabrik}`);
-    console.log(`${apiMaterialBaseUrl.root}/${idPabrik}`);
-    console.log(await res?.data);
-    return (await res?.data);
-  } catch (err) {
-    console.error(err.response);
-  }
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiMaterialBaseUrl.root}/${idPabrik}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
 }
