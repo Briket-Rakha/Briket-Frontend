@@ -49,70 +49,60 @@ const RawMaterial = () => {
         >
           Tambah Pabrik
         </Button>
-        {pabrik &&
-        <>
-          <CustomSelect
-            label="Material"
-            value={material}
-            getValues={apiGetMaterial}
-            setValue={setMaterial}
-            id={pabrik}
-            required
-          />
-          <Button
-            className="align-end btn tambah-item-btn"
-            onClick={() => setOpenMaterial(true)}
-          >
+        <CustomSelect
+          label="Material"
+          value={material}
+          getValues={apiGetMaterial}
+          setValue={setMaterial}
+          required
+        />
+        <Button
+          className="align-end btn tambah-item-btn"
+          onClick={() => setOpenMaterial(true)}
+        >
             Tambah Material
-          </Button>
+        </Button>
 
-          <TextField
-            id="jumlah"
-            name="jumlah"
-            className="input-field"
-            placeholder="Jumlah*"
-            label="Jumlah"
-            size="medium"
-            value={jumlah}
-            type="text"
-            variant="outlined"
-            required
-            onChange={(e) => setJumlah(e.target.value)}
-          />
-          <CurrencyTextField
-            label="Harga"
-            variant="outlined"
-            value={harga}
-            currencySymbol="Rp"
-            outputFormat="number"
-            decimalCharacter=","
-            digitGroupSeparator="."
-            onChange={(event, value)=> setHarga(value)}
-          />
-        </>
-        }
-        {material &&
-        <>
-          <CustomSelect
-            label="Penjual"
-            value={penjual}
-            getValues={apiGetSupplierMaterial}
-            setValue={setPenjual}
-            id={material}
-            required
-          />
-          <Button
-            className="align-end btn tambah-item-btn"
-            onClick={() => setOpenPenjual(true)}
-          >
+        <TextField
+          id="jumlah"
+          name="jumlah"
+          className="input-field"
+          placeholder="Jumlah*"
+          label="Jumlah"
+          size="medium"
+          value={jumlah}
+          type="text"
+          variant="outlined"
+          required
+          onChange={(e) => setJumlah(e.target.value)}
+        />
+        <CurrencyTextField
+          label="Harga"
+          variant="outlined"
+          value={harga}
+          currencySymbol="Rp"
+          outputFormat="number"
+          decimalCharacter=","
+          digitGroupSeparator="."
+          onChange={(event, value)=> setHarga(value)}
+        />
+        <CustomSelect
+          label="Penjual"
+          value={penjual}
+          getValues={apiGetSupplierMaterial}
+          setValue={setPenjual}
+          required
+        />
+        <Button
+          className="align-end btn tambah-item-btn"
+          onClick={() => setOpenPenjual(true)}
+        >
           Tambah Penjual
-          </Button>
-          <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-          <Button className="align-end btn btn-lg simpan-btn">
+        </Button>
+        <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
+        <Button className="align-end btn btn-lg simpan-btn">
           SIMPAN
-          </Button>
-        </>
-        }
+        </Button>
 
       </Grid>
       <CustomModal open={openPabrik} setOpen={setOpenPabrik}>
