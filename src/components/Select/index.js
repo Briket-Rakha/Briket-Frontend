@@ -1,10 +1,9 @@
 /* eslint-disable require-jsdoc */
 // Import Library
 import React, { useState, useEffect } from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import {
+  MenuItem, FormControl, Select, InputLabel, Grid,
+} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { CircularProgress } from '@material-ui/core';
 
@@ -90,7 +89,11 @@ export default function CustomSelect(props) {
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
             Tidak ada data yang tersedia!</p>}
-          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+          {loading && (
+            <Grid container className="loading-container">
+              <CircularProgress size={20} thickness={5} />
+            </Grid>
+          )}
         </Select>
       </FormControl>
     </div>

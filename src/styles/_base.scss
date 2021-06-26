@@ -150,6 +150,14 @@ span {
   width: 100% !important;
 }
 
-// .MuiMenu-paper.MuiPopover-paper {
-//   transform: translateY(60px) !important;
-// }
+.loading-container {
+  margin: 10px auto;
+
+  .MuiCircularProgress-root {
+    margin: 0 auto;
+  }
+}
+
+.MuiOutlinedInput-adornedEnd {
+  padding-right: 8px !important;
+}

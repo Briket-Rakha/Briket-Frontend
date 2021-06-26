@@ -18,7 +18,7 @@ export const signIn = (credentials) => async (dispatch) => {
         },
       })
       .then((res) => {
-        localStorage.setItem('token', res.data.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.data));
         dispatch(setUser(res.user));
       })
       .catch((error) => {
