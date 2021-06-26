@@ -4,6 +4,7 @@ import { Grid, TextField, Button } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Component
+import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import DatePicker from '../../../../../components/DatePicker';
 import CustomModal from '../../../../../components/Modal';
@@ -13,6 +14,9 @@ import TambahPenjual from '../../TambahPenjual';
 
 // Import Styling
 import '../../../../../styles/views/raw-material.scss';
+
+// Import Routes
+import Routes from '../../../../../router/RouteList';
 
 // Import API
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
@@ -32,8 +36,26 @@ const RawMaterial = () => {
   const [openMaterial, setOpenMaterial] = useState(false);
   const [openPenjual, setOpenPenjual] = useState(false);
 
+  // for breadcrumbs
+  const componentTree = [
+    {
+      name: 'Production Model',
+    },
+    {
+      name: 'Input',
+    },
+    {
+      name: 'Self Produce',
+    },
+    {
+      name: 'Raw Material',
+      onClick: Routes.production.input.selfProduce.rawMaterial,
+    },
+  ];
+
   return (
     <form className="raw-material">
+      <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="raw-material-title">Input Material</h3>
       <Grid container className="raw-material-form" direction="column">
         <CustomSelect

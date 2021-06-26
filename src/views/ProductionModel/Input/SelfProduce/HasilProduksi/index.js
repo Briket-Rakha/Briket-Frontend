@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button } from '@material-ui/core';
 
 // Import Component
+import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import RadioSelect from '../../../../../components/RadioSelect';
 import DatePicker from '../../../../../components/DatePicker';
@@ -12,6 +13,9 @@ import TambahBrand from '../../TambahBrand';
 
 // Import Styling
 import '../../../../../styles/views/hasil-produksi.scss';
+
+// Import Routes
+import Routes from '../../../../../router/RouteList';
 
 // Import API
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
@@ -41,6 +45,23 @@ const HasilProduksi = () => {
     setInputList([...inputList, { material: '', jumlah: '' }]);
   };
 
+  // for breadcrumbs
+  const componentTree = [
+    {
+      name: 'Production Model',
+    },
+    {
+      name: 'Input',
+    },
+    {
+      name: 'Self Produce',
+    },
+    {
+      name: 'Hasil Produksi',
+      onClick: Routes.production.input.selfProduce.hasilProduksi,
+    },
+  ];
+
   const arraySelection = [
     {
       id: 0,
@@ -56,6 +77,7 @@ const HasilProduksi = () => {
 
   return (
     <form className="hasil-produksi">
+      <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="hasil-produksi-title">Input Hasil Produksi</h3>
       <Grid container className="hasil-produksi-form" direction="column">
         <CustomSelect

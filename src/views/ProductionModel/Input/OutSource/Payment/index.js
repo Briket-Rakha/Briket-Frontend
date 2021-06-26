@@ -4,11 +4,15 @@ import { Grid, TextField, Button } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Component
+import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import CustomRadio from '../../../../../components/RadioSelect';
 
 // Import Styling
 import '../../../../../styles/views/raw-material.scss';
+
+// Import Routes
+import Routes from '../../../../../router/RouteList';
 
 const Payment = () => {
   const [transaction, setTransaction] = useState('');
@@ -30,8 +34,26 @@ const Payment = () => {
     },
   ];
 
+  // for breadcrumbs
+  const componentTree = [
+    {
+      name: 'Production Model',
+    },
+    {
+      name: 'Input',
+    },
+    {
+      name: 'Outsource',
+    },
+    {
+      name: 'Payment',
+      onClick: Routes.production.input.outSource.payment,
+    },
+  ];
+
   return (
     <form className="raw-material">
+      <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="raw-material-title">Input Payment Outsource </h3>
       <Grid container className="raw-material-form" direction="column">
         <CustomSelect
