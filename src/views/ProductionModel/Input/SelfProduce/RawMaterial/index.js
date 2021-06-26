@@ -111,8 +111,6 @@ const RawMaterial = () => {
     }
   };
 
-  console.log(pabrik);
-
   return (
     <Grid item className="raw-material">
       {(Boolean(errorMessage) || Boolean(successMessage)) && (

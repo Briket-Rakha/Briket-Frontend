@@ -21,7 +21,6 @@ export function apiPostMaterial(payload) {
 }
 
 export async function apiGetMaterial(id) {
-  console.log(id, 'ID');
   return new Promise((resolve, reject) => {
     axios
         .get(`${apiMaterialBaseUrl.root}/${id}`)
