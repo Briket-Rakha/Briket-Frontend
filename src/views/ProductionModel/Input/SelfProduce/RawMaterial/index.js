@@ -25,6 +25,9 @@ import { apiGetMaterial } from '../../../../../api/material.api';
 import { apiGetSupplierMaterial } from '../../../../../api/supplier.api';
 import { apiPostRawMaterial } from '../../../../../api/raw-material.api';
 
+// Import utils
+import { getUser } from '../../../../../utils/auth';
+
 // For Breadcrumbs
 const componentTree = [
   {
@@ -60,17 +63,26 @@ const RawMaterial = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  const resetState = () => {
+    setPabrik('');
+    setMaterial('');
+    setJumlah('');
+    setPenjual('');
+    setHarga('');
+    setDate(null);
+  };
+
   const postRawMaterial = async (e) => {
     e.preventDefault();
     const payload = {
+      employee_id: getUser().ID,
       raw_material_id: material,
       amount: jumlah,
+      pabrik_id: pabrik,
       price: harga,
       supplier_id: penjual,
       date: date?.toISOString().slice(0, 10),
     };
-
-    console.log(payload);
 
     if (!loading) {
       setLoading(true);
@@ -79,6 +91,8 @@ const RawMaterial = () => {
             const { response: { data } } = i;
             setSuccessMessage(data?.message);
             setLoading(false);
+            resetState();
+            window.scrollTo(0, 0);
           })
           .catch((err) => {
             console.log(err?.message);
@@ -87,6 +101,8 @@ const RawMaterial = () => {
           });
     }
   };
+
+  console.log(date);
 
   return (
     <form className="raw-material" onSubmit={postRawMaterial}>

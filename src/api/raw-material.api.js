@@ -3,14 +3,14 @@ import axios from 'axios';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const apiMaterialBaseUrl = {
+const apiRawMaterialBaseUrl = {
   root: `${apiBaseUrl}/raw-material`,
 };
 
 export function apiPostRawMaterial(payload) {
   return new Promise((resolve, reject) => {
     axios
-        .post(apiMaterialBaseUrl.root, payload)
+        .post(apiRawMaterialBaseUrl.root, payload)
         .then((response) => {
           resolve({ response });
         })

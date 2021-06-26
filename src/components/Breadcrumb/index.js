@@ -4,11 +4,15 @@ import React from 'react';
 import { Breadcrumbs, Link, Typography } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router';
 
 // Import styling
 import '../../styles/components/breadcrumbs.scss';
 
 export default function CustomBreadcrumbs(props) {
+  // Init history object
+  const history = useHistory();
+
   const { componentTree } = props;
 
   return (
@@ -21,8 +25,9 @@ export default function CustomBreadcrumbs(props) {
         if (onClick) {
           return (
             <Link
+              key={index}
               color="inherit"
-              onClick={onClick}
+              onClick={() => history.push(onClick)}
               className="custom-breadcrumbs-item is-link"
             >
               {name}

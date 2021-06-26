@@ -11,14 +11,14 @@ import Routes from './RouteList';
 import Layout from '../Layout';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const token = localStorage.getItem('token') || false;
+  const user = localStorage.getItem('user') || false;
 
   return (
     <div>
       <Route
         {...rest}
         render={(props) =>
-          token ? (
+          user ? (
             <Layout>
               <Container maxWidth="md" fixed>
                 <Component {...props} />

@@ -17,9 +17,9 @@ import Routes from '../../router/RouteList';
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const Register = (props) => {
-  const token = localStorage.getItem('token');
+  const user = localStorage.getItem('user');
 
-  if (token) {
+  if (user) {
     return <Redirect to="/" />;
   }
 
@@ -59,12 +59,12 @@ const Register = (props) => {
     }));
   };
 
-  const handleRegister = () => {
+
+  const handleRegister = async () => {
     const { password, confirmPassword } = credentials;
     const keys = Object.keys(credentials);
-
     if (!loading) {
-      setLoading(true);
+      setLoading((prev) => !prev);
       keys.forEach((key) => {
         if (!credentials[key].length) {
           setError((prev) => ({
@@ -86,7 +86,7 @@ const Register = (props) => {
           .every((x) => x !== '');
 
       if (isValid) {
-        axios
+        await axios
             .post(`${apiBaseUrl}/user/register`, credentials)
             .then((res) => {
               // eslint-disable-next-line react/prop-types
@@ -197,7 +197,7 @@ const Register = (props) => {
         </Grid>
         <Grid item className="login-box-button">
           <Button color="primary" onClick={handleRegister} size="small">
-            {loading ? <CircularProgress size={15} thickness={5} /> : 'SIGN UP'}
+            {loading ? <CircularProgress size={20} thickness={5} /> : 'SIGN UP'}
           </Button>
         </Grid>
         <Grid item className="login-box-no-acc">

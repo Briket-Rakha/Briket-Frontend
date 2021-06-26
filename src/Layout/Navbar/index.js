@@ -30,14 +30,10 @@ const Navbar = (props) => {
   const history = useHistory();
   const { activeTab } = useSelector((state) => state.tabReducer);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [location] = useState(history.location.pathname);
   const [childAnchor, setChildAnchor] = useState(false);
   const [gChildAnchor, setGChildAnchor] = useState(false);
 
   const dispatch = useDispatch();
-
-  console.log(history.location.pathname);
-  console.log(location);
 
   // Close popper when route change
   useEffect(() => {
@@ -109,9 +105,7 @@ const Navbar = (props) => {
                   },
                 },
               ],
-              onClick: () => {
-                console.log('OPEN INPUT SUB MENU');
-              },
+              onClick: () => { },
             },
             {
               id: 1,
@@ -145,9 +139,7 @@ const Navbar = (props) => {
               },
             },
           ],
-          onClick: () => {
-            console.log('OPEN INPUT SUB MENU');
-          },
+          onClick: () => { },
         },
         {
           id: 2,

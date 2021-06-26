@@ -24,9 +24,9 @@ import Routes from '../../router/RouteList';
 import CustomAlert from '../../components/Alert';
 
 const Login = (props) => {
-  const token = localStorage.getItem('token');
+  const user = localStorage.getItem('user');
 
-  if (token) {
+  if (user) {
     return <Redirect to="/" />;
   }
 
