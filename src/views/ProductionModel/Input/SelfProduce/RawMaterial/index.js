@@ -1,9 +1,10 @@
 // Import Library
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Component
+import CustomAlert from '../../../../../components/Alert';
 import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import DatePicker from '../../../../../components/DatePicker';
@@ -22,6 +23,25 @@ import Routes from '../../../../../router/RouteList';
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
 import { apiGetMaterial } from '../../../../../api/material.api';
 import { apiGetSupplierMaterial } from '../../../../../api/supplier.api';
+import { apiPostRawMaterial } from '../../../../../api/raw-material.api';
+
+// For Breadcrumbs
+const componentTree = [
+  {
+    name: 'Production Model',
+  },
+  {
+    name: 'Input',
+  },
+  {
+    name: 'Self Produce',
+  },
+  {
+    name: 'Raw Material',
+    onClick: Routes.production.input.selfProduce.rawMaterial,
+  },
+];
+
 
 const RawMaterial = () => {
   const [pabrik, setPabrik] = useState('');
@@ -36,25 +56,50 @@ const RawMaterial = () => {
   const [openMaterial, setOpenMaterial] = useState(false);
   const [openPenjual, setOpenPenjual] = useState(false);
 
-  // for breadcrumbs
-  const componentTree = [
-    {
-      name: 'Production Model',
-    },
-    {
-      name: 'Input',
-    },
-    {
-      name: 'Self Produce',
-    },
-    {
-      name: 'Raw Material',
-      onClick: Routes.production.input.selfProduce.rawMaterial,
-    },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const postRawMaterial = async (e) => {
+    e.preventDefault();
+    const payload = {
+      raw_material_id: material,
+      amount: jumlah,
+      price: harga,
+      supplier_id: penjual,
+      date: date?.toISOString().slice(0, 10),
+    };
+
+    console.log(payload);
+
+    if (!loading) {
+      setLoading(true);
+      await apiPostRawMaterial(payload)
+          .then((i) => {
+            const { response: { data } } = i;
+            setSuccessMessage(data?.message);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err?.message);
+            setErrorMessage(err?.message ?? 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
 
   return (
-    <form className="raw-material">
+    <form className="raw-material" onSubmit={postRawMaterial}>
+      {(Boolean(errorMessage) || Boolean(successMessage)) && (
+        <CustomAlert
+          type={successMessage ? 'success' : 'error'}
+          message={successMessage ? successMessage : errorMessage}
+          onClose={successMessage ?
+            () => setSuccessMessage('') :
+            () => setErrorMessage('')
+          }
+        />
+      )}
       <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="raw-material-title">Input Material</h3>
       <Grid container className="raw-material-form" direction="column">
@@ -93,7 +138,7 @@ const RawMaterial = () => {
           label="Jumlah"
           size="medium"
           value={jumlah}
-          type="text"
+          type="number"
           variant="outlined"
           required
           onChange={(e) => setJumlah(e.target.value)}
@@ -122,8 +167,8 @@ const RawMaterial = () => {
           Tambah Penjual
         </Button>
         <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-        <Button className="align-end btn btn-lg simpan-btn">
-          SIMPAN
+        <Button type="submit" className="align-end btn btn-lg simpan-btn">
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
         </Button>
 
       </Grid>
