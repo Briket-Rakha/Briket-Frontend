@@ -4,6 +4,7 @@ import { Grid, TextField, Button } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Component
+import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import CustomModal from '../../../../../components/Modal';
 import TambahBrand from '../../TambahBrand';
@@ -11,6 +12,9 @@ import TambahPenjual from '../../TambahPenjual';
 
 // Import Styling
 import '../../../../../styles/views/raw-material.scss';
+
+// Import Routes
+import Routes from '../../../../../router/RouteList';
 
 const Charcoal = () => {
   const [brand, setBrand] = useState('');
@@ -24,8 +28,26 @@ const Charcoal = () => {
   const [openBrand, setOpenBrand] = useState(false);
   const [openPenjual, setOpenPenjual] = useState(false);
 
+  // for breadcrumbs
+  const componentTree = [
+    {
+      name: 'Production Model',
+    },
+    {
+      name: 'Input',
+    },
+    {
+      name: 'Outsource',
+    },
+    {
+      name: 'Charcoal',
+      onClick: Routes.production.input.outSource.charcoal,
+    },
+  ];
+
   return (
     <form className="raw-material">
+      <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="raw-material-title">Input Charcoal Outsource </h3>
       <Grid container className="raw-material-form" direction="column">
         <CustomSelect
