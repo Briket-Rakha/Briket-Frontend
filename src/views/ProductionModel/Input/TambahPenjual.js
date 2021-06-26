@@ -1,6 +1,7 @@
 // Import Library
 import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 // Import Component
 import CustomAlert from '../../../components/Alert';
@@ -9,9 +10,11 @@ import CustomAlert from '../../../components/Alert';
 import '../../../styles/views/tambah-pabrik.scss';
 
 // Import API
-import { apiPostPenjual } from '../../../api/penjual.api';
+import {
+  apiPostSupplierMaterial, apiPostSupplierOutsource,
+} from '../../../api/supplier.api';
 
-const TambahPenjual = () => {
+const TambahPenjual = ({ type }) => {
   const [inputState, setInputState] = useState({
     name: '',
     address: '',
@@ -45,16 +48,32 @@ const TambahPenjual = () => {
         zipcode,
         phone,
       };
-      await apiPostPenjual(payload)
-          .then((i) => {
-            const { response: { data } } = i;
-            setSuccessMessage(data?.message);
-            setLoading(false);
-          })
-          .catch((err) => {
-            setErrorMessage(err?.message ? err.message : 'Server Error');
-            setLoading(false);
-          });
+
+      if (type === 'material') {
+        await apiPostSupplierMaterial(payload)
+            .then((i) => {
+              const { response: { data } } = i;
+              setSuccessMessage(data?.message);
+              setLoading(false);
+              window.location.reload(true);
+            })
+            .catch((err) => {
+              setErrorMessage(err?.message ? err.message : 'Server Error');
+              setLoading(false);
+            });
+      } else if (type === 'outsource') {
+        await apiPostSupplierOutsource(payload)
+            .then((i) => {
+              const { response: { data } } = i;
+              setSuccessMessage(data?.message);
+              setLoading(false);
+              window.location.reload(true);
+            })
+            .catch((err) => {
+              setErrorMessage(err?.message ? err.message : 'Server Error');
+              setLoading(false);
+            });
+      }
 
       resetInput();
     }
@@ -158,6 +177,15 @@ const TambahPenjual = () => {
       </Button>
     </form>
   );
+};
+
+TambahPenjual.defaultProps = {
+  type: 'material',
+};
+
+
+TambahPenjual.propTypes = {
+  type: PropTypes.string,
 };
 
 export default TambahPenjual;

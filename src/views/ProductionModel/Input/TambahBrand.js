@@ -9,7 +9,7 @@ import CustomAlert from '../../../components/Alert';
 import '../../../styles/views/tambah-pabrik.scss';
 
 // Import API
-import { apiPostMaterial } from '../../../api/material.api';
+import { apiPostBrand } from '../../../api/brand.api';
 
 const TambahBrand = () => {
   const [name, setName] = useState('');
@@ -30,11 +30,12 @@ const TambahBrand = () => {
     if (!loading) {
       setLoading(true);
 
-      await apiPostMaterial({ name })
+      await apiPostBrand({ name })
           .then((i) => {
             const { response: { data } } = i;
             setSuccessMessage(data?.message);
             setLoading(false);
+            window.location.reload(true);
           })
           .catch((err) => {
             console.log(err?.message);

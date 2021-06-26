@@ -3,14 +3,14 @@ import axios from 'axios';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const apiMaterialBaseUrl = {
-  root: `${apiBaseUrl}/material`,
+const apiBrandBaseUrl = {
+  root: `${apiBaseUrl}/brand`,
 };
 
-export function apiPostMaterial(payload) {
+export function apiPostBrand(payload) {
   return new Promise((resolve, reject) => {
     axios
-        .post(apiMaterialBaseUrl.root, payload)
+        .post(apiBrandBaseUrl.root, payload)
         .then((response) => {
           resolve({ response });
         })
@@ -20,11 +20,10 @@ export function apiPostMaterial(payload) {
   });
 }
 
-export async function apiGetMaterial(id) {
-  console.log(id, 'ID');
+export async function apiGetBrand() {
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiMaterialBaseUrl.root}/${id}`)
+        .get(`${apiBrandBaseUrl.root}`)
         .then((response) => {
           resolve({ response });
         })

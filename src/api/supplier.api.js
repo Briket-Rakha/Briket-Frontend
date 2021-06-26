@@ -4,13 +4,53 @@ import axios from 'axios';
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const apiSupplierBaseUrl = {
-  root: `${apiBaseUrl}/material-supplier`,
+  material: `${apiBaseUrl}/material-supplier`,
+  outsource: `${apiBaseUrl}/outsource`,
 };
 
 export async function apiGetSupplierMaterial(idMaterial) {
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiSupplierBaseUrl.root}`)
+        .get(`${apiSupplierBaseUrl.material}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export function apiPostSupplierMaterial(payload) {
+  return new Promise((resolve, reject) => {
+    axios
+        .post(apiSupplierBaseUrl.material, payload)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiGetSupplierOutsource(idMaterial) {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiSupplierBaseUrl.outsource}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export function apiPostSupplierOutsource(payload) {
+  return new Promise((resolve, reject) => {
+    axios
+        .post(apiSupplierBaseUrl.outsource, payload)
         .then((response) => {
           resolve({ response });
         })

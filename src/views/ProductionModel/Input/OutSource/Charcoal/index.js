@@ -1,9 +1,10 @@
 // Import Library
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Component
+import CustomAlert from '../../../../../components/Alert';
 import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import CustomModal from '../../../../../components/Modal';
@@ -16,6 +17,31 @@ import '../../../../../styles/views/raw-material.scss';
 // Import Routes
 import Routes from '../../../../../router/RouteList';
 
+// Import API
+import { apiGetSupplierOutsource } from '../../../../../api/supplier.api';
+import { apiGetBrand } from '../../../../../api/brand.api';
+import { apiPostCharcoal } from '../../../../../api/charcoal.api';
+
+// Import utils
+import { getUser } from '../../../../../utils/auth';
+
+// For Breadcrumbs
+const componentTree = [
+  {
+    name: 'Production Model',
+  },
+  {
+    name: 'Input',
+  },
+  {
+    name: 'Outsource',
+  },
+  {
+    name: 'Charcoal',
+    onClick: Routes.production.input.outSource.charcoal,
+  },
+];
+
 const Charcoal = () => {
   const [brand, setBrand] = useState('');
   const [completePayment, setCompletePayment] = useState('');
@@ -23,106 +49,143 @@ const Charcoal = () => {
   const [jumlah, setJumlah] = useState('');
   const [penjual, setPenjual] = useState('');
   const [pembayaran, setPembayaran] = useState('');
-  const [pj, setPj] = useState('');
+  // const [pj, setPj] = useState('');
 
   const [openBrand, setOpenBrand] = useState(false);
   const [openPenjual, setOpenPenjual] = useState(false);
 
-  // for breadcrumbs
-  const componentTree = [
-    {
-      name: 'Production Model',
-    },
-    {
-      name: 'Input',
-    },
-    {
-      name: 'Outsource',
-    },
-    {
-      name: 'Charcoal',
-      onClick: Routes.production.input.outSource.charcoal,
-    },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const resetState = () => {
+    setCompletePayment('');
+    setJumlah('');
+    setPembayaran('');
+    setCommission('');
+    setBrand('');
+    setPenjual('');
+  };
+
+  const postCharcoal = async (e) => {
+    e.preventDefault();
+    const payload = {
+      employee_id: getUser().ID,
+      complete_price: completePayment,
+      amount: jumlah,
+      payment: pembayaran,
+      commision_price: commission,
+      charcoal_brand_id: brand,
+      outsource_id: penjual,
+    };
+
+    if (!loading) {
+      setLoading(true);
+      await apiPostCharcoal(payload)
+          .then((i) => {
+            const { response: { data } } = i;
+            setSuccessMessage(data?.message);
+            setLoading(false);
+            resetState();
+            window.scrollTo(0, 0);
+          })
+          .catch((err) => {
+            console.log(err?.message);
+            setErrorMessage(err?.message ?? 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
 
   return (
-    <form className="raw-material">
+    <Grid item className="raw-material">
+      {(Boolean(errorMessage) || Boolean(successMessage)) && (
+        <CustomAlert
+          type={successMessage ? 'success' : 'error'}
+          message={successMessage ? successMessage : errorMessage}
+          onClose={successMessage ?
+            () => setSuccessMessage('') :
+            () => setErrorMessage('')
+          }
+        />
+      )}
       <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="raw-material-title">Input Charcoal Outsource </h3>
-      <Grid container className="raw-material-form" direction="column">
-        <CustomSelect
-          label="Brand"
-          value={brand}
-          getValues={console.log}
-          setValue={setBrand}
-          required
-        />
-        <Button
-          className="align-end btn tambah-item-btn"
-          onClick={() => setOpenBrand(true)}
-        >
+      <form onSubmit={postCharcoal}>
+        <Grid container className="raw-material-form" direction="column">
+          <CustomSelect
+            label="Brand"
+            value={brand}
+            getValues={apiGetBrand}
+            setValue={setBrand}
+            required
+          />
+          <Button
+            className="align-end btn tambah-item-btn"
+            onClick={() => setOpenBrand(true)}
+          >
           Tambah Brand
-        </Button>
-        <TextField
-          id="jumlah"
-          name="jumlah"
-          className="input-field"
-          placeholder="Jumlah*"
-          label="Jumlah"
-          size="medium"
-          value={jumlah}
-          type="text"
-          variant="outlined"
-          required
-          onChange={(e) => setJumlah(e.target.value)}
-        />
-        <CurrencyTextField
-          label="Complete Payment Fee"
-          variant="outlined"
-          required
-          value={completePayment}
-          currencySymbol="Rp"
-          outputFormat="number"
-          decimalCharacter=","
-          digitGroupSeparator="."
-          onChange={(event, value)=> setCompletePayment(value)}
-        />
-        <CurrencyTextField
-          label="Commission Fee"
-          variant="outlined"
-          value={commission}
-          required
-          currencySymbol="Rp"
-          outputFormat="number"
-          decimalCharacter=","
-          digitGroupSeparator="."
-          onChange={(event, value)=> setCommission(value)}
-        />
-        <CurrencyTextField
-          label="Pembayaran"
-          variant="outlined"
-          value={pembayaran}
-          required
-          currencySymbol="Rp"
-          outputFormat="number"
-          decimalCharacter=","
-          digitGroupSeparator="."
-          onChange={(event, value)=> setPembayaran(value)}
-        />
-        <CustomSelect
-          label="Penjual"
-          value={penjual}
-          getValues={console.log}
-          setValue={setPenjual}
-          required
-        />
-        <Button
-          className="align-end btn tambah-item-btn"
-          onClick={() => setOpenPenjual(true)}
-        >
+          </Button>
+          <TextField
+            id="jumlah"
+            name="jumlah"
+            className="input-field"
+            placeholder="Jumlah*"
+            label="Jumlah"
+            size="medium"
+            value={jumlah}
+            type="text"
+            variant="outlined"
+            required
+            onChange={(e) => setJumlah(e.target.value)}
+          />
+          <CurrencyTextField
+            label="Complete Payment Fee"
+            variant="outlined"
+            required
+            value={completePayment}
+            currencySymbol="Rp"
+            outputFormat="number"
+            decimalCharacter=","
+            digitGroupSeparator="."
+            onChange={(event, value)=> setCompletePayment(value)}
+          />
+          <CurrencyTextField
+            label="Commission Fee"
+            variant="outlined"
+            value={commission}
+            required
+            currencySymbol="Rp"
+            outputFormat="number"
+            decimalCharacter=","
+            digitGroupSeparator="."
+            onChange={(event, value)=> setCommission(value)}
+          />
+          <CurrencyTextField
+            label="Pembayaran"
+            variant="outlined"
+            value={pembayaran}
+            required
+            currencySymbol="Rp"
+            outputFormat="number"
+            decimalCharacter=","
+            digitGroupSeparator="."
+            onChange={(event, value)=> setPembayaran(value)}
+          />
+          <CustomSelect
+            label="Penjual"
+            value={penjual}
+            getValues={apiGetSupplierOutsource}
+            setValue={setPenjual}
+            required
+          />
+          <Button
+            className="align-end btn tambah-item-btn"
+            onClick={() => setOpenPenjual(true)}
+          >
           Tambah Penjual
-        </Button>
-        <TextField
+          </Button>
+          {/* <TextField
           id="penanggung-jawab"
           name="pj"
           className="input-field"
@@ -134,18 +197,21 @@ const Charcoal = () => {
           variant="outlined"
           required
           onChange={(e) => setPj(e.target.value)}
-        />
-        <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          SIMPAN
-        </Button>
-      </Grid>
+        /> */}
+          <Button type="submit" className="align-end btn btn-lg simpan-btn">
+            {loading ? (
+            <CircularProgress size={20} thickness={5} />
+          ) : 'SIMPAN'}
+          </Button>
+        </Grid>
+      </form>
       <CustomModal open={openBrand} setOpen={setOpenBrand}>
         <TambahBrand />
       </CustomModal>
       <CustomModal open={openPenjual} setOpen={setOpenPenjual}>
-        <TambahPenjual />
+        <TambahPenjual type="outsource" />
       </CustomModal>
-    </form>
+    </Grid>
   );
 };
 

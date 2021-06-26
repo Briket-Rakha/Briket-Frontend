@@ -62,6 +62,7 @@ const RawMaterial = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [errorMaterial, setErrorMaterial] = useState(false);
 
   const resetState = () => {
     setPabrik('');
@@ -102,10 +103,18 @@ const RawMaterial = () => {
     }
   };
 
-  console.log(date);
+  const handleModalMaterial = () => {
+    if (pabrik) {
+      setOpenMaterial(true);
+    } else {
+      setErrorMaterial(true);
+    }
+  };
+
+  console.log(pabrik);
 
   return (
-    <form className="raw-material" onSubmit={postRawMaterial}>
+    <Grid item className="raw-material">
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
@@ -118,86 +127,99 @@ const RawMaterial = () => {
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="raw-material-title">Input Material</h3>
-      <Grid container className="raw-material-form" direction="column">
-        <CustomSelect
-          label="Pabrik"
-          value={pabrik}
-          getValues={apiGetPabrik}
-          setValue={setPabrik}
-          required
-        />
-        <Button
-          className="align-end btn tambah-item-btn"
-          onClick={() => setOpenPabrik(true)}
-        >
+      <form onSubmit={postRawMaterial}>
+        <Grid container className="raw-material-form" direction="column">
+          <CustomSelect
+            label="Pabrik"
+            value={pabrik}
+            getValues={apiGetPabrik}
+            setValue={setPabrik}
+            required
+          />
+          <Button
+            className="align-end btn tambah-item-btn"
+            onClick={() => setOpenPabrik(true)}
+          >
           Tambah Pabrik
-        </Button>
-        <CustomSelect
-          label="Material"
-          value={material}
-          getValues={apiGetMaterial}
-          setValue={setMaterial}
-          required
-        />
-        <Button
-          className="align-end btn tambah-item-btn"
-          onClick={() => setOpenMaterial(true)}
-        >
+          </Button>
+          <CustomSelect
+            label="Material"
+            value={material}
+            parentValue={pabrik}
+            getValues={apiGetMaterial}
+            setValue={setMaterial}
+            required
+          />
+          <Button
+            className="align-end btn tambah-item-btn"
+            onClick={handleModalMaterial}
+          >
             Tambah Material
-        </Button>
+          </Button>
 
-        <TextField
-          id="jumlah"
-          name="jumlah"
-          className="input-field"
-          placeholder="Jumlah*"
-          label="Jumlah"
-          size="medium"
-          value={jumlah}
-          type="number"
-          variant="outlined"
-          required
-          onChange={(e) => setJumlah(e.target.value)}
-        />
-        <CurrencyTextField
-          label="Harga"
-          variant="outlined"
-          value={harga}
-          currencySymbol="Rp"
-          outputFormat="number"
-          decimalCharacter=","
-          digitGroupSeparator="."
-          onChange={(event, value)=> setHarga(value)}
-        />
-        <CustomSelect
-          label="Penjual"
-          value={penjual}
-          getValues={apiGetSupplierMaterial}
-          setValue={setPenjual}
-          required
-        />
-        <Button
-          className="align-end btn tambah-item-btn"
-          onClick={() => setOpenPenjual(true)}
-        >
+          <TextField
+            id="jumlah"
+            name="jumlah"
+            className="input-field"
+            placeholder="Jumlah*"
+            label="Jumlah"
+            size="medium"
+            value={jumlah}
+            type="number"
+            variant="outlined"
+            required
+            onChange={(e) => setJumlah(e.target.value)}
+          />
+          <CurrencyTextField
+            label="Harga"
+            variant="outlined"
+            value={harga}
+            currencySymbol="Rp"
+            outputFormat="number"
+            decimalCharacter=","
+            digitGroupSeparator="."
+            onChange={(event, value)=> setHarga(value)}
+          />
+          <CustomSelect
+            label="Penjual"
+            value={penjual}
+            getValues={apiGetSupplierMaterial}
+            setValue={setPenjual}
+            required
+          />
+          <Button
+            className="align-end btn tambah-item-btn"
+            onClick={() => setOpenPenjual(true)}
+          >
           Tambah Penjual
-        </Button>
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-        <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
-        </Button>
+          </Button>
+          <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
+          <Button type="submit" className="align-end btn btn-lg simpan-btn">
+            {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+          </Button>
 
-      </Grid>
+        </Grid>
+      </form>
       <CustomModal open={openPabrik} setOpen={setOpenPabrik}>
         <TambahPabrik />
       </CustomModal>
-      <CustomModal open={openMaterial} setOpen={setOpenMaterial}>
-        <TambahMaterial />
-      </CustomModal>
+
+      {!errorMaterial ? (
+          <CustomModal open={openMaterial} setOpen={setOpenMaterial}>
+            <TambahMaterial pabrik={pabrik} />
+          </CustomModal>
+
+        ) : (
+          <CustomAlert
+            type='error'
+            message='Pilih pabrik terlebih dahulu'
+            onClose={() => setErrorMaterial(false)}
+          />
+        )}
       <CustomModal open={openPenjual} setOpen={setOpenPenjual}>
-        <TambahPenjual />
+        <TambahPenjual type="material" />
       </CustomModal>
-    </form>
+    </Grid>
   );
 };
 

@@ -1,6 +1,7 @@
 // Import Library
 import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 // Import Component
 import CustomAlert from '../../../components/Alert';
@@ -11,7 +12,7 @@ import '../../../styles/views/tambah-pabrik.scss';
 // Import API
 import { apiPostMaterial } from '../../../api/material.api';
 
-const TambahMaterial = () => {
+const TambahMaterial = ({ pabrik }) => {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -30,11 +31,12 @@ const TambahMaterial = () => {
     if (!loading) {
       setLoading(true);
 
-      await apiPostMaterial({ name })
+      await apiPostMaterial({ name, id_pabrik: pabrik })
           .then((i) => {
             const { response: { data } } = i;
             setSuccessMessage(data?.message);
             setLoading(false);
+            window.location.reload(true);
           })
           .catch((err) => {
             console.log(err?.message);
@@ -78,6 +80,10 @@ const TambahMaterial = () => {
       </Button>
     </form>
   );
+};
+
+TambahMaterial.propTypes = {
+  pabrik: PropTypes.number.isRequired,
 };
 
 export default TambahMaterial;

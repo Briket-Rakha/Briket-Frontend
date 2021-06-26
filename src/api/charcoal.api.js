@@ -3,14 +3,14 @@ import axios from 'axios';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const apiPenjualBaseUrl = {
-  root: `${apiBaseUrl}/penjual`,
+const apiCharcoalBaseUrl = {
+  root: `${apiBaseUrl}/OM`,
 };
 
-export function apiPostPenjual(payload) {
+export function apiPostCharcoal(payload) {
   return new Promise((resolve, reject) => {
     axios
-        .post(apiPenjualBaseUrl.root, payload)
+        .post(apiCharcoalBaseUrl.root, payload)
         .then((response) => {
           resolve({ response });
         })

@@ -15,7 +15,7 @@ import '../../styles/components/select.scss';
 
 export default function CustomSelect(props) {
   const { label, value, setValue, required, getValues,
-    customSetFunction, name, index } = props;
+    customSetFunction, name, index, parentValue } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   // dropdown data
@@ -25,7 +25,7 @@ export default function CustomSelect(props) {
   const getListData = async () => {
     if (!loading) {
       setLoading(true);
-      await getValues()
+      await getValues(parentValue)
           .then((res) => {
             const { response: { data } } = res;
             setListData(data.data);
@@ -45,7 +45,7 @@ export default function CustomSelect(props) {
         setListData(data);
       }
     });
-  }, []);
+  }, [parentValue]);
 
 
   return (
@@ -100,6 +100,10 @@ export default function CustomSelect(props) {
   );
 }
 
+CustomSelect.defaultProps = {
+  parentValue: '',
+};
+
 CustomSelect.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.any.isRequired,
@@ -109,4 +113,5 @@ CustomSelect.propTypes = {
   customSetFunction: PropTypes.bool,
   name: PropTypes.string,
   index: PropTypes.any,
+  parentValue: PropTypes.any,
 };

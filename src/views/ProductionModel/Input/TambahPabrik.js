@@ -59,6 +59,7 @@ const TambahPabrik = () => {
             const { response: { data } } = i;
             setSuccessMessage(data?.message);
             setLoading(false);
+            window.location.reload(true);
           })
           .catch((err) => {
             setErrorMessage(err?.message ? err.message : 'Server Error');
