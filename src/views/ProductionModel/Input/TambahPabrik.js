@@ -57,7 +57,6 @@ const TambahPabrik = () => {
       await apiPostPabrik(payload)
           .then((i) => {
             const { response: { data } } = i;
-            console.log(data);
             setSuccessMessage(data?.message);
             setLoading(false);
           })
@@ -71,7 +70,6 @@ const TambahPabrik = () => {
   };
 
   const { name, address, city, zipcode, phone } = inputState;
-  console.log(inputState);
 
   return (
     <form className="tambah-pabrik" onSubmit={handleClickSimpan}>

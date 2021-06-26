@@ -18,6 +18,11 @@ import '../../../../../styles/views/raw-material.scss';
 // Import Routes
 import Routes from '../../../../../router/RouteList';
 
+// Import API
+import { apiGetPabrik } from '../../../../../api/pabrik.api';
+import { apiGetMaterial } from '../../../../../api/material.api';
+import { apiGetSupplierMaterial } from '../../../../../api/supplier.api';
+
 const RawMaterial = () => {
   const [pabrik, setPabrik] = useState('');
   const [material, setMaterial] = useState('');
@@ -56,7 +61,7 @@ const RawMaterial = () => {
         <CustomSelect
           label="Pabrik"
           value={pabrik}
-          getValues={console.log}
+          getValues={apiGetPabrik}
           setValue={setPabrik}
           required
         />
@@ -69,7 +74,7 @@ const RawMaterial = () => {
         <CustomSelect
           label="Material"
           value={material}
-          getValues={console.log}
+          getValues={apiGetMaterial}
           setValue={setMaterial}
           required
         />
@@ -77,8 +82,9 @@ const RawMaterial = () => {
           className="align-end btn tambah-item-btn"
           onClick={() => setOpenMaterial(true)}
         >
-          Tambah Material
+            Tambah Material
         </Button>
+
         <TextField
           id="jumlah"
           name="jumlah"
@@ -105,7 +111,7 @@ const RawMaterial = () => {
         <CustomSelect
           label="Penjual"
           value={penjual}
-          getValues={console.log}
+          getValues={apiGetSupplierMaterial}
           setValue={setPenjual}
           required
         />
@@ -116,22 +122,10 @@ const RawMaterial = () => {
           Tambah Penjual
         </Button>
         <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
-        {/* <TextField
-          id="penanggung-jawab"
-          name="pj"
-          className="input-field"
-          placeholder="Penanggung Jawab*"
-          label="Penanggung Jawab"
-          size="medium"
-          value={pj}
-          type="text"
-          variant="outlined"
-          required
-          onChange={(e) => setPj(e.target.value)}
-        /> */}
-        <Button type="submit" className="align-end btn btn-lg simpan-btn">
+        <Button className="align-end btn btn-lg simpan-btn">
           SIMPAN
         </Button>
+
       </Grid>
       <CustomModal open={openPabrik} setOpen={setOpenPabrik}>
         <TambahPabrik />

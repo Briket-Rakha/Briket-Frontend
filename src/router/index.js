@@ -19,6 +19,7 @@ const RawMaterial = lazy(() => import('../views/ProductionModel/Input/SelfProduc
 const HasilProduksi = lazy(() => import('../views/ProductionModel/Input/SelfProduce/HasilProduksi'));
 const Charcoal = lazy(() => import('../views/ProductionModel/Input/OutSource/Charcoal'));
 const Payment = lazy(() => import('../views/ProductionModel/Input/OutSource/Payment'));
+const Packaging = lazy(() => import('../views/ProductionModel/Input/Packaging'));
 
 // Create Browser History
 const browserHistory = createBrowserHistory();
@@ -41,6 +42,11 @@ const MyRouter = () => {
           <PrivateRoute
             path={Routes.production.input.selfProduce.hasilProduksi}
             component={HasilProduksi}
+            exact
+          />
+          <PrivateRoute
+            path={Routes.production.input.packaging}
+            component={Packaging}
             exact
           />
           <PrivateRoute

@@ -17,6 +17,10 @@ import '../../../../../styles/views/hasil-produksi.scss';
 // Import Routes
 import Routes from '../../../../../router/RouteList';
 
+// Import API
+import { apiGetPabrik } from '../../../../../api/pabrik.api';
+import { apiGetMaterial } from '../../../../../api/material.api';
+
 const HasilProduksi = () => {
   const [pabrik, setPabrik] = useState('');
   const [brand, setBrand] = useState('');
@@ -30,8 +34,7 @@ const HasilProduksi = () => {
   const [openBrand, setOpenBrand] = useState(false);
 
   // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
+  const handleInputChange = (name, value, index) => {
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
@@ -80,7 +83,7 @@ const HasilProduksi = () => {
         <CustomSelect
           label="Pabrik"
           value={pabrik}
-          getValues={console.log}
+          getValues={apiGetPabrik}
           setValue={setPabrik}
           required
         />
@@ -90,10 +93,11 @@ const HasilProduksi = () => {
         >
           Tambah Pabrik
         </Button>
+        {/* TODO: ganti getValues jadi apiGetBrand */}
         <CustomSelect
           label="Brand Charcoal"
           value={brand}
-          getValues={console.log}
+          getValues={apiGetMaterial}
           setValue={setBrand}
           required
         />
@@ -133,10 +137,11 @@ const HasilProduksi = () => {
                   alignItems="center" key={i}>
                   <Grid item xs={5}>
                     <CustomSelect
-                      name="material"
+                      name='material'
                       label={'Material '+i}
                       value={x.material}
                       setValue={handleInputChange}
+                      getValues={apiGetMaterial}
                       index={i}
                       required
                       customSetFunction
@@ -153,13 +158,14 @@ const HasilProduksi = () => {
                   <Grid item xs={5}>
                     <TextField
                       id="jumlah"
-                      name="jumlah"
+                      name='jumlah'
                       className="input-field"
                       placeholder="Masukkan jumlah"
                       label="Jumlah"
                       size="medium"
                       value={x.jumlah}
-                      onChange={(e) => handleInputChange(e, i)}
+                      onChange={(e) =>
+                        handleInputChange(e.target.name, e.target.value, i)}
                       type="text"
                       variant="outlined"
                       required
