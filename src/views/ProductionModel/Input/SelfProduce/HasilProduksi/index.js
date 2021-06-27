@@ -168,7 +168,7 @@ const HasilProduksi = () => {
           label="Jumlah"
           size="medium"
           value={jumlah}
-          type="text"
+          type="number"
           variant="outlined"
           required
           onChange={(e) => setJumlah(e.target.value)}
@@ -219,7 +219,7 @@ const HasilProduksi = () => {
                       value={x.amount}
                       onChange={(e) =>
                         handleInputChange(e.target.name, e.target.value, i)}
-                      type="text"
+                      type="number"
                       variant="outlined"
                       required
                     />

@@ -169,7 +169,7 @@ const Packaging = () => {
                   placeholder="Masukkan jumlah (dalam kg)"
                   label="Jumlah"
                   size="medium"
-                  type="text"
+                  type="number"
                   value={x.amount}
                   variant="outlined"
                   required
