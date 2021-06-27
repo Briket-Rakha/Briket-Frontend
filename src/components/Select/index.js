@@ -15,7 +15,7 @@ import '../../styles/components/select.scss';
 
 export default function CustomSelect(props) {
   const { label, value, setValue, required, getValues,
-    customSetFunction, name, index, constatValues,
+    customSetFunction, name, index, constantValues,
     parentValue, haveParent } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -40,16 +40,16 @@ export default function CustomSelect(props) {
     }
   };
 
-  const changingval = haveParent?[parentValue]:[];
+  const dynamicVal = haveParent ? [parentValue] : [];
   useEffect(() => {
-    constatValues?
-    setListData(getValues):
+    constantValues ?
+    setListData(getValues) :
     getListData().then((data) => {
       if (data) {
         setListData(data);
       }
     });
-  }, changingval);
+  }, dynamicVal);
 
 
   return (
@@ -117,7 +117,7 @@ CustomSelect.propTypes = {
   customSetFunction: PropTypes.bool,
   name: PropTypes.string,
   index: PropTypes.any,
-  constatValues: PropTypes.bool,
+  constantValues: PropTypes.bool,
   parentValue: PropTypes.any,
   haveParent: PropTypes.bool,
 };

@@ -187,11 +187,11 @@ const Packaging = () => {
                   index={i}
                   customSetFunction
                   required
-                  constatValues
+                  constantValues
                 />
               </Grid>
               {
-                x.asal!=='' &&
+                x.asal !== '' &&
                 <Grid item xs={3}>
                   <CustomSelect
                     name="asal_id"
