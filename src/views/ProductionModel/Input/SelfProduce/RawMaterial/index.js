@@ -143,7 +143,6 @@ const RawMaterial = () => {
           <CustomSelect
             label="Material"
             value={material}
-            parentValue={pabrik}
             getValues={apiGetMaterial}
             setValue={setMaterial}
             required
