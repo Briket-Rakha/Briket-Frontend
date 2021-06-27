@@ -23,7 +23,7 @@ export function apiPostMaterial(payload) {
 export async function apiGetMaterial(id) {
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiMaterialBaseUrl.root}/${id}`)
+        .get(`${apiMaterialBaseUrl.root}`)
         .then((response) => {
           resolve({ response });
         })

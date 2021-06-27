@@ -96,7 +96,6 @@ const RawMaterial = () => {
             window.scrollTo(0, 0);
           })
           .catch((err) => {
-            console.log(err?.message);
             setErrorMessage(err?.message ?? 'Server Error');
             setLoading(false);
           });
@@ -143,7 +142,6 @@ const RawMaterial = () => {
           <CustomSelect
             label="Material"
             value={material}
-            parentValue={pabrik}
             getValues={apiGetMaterial}
             setValue={setMaterial}
             required
