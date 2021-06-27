@@ -96,7 +96,6 @@ const RawMaterial = () => {
             window.scrollTo(0, 0);
           })
           .catch((err) => {
-            console.log(err?.message);
             setErrorMessage(err?.message ?? 'Server Error');
             setLoading(false);
           });

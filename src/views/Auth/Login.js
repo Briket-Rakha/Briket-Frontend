@@ -72,7 +72,7 @@ const Login = (props) => {
             history.push(Routes.production.dashboard);
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
             setErrorMessage('Login Gagal');
             setOpenAlert(true);
             setLoading(false);

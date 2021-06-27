@@ -46,17 +46,26 @@ const HasilProduksi = () => {
     setInputList(list);
   };
 
+  // Reset State when submitted
+  const resetState = () => {
+    setPabrik('');
+    setBrand('');
+    setJumlah('');
+    setDate(null);
+    setIsRaw('no');
+    setInputList([{ id_material: '', amount: '' }]);
+  };
+
   // on Submit Hasil Produksi
   const postHasilProduksi = async (e) => {
     e.preventDefault();
     const payload = {
-      pabrik: pabrik,
-      charcoalBrand: brand,
+      pabrik_id: pabrik,
+      charcoal_brand_id: brand,
       amount: jumlah,
       date: date?.toISOString().slice(0, 10),
       materials: inputList,
     };
-    console.log(payload);
 
     if (!loading) {
       setLoading(true);
@@ -69,7 +78,6 @@ const HasilProduksi = () => {
             window.scrollTo(0, 0);
           })
           .catch((err) => {
-            console.log(err?.message);
             setErrorMessage(err?.message ?? 'Server Error');
             setLoading(false);
           });
@@ -208,6 +216,7 @@ const HasilProduksi = () => {
                       placeholder="Masukkan jumlah"
                       label="Jumlah"
                       size="medium"
+                      value={x.amount}
                       onChange={(e) =>
                         handleInputChange(e.target.name, e.target.value, i)}
                       type="text"

@@ -93,7 +93,7 @@ const Register = (props) => {
               props.history.push(Routes.login.root);
             })
             .catch((err) => {
-              console.log(err);
+              console.error(err);
               setErrorMessage('User is already registered!');
               setOpenAlert(true);
             });
