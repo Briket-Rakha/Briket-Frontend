@@ -84,7 +84,6 @@ const Payment = () => {
 
     if (!loading) {
       setLoading(true);
-      console.log(payload);
       await apiPostPayment(payload)
           .then((i) => {
             const { response: { data } } = i;
