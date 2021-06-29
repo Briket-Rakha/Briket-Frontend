@@ -1,12 +1,13 @@
 // Import Library
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Component
 import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import CustomRadio from '../../../../../components/RadioSelect';
+import CustomAlert from '../../../../../components/Alert';
 
 // Import Styling
 import '../../../../../styles/views/raw-material.scss';
@@ -14,12 +15,22 @@ import '../../../../../styles/views/raw-material.scss';
 // Import Routes
 import Routes from '../../../../../router/RouteList';
 
+// Import API
+import { apiGetAvailablePayment } from '../../../../../api/payment.api';
+import { apiPostPayment } from '../../../../../api/payment.api';
+
+// Import utils
+import { getUser } from '../../../../../utils/auth';
+
 const Payment = () => {
   const [transaction, setTransaction] = useState('');
   const [payment, setPayment] = useState('');
   const [information, setInformation] = useState('');
   const [paymentChange, setPaymentChange] = useState('no');
   const [completePayment, setCompletePayment] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const arraySelection = [
     {
@@ -51,15 +62,63 @@ const Payment = () => {
     },
   ];
 
+  // Reset State when submitted
+  const resetState = () => {
+    setTransaction('');
+    setPayment('');
+    setInformation('');
+    setPaymentChange('no');
+    setCompletePayment('');
+  };
+
+  // on Submit Input Packaging
+  const postInputPayment = async (e) => {
+    e.preventDefault();
+    const payload = {
+      outsource_material_id: transaction,
+      payment_amount: payment,
+      description: information,
+      employee_id: getUser().ID,
+      complete_payment: completePayment,
+    };
+
+    if (!loading) {
+      setLoading(true);
+      console.log(payload);
+      await apiPostPayment(payload)
+          .then((i) => {
+            const { response: { data } } = i;
+            setSuccessMessage(data?.message);
+            setLoading(false);
+            resetState();
+            window.scrollTo(0, 0);
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ?? 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
+
   return (
-    <form className="raw-material">
+    <form className="raw-material" onSubmit={postInputPayment}>
+      {(Boolean(errorMessage) || Boolean(successMessage)) && (
+        <CustomAlert
+          type={successMessage ? 'success' : 'error'}
+          message={successMessage ? successMessage : errorMessage}
+          onClose={successMessage ?
+            () => setSuccessMessage('') :
+            () => setErrorMessage('')
+          }
+        />
+      )}
       <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="raw-material-title">Input Payment Outsource </h3>
       <Grid container className="raw-material-form" direction="column">
         <CustomSelect
           label="Transaksi"
           value={transaction}
-          getValues={console.log}
+          getValues={apiGetAvailablePayment}
           setValue={setTransaction}
           required
         />
@@ -108,7 +167,7 @@ const Payment = () => {
           />
         )}
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          SIMPAN
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
         </Button>
       </Grid>
     </form>
