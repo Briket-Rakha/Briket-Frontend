@@ -23,7 +23,7 @@ export const dummySeries = [
 export const options= {
   chart: {
     type: 'bar',
-    height: 300,
+    height: 320,
   },
   colors: [
     'rgba(40, 113, 148, 1)',
@@ -73,6 +73,27 @@ export const options= {
   },
   xaxis: {
     categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+    labels: {
+      style: {
+        fontSize: '12px',
+        fontWeight: 500,
+        fontFamily: 'Ubuntu',
+      },
+    },
+  },
+  title: {
+    text: 'Jumlah (kg)',
+    align: 'left',
+    margin: 0,
+    offsetX: 0,
+    offsetY: 0,
+    floating: false,
+    style: {
+      fontSize: '13px',
+      fontWeight: 500,
+      fontFamily: 'Ubuntu',
+      color: '#263238',
+    },
   },
   legend: {
     show: true,

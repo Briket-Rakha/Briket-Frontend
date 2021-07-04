@@ -20,7 +20,7 @@ const CustomChart = (props) => {
 };
 
 CustomChart.defaultProps = {
-  height: 300,
+  height: 320,
   series: [],
 };
 
