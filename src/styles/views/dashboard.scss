@@ -1,0 +1,31 @@
+.dashboard {
+  &-section {
+    &-header {
+      flex-wrap: nowrap;
+      margin-bottom: 20px;
+
+      &-title {
+        & > * {
+          font-style: italic;
+        }
+
+        h3 {
+          font-weight: 500;
+          margin-bottom: 12px;
+        }
+
+        p {
+          font-weight: 300;
+        }
+      }
+
+      &-input {
+        flex-wrap: nowrap;
+
+        & > * {
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}

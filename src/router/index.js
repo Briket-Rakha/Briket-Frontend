@@ -14,7 +14,7 @@ import PrivateRoute from './PrivateRoute';
 // Import Views
 const Login = lazy(() => import('../views/Auth/Login'));
 const Register = lazy(() => import('../views/Auth/Register'));
-const ProductionModel = lazy(() => import('../views/ProductionModel'));
+const Dashboard = lazy(() => import('../views/ProductionModel/Dashboard'));
 const RawMaterial = lazy(() => import('../views/ProductionModel/Input/SelfProduce/RawMaterial'));
 const HasilProduksi = lazy(() => import('../views/ProductionModel/Input/SelfProduce/HasilProduksi'));
 const Charcoal = lazy(() => import('../views/ProductionModel/Input/OutSource/Charcoal'));
@@ -31,7 +31,7 @@ const MyRouter = () => {
         <Switch>
           <PrivateRoute
             path={Routes.production.dashboard}
-            component={ProductionModel}
+            component={Dashboard}
             exact
           />
           <PrivateRoute
@@ -51,7 +51,7 @@ const MyRouter = () => {
           />
           <PrivateRoute
             path={Routes.production.payment}
-            component={ProductionModel}
+            component={Dashboard}
             exact
           />
           <PrivateRoute
