@@ -23,7 +23,9 @@ export default function CustomSelect(props) {
     customSetFunction,
     name,
     index,
+    constantValues,
     parentValue,
+    haveParent,
     size,
   } = props;
   const [loading, setLoading] = useState(false);
@@ -35,7 +37,7 @@ export default function CustomSelect(props) {
   const getListData = async () => {
     if (!loading) {
       setLoading(true);
-      await getValues(parentValue)
+      await getValues()
           .then((res) => {
             console.log(res);
             const { response: { data } } = res;
@@ -50,13 +52,16 @@ export default function CustomSelect(props) {
     }
   };
 
+  const dynamicVal = haveParent ? [parentValue] : [];
   useEffect(() => {
+    constantValues ?
+    setListData(getValues) :
     getListData().then((data) => {
       if (data) {
         setListData(data);
       }
     });
-  }, [parentValue]);
+  }, dynamicVal);
 
   return (
     <>
@@ -130,6 +135,8 @@ CustomSelect.propTypes = {
   customSetFunction: PropTypes.bool,
   name: PropTypes.string,
   index: PropTypes.any,
+  constantValues: PropTypes.bool,
   parentValue: PropTypes.any,
+  haveParent: PropTypes.bool,
   size: PropTypes.string,
 };

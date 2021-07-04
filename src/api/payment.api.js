@@ -1,16 +1,17 @@
+
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const apiMaterialBaseUrl = {
-  root: `${apiBaseUrl}/material`,
+const apiPaymentBaseUrl = {
+  root: `${apiBaseUrl}/payment`,
 };
 
-export function apiPostMaterial(payload) {
+export function apiPostPayment(payload) {
   return new Promise((resolve, reject) => {
     axios
-        .post(apiMaterialBaseUrl.root, payload)
+        .post(apiPaymentBaseUrl.root, payload)
         .then((response) => {
           resolve({ response });
         })
@@ -20,10 +21,10 @@ export function apiPostMaterial(payload) {
   });
 }
 
-export async function apiGetMaterial(id) {
+export async function apiGetAvailablePayment() {
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiMaterialBaseUrl.root}`)
+        .get(`${apiPaymentBaseUrl.root}/available`)
         .then((response) => {
           resolve({ response });
         })

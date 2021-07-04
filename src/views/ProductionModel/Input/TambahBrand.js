@@ -38,7 +38,6 @@ const TambahBrand = () => {
             window.location.reload(true);
           })
           .catch((err) => {
-            console.log(err?.message);
             setErrorMessage(err?.message ?? 'Server Error');
             setLoading(false);
           });

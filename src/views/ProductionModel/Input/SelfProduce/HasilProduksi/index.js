@@ -1,8 +1,9 @@
 // Import Library
 import React, { useState } from 'react';
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 
 // Import Component
+import CustomAlert from '../../../../../components/Alert';
 import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import RadioSelect from '../../../../../components/RadioSelect';
@@ -20,6 +21,8 @@ import Routes from '../../../../../router/RouteList';
 // Import API
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
 import { apiGetMaterial } from '../../../../../api/material.api';
+import { apiGetBrand } from '../../../../../api/brand.api';
+import { apiPostHasilProduksi } from '../../../../../api/hasil-produksi.api';
 
 const HasilProduksi = () => {
   const [pabrik, setPabrik] = useState('');
@@ -27,8 +30,11 @@ const HasilProduksi = () => {
   const [jumlah, setJumlah] = useState('');
   const [date, setDate] = useState(null);
   const [isRaw, setIsRaw] = useState('no');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   // raw material
-  const [inputList, setInputList] = useState([{ material: '', jumlah: '' }]);
+  const [inputList, setInputList] = useState([{ id_material: '', amount: '' }]);
   // on click button
   const [openPabrik, setOpenPabrik] = useState(false);
   const [openBrand, setOpenBrand] = useState(false);
@@ -40,9 +46,47 @@ const HasilProduksi = () => {
     setInputList(list);
   };
 
+  // Reset State when submitted
+  const resetState = () => {
+    setPabrik('');
+    setBrand('');
+    setJumlah('');
+    setDate(null);
+    setIsRaw('no');
+    setInputList([{ id_material: '', amount: '' }]);
+  };
+
+  // on Submit Hasil Produksi
+  const postHasilProduksi = async (e) => {
+    e.preventDefault();
+    const payload = {
+      pabrik_id: pabrik,
+      charcoal_brand_id: brand,
+      amount: jumlah,
+      date: date?.toISOString().slice(0, 10),
+      materials: inputList,
+    };
+
+    if (!loading) {
+      setLoading(true);
+      await apiPostHasilProduksi(payload)
+          .then((i) => {
+            const { response: { data } } = i;
+            setSuccessMessage(data?.message);
+            setLoading(false);
+            resetState();
+            window.scrollTo(0, 0);
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ?? 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
+
   // handle click event of the Add button
   const handleAddClick = () => {
-    setInputList([...inputList, { material: '', jumlah: '' }]);
+    setInputList([...inputList, { id_material: '', amount: '' }]);
   };
 
   // for breadcrumbs
@@ -76,7 +120,17 @@ const HasilProduksi = () => {
   ];
 
   return (
-    <form className="hasil-produksi">
+    <form className="hasil-produksi" onSubmit={postHasilProduksi}>
+      {(Boolean(errorMessage) || Boolean(successMessage)) && (
+        <CustomAlert
+          type={successMessage ? 'success' : 'error'}
+          message={successMessage ? successMessage : errorMessage}
+          onClose={successMessage ?
+            () => setSuccessMessage('') :
+            () => setErrorMessage('')
+          }
+        />
+      )}
       <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="hasil-produksi-title">Input Hasil Produksi</h3>
       <Grid container className="hasil-produksi-form" direction="column">
@@ -93,11 +147,10 @@ const HasilProduksi = () => {
         >
           Tambah Pabrik
         </Button>
-        {/* TODO: ganti getValues jadi apiGetBrand */}
         <CustomSelect
           label="Brand Charcoal"
           value={brand}
-          getValues={apiGetMaterial}
+          getValues={apiGetBrand}
           setValue={setBrand}
           required
         />
@@ -115,7 +168,7 @@ const HasilProduksi = () => {
           label="Jumlah"
           size="medium"
           value={jumlah}
-          type="text"
+          type="number"
           variant="outlined"
           required
           onChange={(e) => setJumlah(e.target.value)}
@@ -137,9 +190,9 @@ const HasilProduksi = () => {
                   alignItems="center" key={i}>
                   <Grid item xs={5}>
                     <CustomSelect
-                      name='material'
-                      label={'Material '+i}
-                      value={x.material}
+                      name='id_material'
+                      label={'Material '+(i+1)}
+                      value={x.id_material}
                       setValue={handleInputChange}
                       getValues={apiGetMaterial}
                       index={i}
@@ -157,16 +210,16 @@ const HasilProduksi = () => {
 
                   <Grid item xs={5}>
                     <TextField
-                      id="jumlah"
-                      name='jumlah'
+                      id="amount"
+                      name='amount'
                       className="input-field"
                       placeholder="Masukkan jumlah"
                       label="Jumlah"
                       size="medium"
-                      value={x.jumlah}
+                      value={x.amount}
                       onChange={(e) =>
                         handleInputChange(e.target.name, e.target.value, i)}
-                      type="text"
+                      type="number"
                       variant="outlined"
                       required
                     />
@@ -188,7 +241,7 @@ const HasilProduksi = () => {
         }
         <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          SIMPAN
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
         </Button>
       </Grid>
       <CustomModal open={openPabrik} setOpen={setOpenPabrik}>
