@@ -14,8 +14,18 @@ import CustomAlert from '../../components/Alert';
 import '../../styles/components/select.scss';
 
 export default function CustomSelect(props) {
-  const { label, value, setValue, required, getValues,
-    customSetFunction, name, index, parentValue } = props;
+  const {
+    label,
+    value,
+    setValue,
+    required,
+    getValues,
+    customSetFunction,
+    name,
+    index,
+    parentValue,
+    size,
+  } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   // dropdown data
@@ -27,6 +37,7 @@ export default function CustomSelect(props) {
       setLoading(true);
       await getValues(parentValue)
           .then((res) => {
+            console.log(res);
             const { response: { data } } = res;
             setListData(data.data);
             setLoading(false);
@@ -47,9 +58,8 @@ export default function CustomSelect(props) {
     });
   }, [parentValue]);
 
-
   return (
-    <div>
+    <>
       {Boolean(errorMessage) && (
         <CustomAlert
           type={'error'}
@@ -61,6 +71,7 @@ export default function CustomSelect(props) {
         variant="outlined"
         className="custom-select"
         required={required}
+        size={size}
       >
         <InputLabel id="demo-simple-select-outlined-label">{label}</InputLabel>
         <Select
@@ -96,16 +107,22 @@ export default function CustomSelect(props) {
           )}
         </Select>
       </FormControl>
-    </div>
+    </>
   );
 }
 
 CustomSelect.defaultProps = {
   parentValue: '',
+  label: undefined,
+  required: false,
+  customSetFunction: false,
+  name: '',
+  index: 0,
+  size: 'medium',
 };
 
 CustomSelect.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.any,
   value: PropTypes.any.isRequired,
   getValues: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
@@ -114,4 +131,5 @@ CustomSelect.propTypes = {
   name: PropTypes.string,
   index: PropTypes.any,
   parentValue: PropTypes.any,
+  size: PropTypes.string,
 };
