@@ -11,12 +11,7 @@ export const logOut = () => (dispatch) => {
 
 export const signIn = (credentials) => async (dispatch) => {
   await axios
-      .post(`${apiBaseUrl}/auth/login`, credentials, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-      })
+      .post(`${apiBaseUrl}/auth/login`, credentials)
       .then((res) => {
         localStorage.setItem('user', JSON.stringify(res.data.data));
         dispatch(setUser(res.user));
