@@ -161,3 +161,23 @@ span {
 .MuiOutlinedInput-adornedEnd {
   padding-right: 8px !important;
 }
+
+.space-1 {
+  height: 8px;
+}
+
+.no-data {
+  font-weight: 500;
+  margin: 24px auto 48px;
+}
+
+.table-head {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+td {
+  img {
+    max-width: 60px;
+  }
+}

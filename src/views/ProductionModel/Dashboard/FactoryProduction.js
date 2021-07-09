@@ -14,8 +14,8 @@ import { getListOfMonths } from '../../../utils/date';
 import { apiGetPabrik } from '../../../api/pabrik.api';
 
 const FactoryProducation = () => {
-  const [month, setMonth] = useState();
-  const [pabrik, setPabrik] = useState();
+  const [month, setMonth] = useState('');
+  const [pabrik, setPabrik] = useState('');
   const [series] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 

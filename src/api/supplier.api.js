@@ -6,6 +6,7 @@ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 const apiSupplierBaseUrl = {
   material: `${apiBaseUrl}/material-supplier`,
   outsource: `${apiBaseUrl}/outsource`,
+  om: `${apiBaseUrl}/OM`,
 };
 
 export async function apiGetSupplierMaterial(idMaterial) {
@@ -51,6 +52,19 @@ export function apiPostSupplierOutsource(payload) {
   return new Promise((resolve, reject) => {
     axios
         .post(apiSupplierBaseUrl.outsource, payload)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export function apiGetOutsourceMaterial(id) {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiSupplierBaseUrl.om}/${id}`)
         .then((response) => {
           resolve({ response });
         })

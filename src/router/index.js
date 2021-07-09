@@ -20,6 +20,7 @@ const HasilProduksi = lazy(() => import('../views/ProductionModel/Input/SelfProd
 const Charcoal = lazy(() => import('../views/ProductionModel/Input/OutSource/Charcoal'));
 const Payment = lazy(() => import('../views/ProductionModel/Input/OutSource/Payment'));
 const Packaging = lazy(() => import('../views/ProductionModel/Input/Packaging'));
+const PaymentTimeline = lazy(() => import('../views/ProductionModel/Payment'));
 
 // Create Browser History
 const browserHistory = createBrowserHistory();
@@ -35,6 +36,11 @@ const MyRouter = () => {
             exact
           />
           <PrivateRoute
+            path={Routes.production.payment}
+            component={PaymentTimeline}
+            exact
+          />
+          <PrivateRoute
             path={Routes.production.input.selfProduce.rawMaterial}
             component={RawMaterial}
             exact
@@ -47,11 +53,6 @@ const MyRouter = () => {
           <PrivateRoute
             path={Routes.production.input.packaging}
             component={Packaging}
-            exact
-          />
-          <PrivateRoute
-            path={Routes.production.payment}
-            component={Dashboard}
             exact
           />
           <PrivateRoute
