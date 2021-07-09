@@ -119,12 +119,14 @@ const PaymentTimeline = () => {
               <OutSouceMaterial data={item} />
             </Grid>
           )) : (
-            <h3 className="no-data">
+            <Grid item md={12}>
+              <h3 className="no-data">
               Tidak ada data pembayaran outsource material
-            </h3>
+              </h3>
+            </Grid>
           )
         }
-        {timeline.length ? (
+        {timeline?.length ? (
           <CustomTable
             header={['Tanggal', 'Pembayaran', 'Deskripsi', 'Bukti']}
             content={timeline}
@@ -138,9 +140,11 @@ const PaymentTimeline = () => {
             ]}
           />
         ) : (
-          <h3 className="no-data">
-            Tidak ada data timeline pembayaran
-          </h3>
+          <Grid item md={12}>
+            <h3 className="no-data">
+              Tidak ada data timeline pembayaran
+            </h3>
+          </Grid>
         )}
       </Grid>
     </Grid>
