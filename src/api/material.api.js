@@ -34,17 +34,14 @@ export async function apiGetMaterial() {
 }
 
 export async function apiGetMaterialDashboard(idPabrik) {
-  console.log('masuk');
   return new Promise((resolve, reject) => {
     axios
         .get(`${apiMaterialBaseUrl.root}/${idPabrik}`)
         .then((response) => {
-          console.log({ response });
           resolve({ response });
         })
         .catch((err) => {
           reject(err.response);
-          // console.error(err);
         });
   });
 }
