@@ -20,7 +20,7 @@ export function apiPostMaterial(payload) {
   });
 }
 
-export async function apiGetMaterial(id) {
+export async function apiGetMaterial() {
   return new Promise((resolve, reject) => {
     axios
         .get(`${apiMaterialBaseUrl.root}`)
@@ -29,6 +29,22 @@ export async function apiGetMaterial(id) {
         })
         .catch((err) => {
           reject(err.response);
+        });
+  });
+}
+
+export async function apiGetMaterialDashboard(idPabrik) {
+  console.log('masuk');
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiMaterialBaseUrl.root}/${idPabrik}`)
+        .then((response) => {
+          console.log({ response });
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+          // console.error(err);
         });
   });
 }

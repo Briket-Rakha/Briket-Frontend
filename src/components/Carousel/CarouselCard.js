@@ -7,25 +7,25 @@ import PropTypes from 'prop-types';
 import '../../styles/components/carousel-card.scss';
 
 const CarouselCard = (props) => {
-  const { berat, nama, asal } = props;
+  const { total, name, asal } = props;
   return (
     <div className="carousel-card">
-      <h1>{berat}</h1>
-      <p>{nama}</p>
+      <h1>{total}</h1>
+      <p>{name}</p>
       <p>{asal}</p>
     </div>
   );
 };
 
 CarouselCard.defaultProps = {
-  berat: 'Default Berat',
-  nama: 'Default Nama',
-  asal: 'Default Asal',
+  total: 'Default total',
+  name: 'Default name',
+  asal: 'Default asal',
 };
 
 CarouselCard.propTypes = {
-  berat: PropTypes.any,
-  nama: PropTypes.any,
+  total: PropTypes.any,
+  name: PropTypes.any,
   asal: PropTypes.any,
 };
 

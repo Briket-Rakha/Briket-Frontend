@@ -19,3 +19,17 @@ export function apiPostHasilProduksi(payload) {
         });
   });
 }
+
+export async function apiGetHasilDashboard() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiHasilProduksiBaseUrl.root}/summary`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+          // console.error(err);
+        });
+  });
+}
