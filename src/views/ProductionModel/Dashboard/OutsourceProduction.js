@@ -15,7 +15,7 @@ import { getListOfMonths } from '../../../utils/date';
 import { apiGetPabrik } from '../../../api/pabrik.api';
 import { apiGetHasilProduksiGraph } from '../../../api/hasil-produksi.api';
 
-const FactoryProduction = () => {
+const OutsourceProduction = () => {
   const [month, setMonth] = useState('');
   const [pabrik, setPabrik] = useState('');
   const [series, setSeries] = useState([]);
@@ -60,7 +60,7 @@ const FactoryProduction = () => {
           className="dashboard-section-header-title"
           direction="column"
         >
-          <h3>Grafik Produksi Pabrik</h3>
+          <h3>Grafik Produksi Outsource</h3>
           <p>Total: 100.000kg</p>
         </Grid>
         <Grid container className="dashboard-section-header-input">
@@ -92,4 +92,4 @@ const FactoryProduction = () => {
   );
 };
 
-export default FactoryProduction;
+export default OutsourceProduction;
