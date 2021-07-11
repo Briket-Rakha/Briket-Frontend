@@ -20,8 +20,8 @@ const CarouselCard = (props) => {
 
 CarouselCard.defaultProps = {
   total: 0,
-  name: 'Default name',
-  asal: 'Default asal',
+  name: '',
+  asal: '',
 };
 
 CarouselCard.propTypes = {
