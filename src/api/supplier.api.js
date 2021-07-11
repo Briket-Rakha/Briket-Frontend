@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
+import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -7,6 +8,7 @@ const apiSupplierBaseUrl = {
   material: `${apiBaseUrl}/material-supplier`,
   outsource: `${apiBaseUrl}/outsource`,
   om: `${apiBaseUrl}/OM`,
+  graph: `${apiBaseUrl}/graph/outsource`,
 };
 
 export async function apiGetSupplierMaterial(idMaterial) {
@@ -67,6 +69,21 @@ export function apiGetOutsourceMaterial(id) {
         .get(`${apiSupplierBaseUrl.om}/${id}`)
         .then((response) => {
           resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export function apiGetOutsourceProduksiGraph(params) {
+  const queries = querystring.stringify(params);
+  console.log(`${apiSupplierBaseUrl.graph}/?${queries}`);
+
+  return new Promise((resolve, reject) => {
+    axios.get(`${apiSupplierBaseUrl.graph}?${queries}`)
+        .then((res) => {
+          resolve(res);
         })
         .catch((err) => {
           reject(err.response);

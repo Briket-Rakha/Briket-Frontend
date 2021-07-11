@@ -15,6 +15,7 @@ export const getListOfMonths = () => {
           id: index + 1,
         });
       });
+      console.log(data);
       const listOfMonthsObj = {
         response: {
           data: {

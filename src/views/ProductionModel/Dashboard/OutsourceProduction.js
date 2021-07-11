@@ -12,27 +12,26 @@ import CustomChart from '../../../components/Chart';
 import { getListOfMonths } from '../../../utils/date';
 
 // Import API
-import { apiGetPabrik } from '../../../api/pabrik.api';
-import { apiGetHasilProduksiGraph } from '../../../api/hasil-produksi.api';
+import { apiGetOutsourceProduksiGraph } from '../../../api/supplier.api';
 
-const FactoryProduction = () => {
+const OutsourceProduction = () => {
   const [month, setMonth] = useState('');
-  const [pabrik, setPabrik] = useState('');
   const [series, setSeries] = useState([]);
   const [total, setTotal] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const fetchGraphHasilProduksi = async () => {
+  const fetchGraphOutsourceProduksi = async () => {
     const payload = {
-      pabrik,
       bulan: month,
       tahun: (new Date()).getFullYear(),
     };
+
     setLoading(true);
-    await apiGetHasilProduksiGraph(payload)
+    await apiGetOutsourceProduksiGraph(payload)
         .then((i) => {
           const { data } = i;
+          console.log(i);
           setSeries(data.data);
           setTotal(data.total);
           setLoading(false);
@@ -40,15 +39,15 @@ const FactoryProduction = () => {
         .catch((err) => {
           setErrorMessage(
               err?.message ||
-              'Gagal mengambil data hasil produksi',
+              'Gagal mengambil data outsource produksi',
           );
           setLoading(false);
         });
   };
 
   useEffect(() => {
-    if (pabrik && month) fetchGraphHasilProduksi();
-  }, [month, pabrik]);
+    if (month) fetchGraphOutsourceProduksi();
+  }, [month]);
 
   return (
     <Grid container className="dashboard-section" direction="column">
@@ -65,8 +64,8 @@ const FactoryProduction = () => {
           className="dashboard-section-header-title"
           direction="column"
         >
-          <h3>Grafik Produksi Pabrik</h3>
-          <p>{`Total: ${total || 0} kg`}</p>
+          <h3>Grafik Produksi Outsource</h3>
+          <p>{`Total: ${total} kg`}</p>
         </Grid>
         <Grid container className="dashboard-section-header-input">
           <CustomSelect
@@ -74,13 +73,6 @@ const FactoryProduction = () => {
             label="Bulan"
             getValues={getListOfMonths}
             setValue={setMonth}
-            size="small"
-          />
-          <CustomSelect
-            value={pabrik}
-            label="Pabrik"
-            getValues={apiGetPabrik}
-            setValue={setPabrik}
             size="small"
           />
         </Grid>
@@ -102,4 +94,4 @@ const FactoryProduction = () => {
   );
 };
 
-export default FactoryProduction;
+export default OutsourceProduction;
