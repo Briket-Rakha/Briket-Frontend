@@ -1,7 +1,7 @@
 // Import Library
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 // Import Component
@@ -48,6 +48,7 @@ const CustomCarousel = (props) => {
   }, dynamicVal);
 
   const threeItemsRender = [];
+  console.log(dataCarousel);
   if (dataCarousel) {
     for (let i = 0; i < dataCarousel.length; i+=3) {
       threeItemsRender.push(
@@ -86,10 +87,16 @@ const CustomCarousel = (props) => {
           onClose={() => setErrorMessage('')}
         />
       )}
-      <Carousel>
-        {loading ?
-        <CircularProgress size={20} thickness={5} /> : threeItemsRender}
-      </Carousel>
+
+      {loading ?
+          <Grid item className="loading-carousel">
+            <CircularProgress size={60} thickness={6} />
+          </Grid> :
+          <Carousel>
+            {threeItemsRender}
+          </Carousel>
+
+      }
     </>
   );
 };

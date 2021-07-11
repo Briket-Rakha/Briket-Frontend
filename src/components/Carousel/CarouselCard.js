@@ -8,6 +8,7 @@ import '../../styles/components/carousel-card.scss';
 
 const CarouselCard = (props) => {
   const { total, name, asal } = props;
+  console.log(props);
   return (
     <div className="carousel-card">
       <h1>{total}</h1>
@@ -18,15 +19,15 @@ const CarouselCard = (props) => {
 };
 
 CarouselCard.defaultProps = {
-  total: 'Default total',
+  total: 0,
   name: 'Default name',
   asal: 'Default asal',
 };
 
 CarouselCard.propTypes = {
-  total: PropTypes.any,
-  name: PropTypes.any,
-  asal: PropTypes.any,
+  total: PropTypes.number,
+  name: PropTypes.string,
+  asal: PropTypes.string,
 };
 
 

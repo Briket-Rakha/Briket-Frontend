@@ -1,5 +1,9 @@
 .dashboard {
   &-section {
+    margin-bottom: 64px;
+    min-height: 335px;
+    position: relative;
+
     &-header {
       flex-wrap: nowrap;
       margin-bottom: 20px;
@@ -29,12 +33,11 @@
         }
       }
     }
-    &-content{
-      padding-bottom: 80px;
-    }
+
     &-carousel{
       padding-bottom: 10px;
     }
+
     &-btn{
       min-width: 150px !important;
       border-radius: 10px;

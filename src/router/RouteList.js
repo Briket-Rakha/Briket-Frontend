@@ -12,7 +12,7 @@ const RouteList = {
       },
       packaging: '/packaging',
     },
-    payment: 'production/payment',
+    payment: '/production/payment',
   },
   login: {
     root: '/login',

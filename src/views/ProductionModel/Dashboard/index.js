@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 // Import views
 import FactoryProduction from './FactoryProduction';
 import CustomizeCarousel from './CustomizeCarousel';
+import OutsourceProduction from './OutsourceProduction';
 
 // Import styling
 import '../../../styles/views/dashboard.scss';
@@ -36,6 +37,8 @@ const Dashboard = () => {
       <Grid item className="dashboard-section-content">
         <FactoryProduction />
       </Grid>
+      <FactoryProduction />
+      <OutsourceProduction />
     </Grid>
   );
 };

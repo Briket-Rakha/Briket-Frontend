@@ -27,6 +27,7 @@ export default function CustomSelect(props) {
     parentValue,
     haveParent,
     size,
+    disabled,
   } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -35,11 +36,10 @@ export default function CustomSelect(props) {
 
   // dropdown data getter
   const getListData = async () => {
-    if (!loading) {
+    if (!loading && getValues) {
       setLoading(true);
       await getValues()
           .then((res) => {
-            console.log(res);
             const { response: { data } } = res;
             setListData(data.data);
             setLoading(false);
@@ -77,6 +77,7 @@ export default function CustomSelect(props) {
         className="custom-select"
         required={required}
         size={size}
+        disabled={disabled}
       >
         <InputLabel id="demo-simple-select-outlined-label">{label}</InputLabel>
         <Select
@@ -118,18 +119,20 @@ export default function CustomSelect(props) {
 
 CustomSelect.defaultProps = {
   parentValue: '',
+  getValues: null,
   label: undefined,
   required: false,
   customSetFunction: false,
   name: '',
   index: 0,
   size: 'medium',
+  disabled: false,
 };
 
 CustomSelect.propTypes = {
   label: PropTypes.any,
   value: PropTypes.any.isRequired,
-  getValues: PropTypes.func.isRequired,
+  getValues: PropTypes.func,
   setValue: PropTypes.func.isRequired,
   required: PropTypes.bool,
   customSetFunction: PropTypes.bool,
@@ -139,4 +142,5 @@ CustomSelect.propTypes = {
   parentValue: PropTypes.any,
   haveParent: PropTypes.bool,
   size: PropTypes.string,
+  disabled: PropTypes.bool,
 };

@@ -45,33 +45,38 @@ const CarouselView = (props) => {
         </Grid>
 
         {enableDropdown &&
-      <Grid item xs={4} className="dashboard-section-header-input">
-        <CustomSelect
-          value={pabrik}
-          label="Pabrik"
-          getValues={apiGetPabrik}
-          setValue={setPabrik}
-          size="small"
-        />
-      </Grid>
+          <Grid item xs={4} className="dashboard-section-header-input">
+            <CustomSelect
+              value={pabrik}
+              label="Pabrik"
+              getValues={apiGetPabrik}
+              setValue={setPabrik}
+              size="small"
+            />
+          </Grid>
         }
       </Grid>
 
-      <Grid item className="dashboard-section-carousel">
-        {enableDropdown ?
-        <CustomCarousel getData={getData} parentID={pabrik}/> :
-        <CustomCarousel getData={getData}/>
-        }
-      </Grid>
-      <Button
-        className="align-end btn dashboard-section-btn"
-        onClick={handleModalTanggal}
+      <Grid
+        item
+        container
+        className="dashboard-section-carousel"
+        direction="column"
       >
+        {enableDropdown ?
+          <CustomCarousel getData={getData} parentID={pabrik}/> :
+          <CustomCarousel getData={getData}/>
+        }
+        <Button
+          className="align-end btn dashboard-section-btn"
+          onClick={handleModalTanggal}
+        >
               DOWNLOAD
-      </Button>
-      <CustomModal open={openTanggal} setOpen={setOpenTanggal}>
-        <PilihTanggal />
-      </CustomModal>
+        </Button>
+        <CustomModal open={openTanggal} setOpen={setOpenTanggal}>
+          <PilihTanggal />
+        </CustomModal>
+      </Grid>
     </Grid>
   );
 };
