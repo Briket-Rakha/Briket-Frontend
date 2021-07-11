@@ -26,7 +26,6 @@ const CustomCarousel = (props) => {
       await ( parentID ? getData(parentID) : getData() )
           .then((res) => {
             const { response: { data } } = res;
-            console.log(data.data);
             setDataCarousel(data.data);
             setLoading(false);
             return (data.data);
@@ -48,7 +47,6 @@ const CustomCarousel = (props) => {
   }, dynamicVal);
 
   const threeItemsRender = [];
-  console.log(dataCarousel);
   if (dataCarousel) {
     for (let i = 0; i < dataCarousel.length; i+=3) {
       threeItemsRender.push(
