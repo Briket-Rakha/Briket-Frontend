@@ -12,7 +12,7 @@ export const getListOfMonths = () => {
       const data = months.map((item, index) => {
         return ({
           name: item,
-          id: index,
+          id: index + 1,
         });
       });
       console.log(data);

@@ -1,5 +1,9 @@
 .dashboard {
   &-section {
+    margin-bottom: 64px;
+    min-height: 335px;
+    position: relative;
+
     &-header {
       flex-wrap: nowrap;
       margin-bottom: 20px;

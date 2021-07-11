@@ -78,11 +78,28 @@ span {
 .MuiAlert-root {
   position: absolute;
   z-index: 2000;
-  margin: 0 15px;
+  margin: 0;
   margin-top: 25px;
-  left: 0;
-  width: calc(100% - 30px);
+  left: 50%;
+  transform: translateX(-50%);
   top: 0;
+  right: 0;
+
+  @media (min-width: 360px) {
+    max-width: 360px;
+  }
+
+  @media (min-width: 600px) {
+    max-width: 600px;
+  }
+
+  @media (min-width: 960px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1280px) {
+    max-width: 1280px;
+  }
 }
 
 .MuiContainer-root {
@@ -160,4 +177,32 @@ span {
 
 .MuiOutlinedInput-adornedEnd {
   padding-right: 8px !important;
+}
+
+.space-1 {
+  height: 8px;
+}
+
+.no-data {
+  font-weight: 500;
+  margin: 24px auto 48px;
+  text-align: center;
+}
+
+.table-head {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+td {
+  img {
+    max-width: 60px;
+  }
+}
+
+.loading-graph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
 }

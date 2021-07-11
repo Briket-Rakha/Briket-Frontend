@@ -1,0 +1,32 @@
+@import '../color';
+@import '../base';
+@import '../variable';
+
+.payment-timeline {
+  &-header {
+    margin-bottom: 30px !important;
+  }
+
+  &-body {
+    margin: 24px 0 !important;
+  }
+}
+
+.outsource-material {
+  &-container {
+    margin: 24px auto !important;
+  }
+
+  &-item {
+    td:nth-child(1) {
+      font-weight: 500;
+    }
+
+    td:nth-child(3) {
+      font-weight: 500;
+      color: $error;
+      font-style: italic;
+    }
+  }
+}
+
