@@ -48,7 +48,6 @@ const PaymentTimeline = () => {
     await apiGetPaymentTimeline(paymentId)
         .then((i) => {
           const { response: { data } } = i;
-          console.log(data);
           setTimeline(data.result);
         })
         .catch((err) => {

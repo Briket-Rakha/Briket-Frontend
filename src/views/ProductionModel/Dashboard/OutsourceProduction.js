@@ -31,7 +31,6 @@ const OutsourceProduction = () => {
     await apiGetOutsourceProduksiGraph(payload)
         .then((i) => {
           const { data } = i;
-          console.log(i);
           setSeries(data.data);
           setTotal(data.total);
           setLoading(false);

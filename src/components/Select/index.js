@@ -40,7 +40,6 @@ export default function CustomSelect(props) {
       setLoading(true);
       await getValues()
           .then((res) => {
-            console.log(res);
             const { response: { data } } = res;
             setListData(data.data);
             setLoading(false);

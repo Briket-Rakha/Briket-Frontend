@@ -19,3 +19,17 @@ export function apiPostInputPackaging(payload) {
         });
   });
 }
+
+export async function apiGetInputPackaging() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiInputPackagingBaseUrl.root}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+          // console.error(err);
+        });
+  });
+}
