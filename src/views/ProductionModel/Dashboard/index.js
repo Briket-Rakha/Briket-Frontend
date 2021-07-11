@@ -12,7 +12,7 @@ import '../../../styles/views/dashboard.scss';
 // Import API
 import { apiGetMaterialDashboard } from '../../../api/material.api';
 import { apiGetInputPackaging } from '../../../api/input-packaging.api';
-// import { apiGetHasilDashboard } from '../../../api/hasil-produksi.api';
+import { apiGetHasilDashboard } from '../../../api/hasil-produksi.api';
 
 const Dashboard = () => {
   return (
@@ -26,13 +26,13 @@ const Dashboard = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Hasil Produksi"
-          getData={apiGetInputPackaging}/>
+          getData={apiGetHasilDashboard}/>
       </Grid>
-      {/* <Grid item className="dashboard-section-content">
+      <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Packaging"
-          getData={apiGetHasilDashboard}/>
-      </Grid> */}
+          getData={apiGetInputPackaging}/>
+      </Grid>
       <Grid item className="dashboard-section-content">
         <FactoryProduction />
       </Grid>

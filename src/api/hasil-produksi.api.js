@@ -25,11 +25,11 @@ export async function apiGetHasilDashboard() {
     axios
         .get(`${apiHasilProduksiBaseUrl.root}/summary`)
         .then((response) => {
+          console.log({ response });
           resolve({ response });
         })
         .catch((err) => {
           reject(err.response);
-          // console.error(err);
         });
   });
 }

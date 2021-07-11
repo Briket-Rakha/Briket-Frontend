@@ -26,6 +26,7 @@ const CustomCarousel = (props) => {
       await ( parentID ? getData(parentID) : getData() )
           .then((res) => {
             const { response: { data } } = res;
+            console.log(data.data);
             setDataCarousel(data.data);
             setLoading(false);
             return (data.data);
