@@ -1,6 +1,6 @@
 // Import Library
 import React, { useState, useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, CircularProgress } from '@material-ui/core';
 import moment from 'moment';
 
 // Import Component
@@ -19,25 +19,30 @@ const FactoryProduction = () => {
   const [month, setMonth] = useState('');
   const [pabrik, setPabrik] = useState('');
   const [series, setSeries] = useState([]);
+  const [total, setTotal] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const fetchGraphHasilProduksi = async () => {
     const payload = {
       pabrik,
-      month,
-      year: (new Date()).getFullYear(),
+      bulan: month,
+      tahun: (new Date()).getFullYear(),
     };
-
+    setLoading(true);
     await apiGetHasilProduksiGraph(payload)
         .then((i) => {
-          const { response: { data } } = i;
+          const { data } = i;
           setSeries(data.data);
+          setTotal(data.total);
+          setLoading(false);
         })
         .catch((err) => {
           setErrorMessage(
               err?.message ||
               'Gagal mengambil data hasil produksi',
           );
+          setLoading(false);
         });
   };
 
@@ -61,7 +66,7 @@ const FactoryProduction = () => {
           direction="column"
         >
           <h3>Grafik Produksi Pabrik</h3>
-          <p>Total: 100.000kg</p>
+          <p>{`Total: ${total || 0} kg`}</p>
         </Grid>
         <Grid container className="dashboard-section-header-input">
           <CustomSelect
@@ -81,12 +86,17 @@ const FactoryProduction = () => {
         </Grid>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomChart
-          series={series}
-          type="bar"
-          ytitle="Jumlah (kg)"
-          xtitle={month && moment.months(month - 1)}
-        />
+        {loading ?
+          <Grid item className="loading-graph">
+            <CircularProgress size={60} thickness={6} />
+          </Grid> :
+          <CustomChart
+            series={series}
+            type="bar"
+            ytitle="Jumlah (kg)"
+            xtitle={month && moment.months(month - 1)}
+          />
+        }
       </Grid>
     </Grid>
   );

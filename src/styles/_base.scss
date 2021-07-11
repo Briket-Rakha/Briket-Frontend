@@ -199,3 +199,10 @@ td {
     max-width: 60px;
   }
 }
+
+.loading-graph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+}

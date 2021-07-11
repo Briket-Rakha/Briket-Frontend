@@ -2,7 +2,6 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import PropTypes from 'prop-types';
-import { dummySeries } from './dummySeries';
 
 const CustomChart = (props) => {
   const { type, height, series, xtitle, ytitle } = props;
@@ -136,7 +135,7 @@ const CustomChart = (props) => {
 
   return (
     <Chart
-      series={series.length ? series : dummySeries }
+      series={series}
       options={options}
       type={type}
       height={height}
