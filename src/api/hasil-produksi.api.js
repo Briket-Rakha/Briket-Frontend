@@ -24,7 +24,7 @@ export function apiPostHasilProduksi(payload) {
 
 export function apiGetHasilProduksiGraph(params) {
   const queries = querystring.stringify(params);
-  console.log(`${apiHasilProduksiBaseUrl}?${queries}`);
+  console.log(`${apiHasilProduksiBaseUrl.graph}?${queries}`);
 
   return new Promise((resolve, reject) => {
     axios.get(`${apiHasilProduksiBaseUrl.graph}?${queries}`)
