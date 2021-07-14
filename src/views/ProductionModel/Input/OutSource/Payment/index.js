@@ -8,6 +8,7 @@ import CustomBreadcrumbs from '../../../../../components/Breadcrumb';
 import CustomSelect from '../../../../../components/Select';
 import CustomRadio from '../../../../../components/RadioSelect';
 import CustomAlert from '../../../../../components/Alert';
+import DatePicker from '../../../../../components/DatePicker';
 
 // Import Styling
 import '../../../../../styles/views/raw-material.scss';
@@ -31,6 +32,7 @@ const Payment = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [date, setDate] = useState(null);
 
   const arraySelection = [
     {
@@ -69,6 +71,7 @@ const Payment = () => {
     setInformation('');
     setPaymentChange('no');
     setCompletePayment('');
+    setDate(null);
   };
 
   // on Submit Input Packaging
@@ -80,6 +83,7 @@ const Payment = () => {
       description: information,
       employee_id: getUser().ID,
       complete_payment: completePayment,
+      date,
     };
 
     if (!loading) {
@@ -165,6 +169,7 @@ const Payment = () => {
             onChange={(event, value)=> setCompletePayment(value)}
           />
         )}
+        <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
           {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
         </Button>
