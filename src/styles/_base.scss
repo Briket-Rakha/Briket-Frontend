@@ -206,3 +206,10 @@ td {
   left: 50%;
   transform: translate(-50%, 100%);
 }
+
+.loading-carousel {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

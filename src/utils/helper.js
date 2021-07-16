@@ -37,7 +37,6 @@ export const purifyUrlString = (url) => {
 };
 
 export const urlStringToImage = (string) => {
-  console.log(purifyUrlString(string));
   return (
     <img
       width="100%"
