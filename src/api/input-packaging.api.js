@@ -20,16 +20,29 @@ export function apiPostInputPackaging(payload) {
   });
 }
 
-export async function apiGetInputPackaging() {
+export async function apiGetInputPackaging(containerNumber) {
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiInputPackagingBaseUrl.root}`)
+        .get(`
+        ${apiInputPackagingBaseUrl.root}?container_number=${containerNumber}`)
         .then((response) => {
           resolve({ response });
         })
         .catch((err) => {
           reject(err.response);
-          // console.error(err);
+        });
+  });
+}
+
+export async function apiGetContainer() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiInputPackagingBaseUrl.root}/container`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
         });
   });
 }

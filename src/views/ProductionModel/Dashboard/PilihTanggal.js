@@ -1,6 +1,7 @@
 // Import Library
 import React, { useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 // Import Component
 import CustomAlert from '../../../components/Alert';
@@ -11,20 +12,22 @@ import '../../../styles/views/pilih-tanggal.scss';
 
 // Import API
 
-const TambahBrand = () => {
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+const PilihTanggal = (props) => {
+  const { downloadName } = props;
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const today = new Date();
+  // Date State
+  const [startDate, setStartDate] = useState(today.toISOString().slice(0, 10));
+  const [endDate, setEndDate] = useState(today.toISOString().slice(0, 10));
+  // download api url
+  const url =
+  `${apiBaseUrl}/excel/${downloadName}?start=${startDate}&end=${endDate}`;
   //   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const handleClickDownload = async (e) => {
-    // TODO: kerjainnn klo download ngapainnn
-    console.log('hleo');
-  };
-
   return (
-    <form className="pilih-tanggal" onSubmit={handleClickDownload}>
+    <form className="pilih-tanggal">
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
@@ -54,10 +57,18 @@ const TambahBrand = () => {
         type="submit"
         className="btn btn-lg download-btn"
       >
-        DOWNLOAD
+        <a href={url}>DOWNLOAD</a>
       </Button>
     </form>
   );
 };
 
-export default TambahBrand;
+PilihTanggal.defaultProps = {
+  downloadName: '',
+};
+
+PilihTanggal.propTypes = {
+  downloadName: PropTypes.string.isRequired,
+};
+
+export default PilihTanggal;

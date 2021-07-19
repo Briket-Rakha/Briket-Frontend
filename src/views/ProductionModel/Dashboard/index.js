@@ -12,8 +12,10 @@ import '../../../styles/views/dashboard.scss';
 
 // Import API
 import { apiGetMaterialDashboard } from '../../../api/material.api';
-import { apiGetInputPackaging } from '../../../api/input-packaging.api';
+import { apiGetInputPackaging,
+  apiGetContainer } from '../../../api/input-packaging.api';
 import { apiGetHasilDashboard } from '../../../api/hasil-produksi.api';
+import { apiGetPabrik } from '../../../api/pabrik.api';
 
 const Dashboard = () => {
   return (
@@ -22,17 +24,26 @@ const Dashboard = () => {
         <CustomizeCarousel
           title="Material"
           getData={apiGetMaterialDashboard}
+          getDataDropdown={apiGetPabrik}
+          carouselName ="material"
+          dropdownLabel="Pabrik"
           enableDropdown/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Hasil Produksi"
+          carouselName ="hasilproduksi"
           getData={apiGetHasilDashboard}/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Packaging"
-          getData={apiGetInputPackaging}/>
+          getData={apiGetInputPackaging}
+          getDataDropdown={apiGetContainer}
+          carouselName ="packaging"
+          dropdownLabel="Container"
+          enableDropdown
+          addition/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <FactoryProduction />
