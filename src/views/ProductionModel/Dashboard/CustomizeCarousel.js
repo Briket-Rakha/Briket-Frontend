@@ -88,6 +88,8 @@ CarouselView.defaultProps = {
   enableDropdown: false,
   carouselName: '',
   addition: false,
+  dropdownLabel: '',
+  getDataDropdown: '',
 };
 
 CarouselView.propTypes = {
