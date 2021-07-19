@@ -11,13 +11,11 @@ import CustomAlert from '../../../components/Alert';
 import CustomModal from '../../../components/Modal';
 import PilihTanggal from './PilihTanggal';
 
-// Import API
-import { apiGetPabrik } from '../../../api/pabrik.api';
-
 
 const CarouselView = (props) => {
-  const { title, enableDropdown, getData } = props;
-  const [pabrik, setPabrik] = useState(1);
+  const { title, enableDropdown, dropdownLabel,
+    getData, getDataDropdown, carouselName, addition } = props;
+  const [dropdownVal, setDropdownVal] = useState(null);
   const [openTanggal, setOpenTanggal] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -47,10 +45,10 @@ const CarouselView = (props) => {
         {enableDropdown &&
           <Grid item xs={4} className="dashboard-section-header-input">
             <CustomSelect
-              value={pabrik}
-              label="Pabrik"
-              getValues={apiGetPabrik}
-              setValue={setPabrik}
+              value={dropdownVal}
+              label={dropdownLabel}
+              getValues={getDataDropdown}
+              setValue={setDropdownVal}
               size="small"
             />
           </Grid>
@@ -64,17 +62,21 @@ const CarouselView = (props) => {
         direction="column"
       >
         {enableDropdown ?
-          <CustomCarousel getData={getData} parentID={pabrik}/> :
+          <CustomCarousel
+            getData={getData}
+            parentID={dropdownVal}
+            haveParent
+            addition={addition}/> :
           <CustomCarousel getData={getData}/>
         }
         <Button
           className="align-end btn dashboard-section-btn"
           onClick={handleModalTanggal}
         >
-              DOWNLOAD
+          DOWNLOAD
         </Button>
         <CustomModal open={openTanggal} setOpen={setOpenTanggal}>
-          <PilihTanggal />
+          <PilihTanggal downloadName={carouselName}/>
         </CustomModal>
       </Grid>
     </Grid>
@@ -84,12 +86,18 @@ const CarouselView = (props) => {
 CarouselView.defaultProps = {
   title: '',
   enableDropdown: false,
+  carouselName: '',
+  addition: false,
 };
 
 CarouselView.propTypes = {
   title: PropTypes.string,
   enableDropdown: PropTypes.bool,
   getData: PropTypes.func.isRequired,
+  getDataDropdown: PropTypes.func,
+  dropdownLabel: PropTypes.string,
+  carouselName: PropTypes.string.isRequired,
+  addition: PropTypes.bool,
 };
 
 export default CarouselView;

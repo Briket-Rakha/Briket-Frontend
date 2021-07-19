@@ -13,17 +13,17 @@ import '../../styles/components/carousel.scss';
 
 // TODO: change dummy data to data from API
 const CustomCarousel = (props) => {
-  const { getData, parentID } = props;
+  const { getData, parentID, haveParent, addition } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [dataCarousel, setDataCarousel] = useState();
+  const [dataCarousel, setDataCarousel] = useState([]);
 
   // carousel data getter
   const getDataCarousel = async () => {
     if (!loading) {
       setLoading(true);
-      await ( parentID ? getData(parentID) : getData() )
+      await ( haveParent ? getData(parentID) : getData() )
           .then((res) => {
             const { response: { data } } = res;
             setDataCarousel(data.data);
@@ -37,13 +37,15 @@ const CustomCarousel = (props) => {
     }
   };
 
-  const dynamicVal = parentID ? [parentID] : [];
+  const dynamicVal = haveParent ? [parentID] : [];
   useEffect(() => {
-    getDataCarousel().then((data) => {
-      if (data) {
-        setDataCarousel(data);
-      }
-    });
+    if (!haveParent || (haveParent && parentID)) {
+      getDataCarousel().then((data) => {
+        if (data) {
+          setDataCarousel(data);
+        }
+      });
+    }
   }, dynamicVal);
 
   const threeItemsRender = [];
@@ -55,20 +57,23 @@ const CustomCarousel = (props) => {
               key={i}
               total={dataCarousel[i].total}
               name={dataCarousel[i].name}
-              asal={parentID ? '' : dataCarousel[i].asal}/>
+              asal={haveParent && !addition? '' : dataCarousel[i].asal}
+              addition={addition ? dataCarousel[i].package_name : ''}/>
             {i+1 < dataCarousel.length &&
                   <CarouselCard
                     key={i+1}
                     total={dataCarousel[i+1].total}
                     name={dataCarousel[i+1].name}
-                    asal={parentID ? '' : dataCarousel[i].asal}/>
+                    asal={haveParent && !addition ? '' : dataCarousel[i].asal}
+                    addition={addition ? dataCarousel[i].package_name : ''}/>
             }
             {i+2 < dataCarousel.length &&
                   <CarouselCard
                     key={i+2}
                     total={dataCarousel[i+2].total}
                     name={dataCarousel[i+2].name}
-                    asal={parentID ? '' : dataCarousel[i].asal}/>
+                    asal={haveParent && !addition ? '' : dataCarousel[i].asal}
+                    addition={addition ? dataCarousel[i].package_name : ''}/>
             }
           </div>,
       );
@@ -90,9 +95,13 @@ const CustomCarousel = (props) => {
           <Grid item className="loading-carousel">
             <CircularProgress size={60} thickness={6} />
           </Grid> :
-          <Carousel>
-            {threeItemsRender}
-          </Carousel>
+          (
+            dataCarousel.length>0?
+            <Carousel>
+              {threeItemsRender}
+            </Carousel> : <p className="no-data">Tidak Ada Data Tersedia</p>
+          )
+
 
       }
     </>
@@ -102,12 +111,16 @@ const CustomCarousel = (props) => {
 CustomCarousel.defaultProps = {
   dataCarousel: [],
   parentID: '',
+  haveParent: false,
+  addition: false,
 };
 
 CustomCarousel.propTypes = {
   dataCarousel: PropTypes.any,
   getData: PropTypes.func.isRequired,
   parentID: PropTypes.any,
+  haveParent: PropTypes.bool,
+  addition: PropTypes.bool,
 };
 
 export default CustomCarousel;

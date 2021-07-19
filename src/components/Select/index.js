@@ -33,7 +33,6 @@ export default function CustomSelect(props) {
   const [errorMessage, setErrorMessage] = useState('');
   // dropdown data
   const [listData, setListData] = useState([]);
-
   // dropdown data getter
   const getListData = async () => {
     if (!loading && getValues) {
@@ -102,7 +101,8 @@ export default function CustomSelect(props) {
           label={label}
         >
           {listData.length>0 && !loading && listData.map((el)=>
-            <MenuItem value={el.id} key={el.id}>{el.name}</MenuItem>,
+            <MenuItem value={el.id?el.id:el.name} key={el.id}>
+              {el.name}</MenuItem>,
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
             Tidak ada data yang tersedia!</p>}
