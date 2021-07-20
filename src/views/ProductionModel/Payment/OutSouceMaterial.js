@@ -31,7 +31,7 @@ const OutSouceMaterial = ({ data }) => {
             <tr>
               <td><li>Brand</li></td>
               <td>:</td>
-              <td>{data.charcoal_brand_id}</td>
+              <td>{data.charcoal_brand_name}</td>
             </tr>
             <tr>
               <td><li>Jumlah (kg)</li></td>
@@ -41,7 +41,7 @@ const OutSouceMaterial = ({ data }) => {
             <tr>
               <td><li>Nama Outsource</li></td>
               <td>:</td>
-              <td>{data.outsource_id}</td>
+              <td>{data.outsource_name}</td>
             </tr>
           </tbody>
         </table>
@@ -53,7 +53,11 @@ const OutSouceMaterial = ({ data }) => {
               <td>Sisa Pembayaran</td>
               <td>:</td>
               <td>
-                {data.payment === 0 ? 'LUNAS' : formatCurrency(data.payment)}
+                {
+                  data.payment === 0 ?
+                    'LUNAS' :
+                    formatCurrency(data.remaining_payment ?? 0)
+                }
               </td>
             </tr>
           </tbody>

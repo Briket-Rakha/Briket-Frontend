@@ -9,6 +9,7 @@ import '../../../../styles/views/packaging.scss';
 import CustomSelect from '../../../../components/Select';
 import CustomBreadcrumbs from '../../../../components/Breadcrumb';
 import CustomAlert from '../../../../components/Alert';
+import DatePicker from '../../../../components/DatePicker';
 
 // Import Routes
 import Routes from '../../../../router/RouteList';
@@ -24,6 +25,7 @@ import { apiPostInputPackaging } from '../../../../api/input-packaging.api';
 const Packaging = () => {
   const [containerNumber, setContainerNumber] = useState('');
   const [brand, setBrand] = useState('');
+  const [date, setDate] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -37,6 +39,7 @@ const Packaging = () => {
     setContainerNumber('');
     setBrand('');
     setInputList([{ package_id: '', amount: '', asal: '', asal_id: '' }]);
+    setDate(null);
   };
 
   // on Submit Input Packaging
@@ -46,6 +49,7 @@ const Packaging = () => {
       container_number: containerNumber,
       charcoal_brand_id: brand,
       items: inputList,
+      date,
     };
 
     if (!loading) {
@@ -147,9 +151,11 @@ const Packaging = () => {
           return (
             <Grid
               container
+              spacing={2}
               className="packaging-jenis"
-              alignItems="center" key={i}>
-              <Grid item xs={3} className="packaging-jenis-item">
+              key={i}
+            >
+              <Grid item xs={4} className="packaging-jenis-item">
                 <CustomSelect
                   name="package_id"
                   label="Jenis Packaging"
@@ -161,7 +167,7 @@ const Packaging = () => {
                   required
                 />
               </Grid>
-              <Grid item xs={3} className="packaging-jenis-item">
+              <Grid item xs={4} className="packaging-jenis-item">
                 <TextField
                   id="jumlah"
                   name="amount"
@@ -177,7 +183,7 @@ const Packaging = () => {
                     handleInputChange(e.target.name, e.target.value, i)}
                 />
               </Grid>
-              <Grid item xs={3} className="packaging-jenis-item">
+              <Grid item xs={4}>
                 <CustomSelect
                   name="asal"
                   label="Jenis Produsen"
@@ -192,7 +198,7 @@ const Packaging = () => {
               </Grid>
               {
                 x.asal !== '' &&
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   <CustomSelect
                     name="asal_id"
                     label="Produsen"
@@ -211,6 +217,7 @@ const Packaging = () => {
             </Grid>
           );
         })}
+        <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Button
           className="align-end btn tambah-item-btn"
           onClick={handleAddClick}

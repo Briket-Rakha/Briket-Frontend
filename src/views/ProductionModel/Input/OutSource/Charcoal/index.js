@@ -25,6 +25,9 @@ import { apiPostCharcoal } from '../../../../../api/charcoal.api';
 // Import utils
 import { getUser } from '../../../../../utils/auth';
 
+// Import Components
+import DatePicker from '../../../../../components/DatePicker';
+
 // For Breadcrumbs
 const componentTree = [
   {
@@ -49,6 +52,7 @@ const Charcoal = () => {
   const [jumlah, setJumlah] = useState('');
   const [penjual, setPenjual] = useState('');
   const [pembayaran, setPembayaran] = useState('');
+  const [date, setDate] = useState(null);
   // const [pj, setPj] = useState('');
 
   const [openBrand, setOpenBrand] = useState(false);
@@ -65,6 +69,7 @@ const Charcoal = () => {
     setCommission('');
     setBrand('');
     setPenjual('');
+    setDate(null);
   };
 
   const postCharcoal = async (e) => {
@@ -77,6 +82,7 @@ const Charcoal = () => {
       commision_price: commission,
       charcoal_brand_id: brand,
       outsource_id: penjual,
+      date,
     };
 
     if (!loading) {
@@ -182,7 +188,7 @@ const Charcoal = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPenjual(true)}
           >
-          Tambah Penjual
+            Tambah Penjual
           </Button>
           {/* <TextField
           id="penanggung-jawab"
@@ -197,6 +203,7 @@ const Charcoal = () => {
           required
           onChange={(e) => setPj(e.target.value)}
         /> */}
+          <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
             {loading ? (
             <CircularProgress size={20} thickness={5} />

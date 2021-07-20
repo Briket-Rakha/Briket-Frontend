@@ -46,7 +46,6 @@ const CustomTable = (props) => {
         <TableBody>
           {content.map((row, index) => (
             <TableRow key={index}>
-              {console.log(row, keys)}
               {toSortedArray(row, keys).map((item, idx) => (
                 <TableCell key={idx} align={alignBody}>
                   {item}

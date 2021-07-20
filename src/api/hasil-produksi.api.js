@@ -24,12 +24,24 @@ export function apiPostHasilProduksi(payload) {
 
 export function apiGetHasilProduksiGraph(params) {
   const queries = querystring.stringify(params);
-  console.log(`${apiHasilProduksiBaseUrl.graph}/?${queries}`);
 
   return new Promise((resolve, reject) => {
     axios.get(`${apiHasilProduksiBaseUrl.graph}?${queries}`)
         .then((res) => {
           resolve(res);
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiGetHasilDashboard() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiHasilProduksiBaseUrl.root}/summary`)
+        .then((response) => {
+          resolve({ response });
         })
         .catch((err) => {
           reject(err.response);

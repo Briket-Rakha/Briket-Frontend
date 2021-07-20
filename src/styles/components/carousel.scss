@@ -1,0 +1,10 @@
+.carousel-wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: -20px;
+
+    .no-data{
+        font-size: 24px;
+        text-align: center;
+    }
+}

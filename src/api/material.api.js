@@ -20,10 +20,23 @@ export function apiPostMaterial(payload) {
   });
 }
 
-export async function apiGetMaterial(id) {
+export async function apiGetMaterial() {
   return new Promise((resolve, reject) => {
     axios
         .get(`${apiMaterialBaseUrl.root}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiGetMaterialDashboard(idPabrik) {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiMaterialBaseUrl.root}/${idPabrik}`)
         .then((response) => {
           resolve({ response });
         })

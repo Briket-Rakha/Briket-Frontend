@@ -78,7 +78,6 @@ export function apiGetOutsourceMaterial(id) {
 
 export function apiGetOutsourceProduksiGraph(params) {
   const queries = querystring.stringify(params);
-  console.log(`${apiSupplierBaseUrl.graph}/?${queries}`);
 
   return new Promise((resolve, reject) => {
     axios.get(`${apiSupplierBaseUrl.graph}?${queries}`)
