@@ -18,6 +18,9 @@ import '../../../../../styles/views/hasil-produksi.scss';
 // Import Routes
 import Routes from '../../../../../router/RouteList';
 
+// Import Utils
+import { getUser } from '../../../../../utils/auth';
+
 // Import API
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
 import { apiGetMaterial } from '../../../../../api/material.api';
@@ -60,6 +63,7 @@ const HasilProduksi = () => {
   const postHasilProduksi = async (e) => {
     e.preventDefault();
     const payload = {
+      employee_id: getUser().ID,
       pabrik_id: pabrik,
       charcoal_brand_id: brand,
       amount: jumlah,
