@@ -45,9 +45,6 @@ const Dashboard = () => {
           enableDropdown
           addition/>
       </Grid>
-      <Grid item className="dashboard-section-content">
-        <FactoryProduction />
-      </Grid>
       <FactoryProduction />
       <OutsourceProduction />
     </Grid>
