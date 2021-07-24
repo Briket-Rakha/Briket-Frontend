@@ -12,14 +12,14 @@ import CustomModal from '../../../../../components/Modal';
 import TambahPabrik from '../../TambahPabrik';
 import TambahBrand from '../../TambahBrand';
 
+// Import Utils
+import { getUser } from '../../../../../utils/auth';
+
 // Import Styling
 import '../../../../../styles/views/hasil-produksi.scss';
 
 // Import Routes
 import Routes from '../../../../../router/RouteList';
-
-// Import Utils
-import { getUser } from '../../../../../utils/auth';
 
 // Import API
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
@@ -68,7 +68,7 @@ const HasilProduksi = () => {
       charcoal_brand_id: brand,
       amount: jumlah,
       date: date?.toISOString().slice(0, 10),
-      materials: inputList,
+      materials: isRaw === 'no' ? [] : inputList,
     };
 
     if (!loading) {

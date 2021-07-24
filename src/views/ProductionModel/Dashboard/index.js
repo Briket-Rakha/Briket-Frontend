@@ -31,7 +31,7 @@ const Dashboard = () => {
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
-          title="Hasil Produksi"
+          title="Hasil Produksi dan Outsource"
           carouselName ="hasilproduksi"
           getData={apiGetHasilDashboard}/>
       </Grid>

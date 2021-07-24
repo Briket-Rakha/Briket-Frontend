@@ -85,11 +85,12 @@ const PaymentTimeline = () => {
         </Grid>
       </Grid>
       <Grid
+        item
         container
         spacing={2}
         className="timeline-payment-input"
       >
-        <Grid item md={6}>
+        <Grid item xs={6}>
           <CustomSelect
             value={month}
             label="Bulan"
@@ -98,7 +99,7 @@ const PaymentTimeline = () => {
             size="medium"
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={6}>
           <CustomSelect
             value={payment}
             label="Transaction"

@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import '../../styles/components/carousel-card.scss';
 
 const CarouselCard = (props) => {
-  const { total, name, asal, addition } = props;
+  const { total, name, asal, addition, infix } = props;
   return (
     <div className="carousel-card">
-      <h1>{total}</h1>
+      <h1>{`${total} ${infix}`}</h1>
       <p>{name}</p>
       <p>{asal}</p>
       <p>{addition}</p>
@@ -23,6 +23,7 @@ CarouselCard.defaultProps = {
   name: '',
   asal: '',
   addition: '',
+  infix: '',
 };
 
 CarouselCard.propTypes = {
@@ -30,6 +31,7 @@ CarouselCard.propTypes = {
   name: PropTypes.string,
   asal: PropTypes.string,
   addition: PropTypes.string,
+  infix: PropTypes.string,
 };
 
 

@@ -55,6 +55,7 @@ const CustomCarousel = (props) => {
           <div className="carousel-wrapper">
             <CarouselCard
               key={i}
+              infix="kg"
               total={dataCarousel[i].total}
               name={dataCarousel[i].name}
               asal={haveParent && !addition? '' : dataCarousel[i].asal}
@@ -62,6 +63,7 @@ const CustomCarousel = (props) => {
             {i+1 < dataCarousel.length &&
                   <CarouselCard
                     key={i+1}
+                    infix="kg"
                     total={dataCarousel[i+1].total}
                     name={dataCarousel[i+1].name}
                     asal={haveParent && !addition ? '' : dataCarousel[i].asal}
@@ -70,6 +72,7 @@ const CustomCarousel = (props) => {
             {i+2 < dataCarousel.length &&
                   <CarouselCard
                     key={i+2}
+                    infix="kg"
                     total={dataCarousel[i+2].total}
                     name={dataCarousel[i+2].name}
                     asal={haveParent && !addition ? '' : dataCarousel[i].asal}

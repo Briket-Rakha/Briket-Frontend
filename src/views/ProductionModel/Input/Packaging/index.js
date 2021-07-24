@@ -11,6 +11,9 @@ import CustomBreadcrumbs from '../../../../components/Breadcrumb';
 import CustomAlert from '../../../../components/Alert';
 import DatePicker from '../../../../components/DatePicker';
 
+// Import Utils
+import { getUser } from '../../../../utils/auth';
+
 // Import Routes
 import Routes from '../../../../router/RouteList';
 
@@ -46,6 +49,7 @@ const Packaging = () => {
   const postInputPackaging = async (e) => {
     e.preventDefault();
     const payload = {
+      employee_id: getUser().ID,
       container_number: containerNumber,
       charcoal_brand_id: brand,
       items: inputList,
@@ -155,7 +159,7 @@ const Packaging = () => {
               className="packaging-jenis"
               key={i}
             >
-              <Grid item xs={4} className="packaging-jenis-item">
+              <Grid item xs={3} className="packaging-jenis-item">
                 <CustomSelect
                   name="package_id"
                   label="Jenis Packaging"
@@ -167,7 +171,7 @@ const Packaging = () => {
                   required
                 />
               </Grid>
-              <Grid item xs={4} className="packaging-jenis-item">
+              <Grid item xs={3} className="packaging-jenis-item">
                 <TextField
                   id="jumlah"
                   name="amount"
@@ -183,7 +187,7 @@ const Packaging = () => {
                     handleInputChange(e.target.name, e.target.value, i)}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <CustomSelect
                   name="asal"
                   label="Jenis Produsen"
@@ -198,7 +202,7 @@ const Packaging = () => {
               </Grid>
               {
                 x.asal !== '' &&
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                   <CustomSelect
                     name="asal_id"
                     label="Produsen"
@@ -217,13 +221,13 @@ const Packaging = () => {
             </Grid>
           );
         })}
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Button
           className="align-end btn tambah-item-btn"
           onClick={handleAddClick}
         >
               Tambah Packaging
         </Button>
+        <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
           {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
         </Button>
