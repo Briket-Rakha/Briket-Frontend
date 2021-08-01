@@ -5,15 +5,18 @@ import PropTypes from 'prop-types';
 
 // Import Component
 import CustomAlert from '../../../components/Alert';
+import CustomSelect from '../../../components/Select';
 
 // Import Styling
 import '../../../styles/views/tambah-pabrik.scss';
 
 // Import API
 import { apiPostMaterial } from '../../../api/material.api';
+import { apiGetPabrik } from '../../../api/pabrik.api';
 
-const TambahMaterial = ({ pabrik }) => {
+const TambahMaterial = ({ pabrik, dropdownPabrik }) => {
   const [name, setName] = useState('');
+  const [idPabrik, setPabrik] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -31,7 +34,7 @@ const TambahMaterial = ({ pabrik }) => {
     if (!loading) {
       setLoading(true);
 
-      await apiPostMaterial({ name, id_pabrik: pabrik })
+      await apiPostMaterial({ name, id_pabrik: dropdownPabrik ? idPabrik : pabrik })
           .then((i) => {
             const { response: { data } } = i;
             setSuccessMessage(data?.message);
@@ -60,6 +63,16 @@ const TambahMaterial = ({ pabrik }) => {
         />
       )}
       <Grid item className="tambah-pabrik-form">
+        {
+          dropdownPabrik &&
+          <CustomSelect
+            label="Pabrik"
+            value={pabrik}
+            getValues={apiGetPabrik}
+            setValue={setPabrik}
+            required
+          />
+        }
         <TextField
           id="name"
           name="name"
@@ -81,8 +94,13 @@ const TambahMaterial = ({ pabrik }) => {
   );
 };
 
+TambahMaterial.defaultProps = {
+  dropdownPabrik: false,
+};
+
 TambahMaterial.propTypes = {
   pabrik: PropTypes.number.isRequired,
+  dropdownPabrik: PropTypes.bool,
 };
 
 export default TambahMaterial;

@@ -12,11 +12,21 @@ import TambahMaterial from '../../../ProductionModel/Input/TambahMaterial';
 import TambahBrand from '../../Input/TambahBrand';
 import TambahPabrik from '../../Input/TambahPabrik';
 import TambahPenjual from '../../Input/TambahPenjual';
+import DeleteConfirmation from '../../Input/deleteConfirmation';
+
+// import api
+import { apiGetMaterial, apiDeleteMaterial } from '../../../../api/material.api';
+import { apiGetPabrik, apiDeletePabrik } from '../../../../api/pabrik.api';
+import { apiGetBrand, apiDeleteBrand } from '../../../../api/brand.api';
+import { apiGetSupplierMaterial, apiDeleteSupplierMaterial,
+  apiGetSupplierOutsource, apiDeleteSupplierOutsource } from '../../../../api/supplier.api';
 
 
 const Manage = () => {
   const [activeMenu, setActiveMenu] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [confirmationModal, setConfirmationModal] = useState(false);
+  const [idItemDelete, setIdItemDelete] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -24,6 +34,11 @@ const Manage = () => {
   const handleChangeMenu = (menu) => {
     setActiveMenu(menu);
     setOpenModal(false);
+  };
+
+  const handleDeleteItem = (id) => {
+    setConfirmationModal(true);
+    setIdItemDelete(id);
   };
 
   return (
@@ -45,13 +60,19 @@ const Manage = () => {
             <>
               <ItemContainer
                 title="Material"
-                deleteItem={() => {}}
-                getItems={() => {}}
+                deleteItem={handleDeleteItem}
+                getItems={apiGetMaterial}
                 setOpenModal={setOpenModal}
                 handleError={setErrorMessage}
               />
               <CustomModal open={openModal} setOpen={setOpenModal}>
-                <TambahMaterial />
+                <TambahMaterial dropdownPabrik={true}/>
+              </CustomModal>
+              <CustomModal open={confirmationModal} setOpen={setConfirmationModal}>
+                <DeleteConfirmation
+                  setOpen={setConfirmationModal}
+                  deleteItem={apiDeleteMaterial}
+                  idItem={idItemDelete}/>
               </CustomModal>
             </>
           )}
@@ -59,13 +80,19 @@ const Manage = () => {
             <>
               <ItemContainer
                 title="Pabrik"
-                deleteItem={() => {}}
-                getItems={() => {}}
+                deleteItem={handleDeleteItem}
+                getItems={apiGetPabrik}
                 setOpenModal={setOpenModal}
                 handleError={setErrorMessage}
               />
               <CustomModal open={openModal} setOpen={setOpenModal}>
                 <TambahPabrik />
+              </CustomModal>
+              <CustomModal open={confirmationModal} setOpen={setConfirmationModal}>
+                <DeleteConfirmation
+                  setOpen={setConfirmationModal}
+                  deleteItem={apiDeletePabrik}
+                  idItem={idItemDelete}/>
               </CustomModal>
             </>
           )}
@@ -73,27 +100,59 @@ const Manage = () => {
             <>
               <ItemContainer
                 title="Brand"
-                deleteItem={() => {}}
-                getItems={() => {}}
+                deleteItem={handleDeleteItem}
+                getItems={apiGetBrand}
                 setOpenModal={setOpenModal}
                 handleError={setErrorMessage}
               />
               <CustomModal open={openModal} setOpen={setOpenModal}>
                 <TambahBrand />
               </CustomModal>
+              <CustomModal open={confirmationModal} setOpen={setConfirmationModal}>
+                <DeleteConfirmation
+                  setOpen={setConfirmationModal}
+                  deleteItem={apiDeleteBrand}
+                  idItem={idItemDelete}/>
+              </CustomModal>
             </>
           )}
           {activeMenu === 3 && (
             <>
               <ItemContainer
-                title="Penjual"
-                deleteItem={() => {}}
-                getItems={() => {}}
+                title="Penjual Material"
+                deleteItem={handleDeleteItem}
+                getItems={apiGetSupplierMaterial}
                 setOpenModal={setOpenModal}
                 handleError={setErrorMessage}
               />
               <CustomModal open={openModal} setOpen={setOpenModal}>
                 <TambahPenjual />
+              </CustomModal>
+              <CustomModal open={confirmationModal} setOpen={setConfirmationModal}>
+                <DeleteConfirmation
+                  setOpen={setConfirmationModal}
+                  deleteItem={apiDeleteSupplierMaterial}
+                  idItem={idItemDelete}/>
+              </CustomModal>
+            </>
+          )}
+          {activeMenu === 4 && (
+            <>
+              <ItemContainer
+                title="Penjual Outsource"
+                deleteItem={handleDeleteItem}
+                getItems={apiGetSupplierOutsource}
+                setOpenModal={setOpenModal}
+                handleError={setErrorMessage}
+              />
+              <CustomModal open={openModal} setOpen={setOpenModal}>
+                <TambahPenjual type="outsource"/>
+              </CustomModal>
+              <CustomModal open={confirmationModal} setOpen={setConfirmationModal}>
+                <DeleteConfirmation
+                  setOpen={setConfirmationModal}
+                  deleteItem={apiDeleteSupplierOutsource}
+                  idItem={idItemDelete}/>
               </CustomModal>
             </>
           )}

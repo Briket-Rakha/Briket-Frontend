@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
+import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -20,10 +21,25 @@ export function apiPostBrand(payload) {
   });
 }
 
-export async function apiGetBrand() {
+export async function apiGetBrand(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiBrandBaseUrl.root}`)
+        .get(`${apiBrandBaseUrl.root}?${queries}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiDeleteBrand(id) {
+  return new Promise((resolve, reject) => {
+    axios
+        .delete(`${apiBrandBaseUrl.root}/${id}`)
         .then((response) => {
           resolve({ response });
         })

@@ -12,62 +12,56 @@ import '../../../../styles/components/item-container.scss';
 const ItemContainer = (props) => {
   const {
     title,
-    // getItems,
+    getItems,
     deleteItem,
     setOpenModal,
-    // handleError,
+    handleError,
   } = props;
   // eslint-disable-next-line no-unused-vars
-  const [items, setItems] = useState([
-    {
-      id: 0,
-      name: 'Rakha',
-    },
-    {
-      id: 1,
-      name: 'Ayyub',
-    },
-    {
-      id: 2,
-      name: 'Gill',
-    },
-    {
-      id: 3,
-      name: 'Tiara',
-    },
-    {
-      id: 4,
-      name: 'Fadhil',
-    },
-  ]);
+  const [items, setItems] = useState([]);
 
-  // Still Dummy
+  // changable data
   const [page, setPage] = useState(1);
-  const [total] = useState(3);
+  const [limit] = useState(10);
+  const [total, setTotal] = useState(0);
 
   const handleChangePage = async (e, page) => {
     setPage(page);
   };
 
-  // const fetchItems = async () => {
-  //   const params = {
-  //     page,
-  //     limit: 10,
-  //   };
+  const fetchItems = async () => {
+    const params = {
+      page,
+      limit: limit,
+    };
 
-  //   await getItems(params)
-  //       .then((i) => {
-  //         const { response: { data } } = i;
-  //         setItems(data);
-  //       })
-  //       .catch((err) => {
-  //         handleError(err);
-  //       });
-  // };
+    await getItems(params)
+        .then((i) => {
+          const { response: { data } } = i;
+          setItems(data.data);
+        })
+        .catch((err) => {
+          handleError(err);
+        });
+  };
+  const initFetchItems = async () => {
+    await getItems()
+        .then((i) => {
+          const { response: { data } } = i;
+          setTotal(Math.ceil(data.data.length/limit));
+        })
+        .catch((err) => {
+          handleError(err);
+        });
+  };
 
-  // useEffect(() => {
-  //   fetchItems();
-  // }, [page]);
+  useEffect(() => {
+    fetchItems();
+  }, [page]);
+
+  useEffect(() => {
+    initFetchItems();
+  }, []);
 
   return (
     <Grid item container className="item-container" direction="column">
