@@ -1,6 +1,7 @@
 const RouteList = {
   production: {
     dashboard: '/',
+    manage: '/manage',
     input: {
       selfProduce: {
         rawMaterial: '/raw-material',

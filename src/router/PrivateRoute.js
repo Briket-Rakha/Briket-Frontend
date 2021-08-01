@@ -12,6 +12,7 @@ import Layout from '../Layout';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = localStorage.getItem('user') || false;
+  console.log(rest);
 
   return (
     <div>
@@ -20,7 +21,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         render={(props) =>
           user ? (
             <Layout>
-              <Container maxWidth="md" fixed>
+              <Container className={rest.path === '/manage' ? 'custom-container' : ''} maxWidth="md" fixed>
                 <Component {...props} />
               </Container>
             </Layout>
