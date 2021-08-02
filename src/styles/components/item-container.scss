@@ -1,0 +1,27 @@
+@import '../color';
+@import '../base';
+
+.item-container {
+  margin-right: 32px !important;
+  transition: all .3s;
+
+  &-title {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: .15px;
+    color: $darkGrey;
+    margin-bottom: 16px !important;
+  }
+
+  &-item {
+    margin-bottom: 8px !important;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, .15);
+    transition: all .3s;
+  }
+
+  &-list {
+    margin-bottom: 24px !important;
+  }
+}
