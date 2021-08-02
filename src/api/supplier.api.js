@@ -11,10 +11,25 @@ const apiSupplierBaseUrl = {
   graph: `${apiBaseUrl}/graph/outsource`,
 };
 
-export async function apiGetSupplierMaterial(idMaterial) {
+export async function apiGetSupplierMaterial(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiSupplierBaseUrl.material}`)
+        .get(`${apiSupplierBaseUrl.material}?${queries}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiDeleteSupplierMaterial(id) {
+  return new Promise((resolve, reject) => {
+    axios
+        .delete(`${apiSupplierBaseUrl.material}/${id}`)
         .then((response) => {
           resolve({ response });
         })
@@ -37,10 +52,25 @@ export function apiPostSupplierMaterial(payload) {
   });
 }
 
-export async function apiGetSupplierOutsource(idMaterial) {
+export async function apiGetSupplierOutsource(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiSupplierBaseUrl.outsource}`)
+        .get(`${apiSupplierBaseUrl.outsource}?${queries}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiDeleteSupplierOutsource(id) {
+  return new Promise((resolve, reject) => {
+    axios
+        .delete(`${apiSupplierBaseUrl.outsource}/${id}`)
         .then((response) => {
           resolve({ response });
         })

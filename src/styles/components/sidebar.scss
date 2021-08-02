@@ -1,0 +1,64 @@
+@import '../color';
+@import '../base';
+
+// for container with sidebar 
+.custom-container {
+  max-width: 100% !important;
+  display: flex !important;
+  padding: 48px !important;
+}
+
+.sidebar {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding: 112px 24px 24px 8px !important;
+  width: 225px !important;
+  transition: all .3s;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .1);
+  display: inline-block;
+
+  & + div {
+    max-width: calc(100vw - 225px) !important;
+    margin-left: 225px;
+    padding: 0 24px;
+  }
+
+  &-menu {
+    color: $darkGrey;
+    font-weight: 300;
+    font-size: 18px;
+    padding: 12px;
+    transition: all .3s;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
+
+    &.active {
+      color: black;
+      font-weight: 500;
+    }
+  }
+
+  &-close {
+    position: absolute !important;
+    right: 8px;
+    top: 72px;
+    // color:  !important;
+  }
+
+  &-button {
+    position: absolute !important;
+    top: 8px;
+    left: 8px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+
+    &-space {
+      width: 100px;
+    }
+  }
+}

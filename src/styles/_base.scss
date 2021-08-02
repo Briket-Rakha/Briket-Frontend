@@ -213,3 +213,33 @@ td {
   align-items: center;
   justify-content: center;
 }
+
+.delete-btn {
+  background-color: $error;
+  color: white;
+  border: 1px solid $error;
+  transition: all .3s;
+  margin-bottom: 0 !important;
+
+  &:hover, &:active {
+    transform: scale(1.05);
+    color: $error;
+    background-color: white;
+  }
+}
+.cancel-btn {
+  background-color: white;
+  color: $darkGrey;
+  border: 1px solid $grey;
+  transition: all .3s;
+  margin-bottom: 0 !important;
+
+  &:hover, &:active {
+    transform: scale(1.05);
+    color: $darkGrey;
+  }
+}
+.MuiPagination-ul {
+  display: flex;
+  justify-content: center;
+}

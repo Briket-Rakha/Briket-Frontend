@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
+import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -20,10 +21,12 @@ export function apiPostMaterial(payload) {
   });
 }
 
-export async function apiGetMaterial() {
+export async function apiGetMaterial(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiMaterialBaseUrl.root}`)
+        .get(`${apiMaterialBaseUrl.root}?${queries}`)
         .then((response) => {
           resolve({ response });
         })
@@ -37,6 +40,18 @@ export async function apiGetMaterialDashboard(idPabrik) {
   return new Promise((resolve, reject) => {
     axios
         .get(`${apiMaterialBaseUrl.root}/${idPabrik}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+export async function apiDeleteMaterial(id) {
+  return new Promise((resolve, reject) => {
+    axios
+        .delete(`${apiMaterialBaseUrl.root}/${id}`)
         .then((response) => {
           resolve({ response });
         })

@@ -148,6 +148,13 @@ const Navbar = (props) => {
             history.push(Routes.production.payment);
           },
         },
+        {
+          id: 3,
+          name: 'MANAGE',
+          onClick: () => {
+            history.push(Routes.production.manage);
+          },
+        },
       ],
     },
     // {
