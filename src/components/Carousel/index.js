@@ -11,7 +11,6 @@ import CustomAlert from '../../components/Alert';
 // Import styling
 import '../../styles/components/carousel.scss';
 
-// TODO: change dummy data to data from API
 const CustomCarousel = (props) => {
   const { getData, parentID, haveParent, addition } = props;
   const [loading, setLoading] = useState(false);
@@ -66,8 +65,8 @@ const CustomCarousel = (props) => {
                     infix="kg"
                     total={dataCarousel[i+1].total}
                     name={dataCarousel[i+1].name}
-                    asal={haveParent && !addition ? '' : dataCarousel[i].asal}
-                    addition={addition ? dataCarousel[i].package_name : ''}/>
+                    asal={haveParent && !addition ? '' : dataCarousel[i+1].asal}
+                    addition={addition ? dataCarousel[i+1].package_name : ''}/>
             }
             {i+2 < dataCarousel.length &&
                   <CarouselCard
@@ -75,8 +74,8 @@ const CustomCarousel = (props) => {
                     infix="kg"
                     total={dataCarousel[i+2].total}
                     name={dataCarousel[i+2].name}
-                    asal={haveParent && !addition ? '' : dataCarousel[i].asal}
-                    addition={addition ? dataCarousel[i].package_name : ''}/>
+                    asal={haveParent && !addition ? '' : dataCarousel[i+2].asal}
+                    addition={addition ? dataCarousel[i+2].package_name : ''}/>
             }
           </div>,
       );
