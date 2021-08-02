@@ -12,7 +12,6 @@ import Layout from '../Layout';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = localStorage.getItem('user') || false;
-  console.log(rest);
 
   return (
     <div>

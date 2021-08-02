@@ -1,5 +1,5 @@
 // Import Modules
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { menu } from './menu';
@@ -11,12 +11,20 @@ import '../../styles/components/sidebar.scss';
 
 const Sidebar = (props) => {
   const { activeMenu, setActiveMenu } = props;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(parseInt(localStorage.getItem('sidebar')) || 0);
+
+  const handleSidebar = () => {
+    setOpen((prev) => prev === 0 ? 1 : 0);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('sidebar', open);
+  }, [open]);
 
   if (open) {
     return (
       <Grid item container className="sidebar" direction="column">
-        <IconButton className="sidebar-close" onClick={() => setOpen((prev) => !prev)}>
+        <IconButton className="sidebar-close" onClick={handleSidebar}>
           <Close />
         </IconButton>
         {menu.map((item, index) => (
@@ -34,7 +42,7 @@ const Sidebar = (props) => {
   } else {
     return (
       <>
-        <IconButton className="sidebar-button" onClick={() => setOpen((prev) => !prev)}>
+        <IconButton className="sidebar-button" onClick={handleSidebar}>
           <Menu />
         </IconButton>
         <div className="sidebar-button-space" />

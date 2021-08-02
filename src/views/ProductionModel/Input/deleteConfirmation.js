@@ -18,10 +18,12 @@ const DeleteConfirmation = (props) => {
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleClickSimpan = async (e) => {
+    e.preventDefault();
     await deleteItem(idItem)
         .then((i) => {
           const { response: { data } } = i;
           setSuccessMessage(data?.message);
+          window.location.reload();
         })
         .catch((err) => {
           setErrorMessage(err?.message ?? 'Server Error');

@@ -67,7 +67,7 @@ const TambahMaterial = ({ pabrik, dropdownPabrik }) => {
           dropdownPabrik &&
           <CustomSelect
             label="Pabrik"
-            value={pabrik}
+            value={idPabrik || pabrik}
             getValues={apiGetPabrik}
             setValue={setPabrik}
             required

@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, CircularProgress } from '@material-ui/core';
 import { Delete, Add } from '@material-ui/icons';
 import { Pagination } from '@material-ui/lab';
 
@@ -17,8 +17,8 @@ const ItemContainer = (props) => {
     setOpenModal,
     handleError,
   } = props;
-  // eslint-disable-next-line no-unused-vars
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // changable data
   const [page, setPage] = useState(1);
@@ -35,33 +35,23 @@ const ItemContainer = (props) => {
       limit: limit,
     };
 
+    setLoading(true);
     await getItems(params)
         .then((i) => {
           const { response: { data } } = i;
           setItems(data.data);
+          setTotal(Math.ceil(data.total/limit));
+          setLoading(false);
         })
         .catch((err) => {
           handleError(err);
-        });
-  };
-  const initFetchItems = async () => {
-    await getItems()
-        .then((i) => {
-          const { response: { data } } = i;
-          setTotal(Math.ceil(data.data.length/limit));
-        })
-        .catch((err) => {
-          handleError(err);
+          setLoading(false);
         });
   };
 
   useEffect(() => {
     fetchItems();
   }, [page]);
-
-  useEffect(() => {
-    initFetchItems();
-  }, []);
 
   return (
     <Grid item container className="item-container" direction="column">
@@ -78,7 +68,13 @@ const ItemContainer = (props) => {
         </Button>
       </Grid>
       <Grid item container className="item-container-list" direction="column">
-        {items.map((item) => (
+        {loading && !items.length && (
+          <Grid container className="loading-container">
+            <CircularProgress size={25} thickness={5} />
+          </Grid>
+        )}
+        {!loading && !items.length && <Grid item container>No Data Available</Grid>}
+        {!loading && items.length && items.map((item) => (
           <Grid
             item
             container

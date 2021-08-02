@@ -23,7 +23,9 @@ import { apiGetSupplierMaterial, apiDeleteSupplierMaterial,
 
 
 const Manage = () => {
-  const [activeMenu, setActiveMenu] = useState(0);
+  const prevActiveMenu = parseInt(localStorage.getItem('manage-active-menu'));
+
+  const [activeMenu, setActiveMenu] = useState( prevActiveMenu || 0);
   const [openModal, setOpenModal] = useState(false);
   const [confirmationModal, setConfirmationModal] = useState(false);
   const [idItemDelete, setIdItemDelete] = useState('');
@@ -33,6 +35,7 @@ const Manage = () => {
 
   const handleChangeMenu = (menu) => {
     setActiveMenu(menu);
+    localStorage.setItem('manage-active-menu', menu);
     setOpenModal(false);
   };
 
