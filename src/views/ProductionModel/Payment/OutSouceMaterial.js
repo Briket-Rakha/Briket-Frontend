@@ -15,12 +15,12 @@ const OutSouceMaterial = ({ data }) => {
             <tr>
               <td>Complete Payment</td>
               <td>:</td>
-              <td>{formatCurrency(data.complete_price)}</td>
+              <td>{formatCurrency(data.timeline[0].complete_price)}</td>
             </tr>
             <tr>
               <td>Harga Commission</td>
               <td>:</td>
-              <td>{formatCurrency(data.commision_price)}</td>
+              <td>{formatCurrency(data.timeline[0].commision_price)}</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -31,17 +31,17 @@ const OutSouceMaterial = ({ data }) => {
             <tr>
               <td><li>Brand</li></td>
               <td>:</td>
-              <td>{data.charcoal_brand_name}</td>
+              <td>{data.timeline[0].charcoal_brand_name}</td>
             </tr>
             <tr>
               <td><li>Jumlah (kg)</li></td>
               <td>:</td>
-              <td>{`${data.amount} kg`}</td>
+              <td>{`${data.timeline[0].amount} kg`}</td>
             </tr>
             <tr>
               <td><li>Nama Outsource</li></td>
               <td>:</td>
-              <td>{data.outsource_name}</td>
+              <td>{data.timeline[0].outsource_name}</td>
             </tr>
           </tbody>
         </table>
@@ -56,7 +56,7 @@ const OutSouceMaterial = ({ data }) => {
                 {
                   data.payment === 0 ?
                     'LUNAS' :
-                    formatCurrency(data.remaining_payment ?? 0)
+                    formatCurrency(data.payment_remaining ?? 0)
                 }
               </td>
             </tr>

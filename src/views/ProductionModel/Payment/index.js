@@ -113,12 +113,11 @@ const PaymentTimeline = () => {
         </Grid>
       </Grid>
       <Grid item container className="payment-timeline-body">
-        {outsource.length ?
-          outsource.map((item, index) => (
-            <Grid item md={12} key={index}>
-              <OutSouceMaterial data={item} />
-            </Grid>
-          )) : (
+        {outsource?.timeline?.length ? (
+          <Grid item md={12}>
+            <OutSouceMaterial data={outsource} />
+          </Grid>
+          ) : (
             <Grid item md={12}>
               <h3 className="no-data">
               Tidak ada data pembayaran outsource material
