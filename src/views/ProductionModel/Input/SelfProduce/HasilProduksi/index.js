@@ -23,7 +23,7 @@ import Routes from '../../../../../router/RouteList';
 
 // Import API
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
-import { apiGetMaterial } from '../../../../../api/material.api';
+import { apiGetMaterialbyPabrik } from '../../../../../api/material.api';
 import { apiGetBrand } from '../../../../../api/brand.api';
 import { apiPostHasilProduksi } from '../../../../../api/hasil-produksi.api';
 
@@ -198,10 +198,12 @@ const HasilProduksi = () => {
                       label={'Material '+(i+1)}
                       value={x.id_material}
                       setValue={handleInputChange}
-                      getValues={apiGetMaterial}
+                      getValues={pabrik ? (() => apiGetMaterialbyPabrik(pabrik)) : null}
+                      parentValue={pabrik}
                       index={i}
                       required
                       customSetFunction
+                      haveParent
                     />
                   </Grid>
                   <Grid

@@ -21,7 +21,7 @@ import Routes from '../../../../../router/RouteList';
 
 // Import API
 import { apiGetPabrik } from '../../../../../api/pabrik.api';
-import { apiGetMaterial } from '../../../../../api/material.api';
+import { apiGetMaterialbyPabrik } from '../../../../../api/material.api';
 import { apiGetSupplierMaterial } from '../../../../../api/supplier.api';
 import { apiPostRawMaterial } from '../../../../../api/raw-material.api';
 
@@ -142,9 +142,11 @@ const RawMaterial = () => {
           <CustomSelect
             label="Material"
             value={material}
-            getValues={apiGetMaterial}
+            getValues={pabrik ? (() => apiGetMaterialbyPabrik(pabrik)) : null}
             setValue={setMaterial}
+            parentValue={pabrik}
             required
+            haveParent
           />
           <Button
             className="align-end btn tambah-item-btn"

@@ -36,6 +36,19 @@ export async function apiGetMaterial(params) {
   });
 }
 
+export async function apiGetMaterialbyPabrik(params) {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiMaterialBaseUrl.root}/pabrik/${params}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
 export async function apiGetMaterialDashboard(idPabrik) {
   return new Promise((resolve, reject) => {
     axios
