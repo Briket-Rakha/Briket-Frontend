@@ -15,6 +15,13 @@ const RouteList = {
     },
     payment: '/production/payment',
   },
+  shippingAndWarehouse: {
+    dashboard: '/shipping-and-warehouse',
+    input: {
+      shipping: '/shipping-input',
+      warehouse: '/warehouse-input',
+    },
+  },
   login: {
     root: '/login',
   },

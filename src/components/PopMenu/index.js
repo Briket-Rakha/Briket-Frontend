@@ -39,13 +39,13 @@ function PopMenu(props) {
         <Paper elevation={2} className="navbar-list-item-sub">
           {items.map((item) => {
             const showChild = childAnchor?.textContent === item.name;
-            if (item.sub) {
+            if (item.sub?.length) {
               return (
                 <Grid
                   className="navbar-list-item-sub-item"
                   item
                   key={item.id}
-                  onClick={handleChild}
+                  onMouseOver={handleChild}
                 >
                   <Grid
                     container
