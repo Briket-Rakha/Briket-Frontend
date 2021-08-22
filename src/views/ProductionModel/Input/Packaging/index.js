@@ -200,24 +200,21 @@ const Packaging = () => {
                   constantValues
                 />
               </Grid>
-              {
-                x.asal !== '' &&
-                <Grid item xs={3}>
-                  <CustomSelect
-                    name="asal_id"
-                    label="Produsen"
-                    value={x.asal_id}
-                    getValues={x.asal=='pabrik'?
-                    apiGetPabrik : apiGetSupplierOutsource}
-                    setValue={handleInputChange}
-                    index={i}
-                    parentValue={x.asal}
-                    customSetFunction
-                    required
-                    haveParent
-                  />
-                </Grid>
-              }
+              <Grid item xs={3}>
+                <CustomSelect
+                  name="asal_id"
+                  label="Produsen"
+                  value={x.asal_id}
+                  getValues={x.asal ? (x.asal=='pabrik'?
+                    apiGetPabrik : apiGetSupplierOutsource) : null}
+                  setValue={handleInputChange}
+                  index={i}
+                  parentValue={x.asal}
+                  customSetFunction
+                  required
+                  haveParent
+                />
+              </Grid>
             </Grid>
           );
         })}
