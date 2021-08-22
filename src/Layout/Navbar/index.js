@@ -46,7 +46,6 @@ const Navbar = (props) => {
   };
 
   const handleOpenPop = (e) => {
-    // setOpenTab(true);
     setAnchorEl(e.currentTarget);
   };
 
@@ -157,118 +156,40 @@ const Navbar = (props) => {
         },
       ],
     },
-    // {
-    //   id: 1,
-    //   name: 'INDONESIAN TRANSPORTATION',
-    //   route: Routes.production.dashboard,
-    //   sub: [
-    //     {
-    //       id: 0,
-    //       name: 'DASHBOARD',
-    //       onClick: () => {
-    //         history.push(Routes.production.dashboard);
-    //       },
-    //     },
-    //     {
-    //       id: 1,
-    //       name: 'INPUT',
-    //       onClick: () => {
-    //         history.push(Routes.production.input);
-    //       },
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'PAYMENT TIMELINE',
-    //       onClick: () => {
-    //         history.push(Routes.production.payment);
-    //       },
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 2,
-    //   name: 'DESTINATION TRANSPORTATION',
-    //   route: Routes.production.dashboard,
-    //   sub: [
-    //     {
-    //       id: 0,
-    //       name: 'DASHBOARD',
-    //       onClick: () => {
-    //         history.push(Routes.production.dashboard);
-    //       },
-    //     },
-    //     {
-    //       id: 1,
-    //       name: 'INPUT',
-    //       onClick: () => {
-    //         history.push(Routes.production.input);
-    //       },
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'PAYMENT TIMELINE',
-    //       onClick: () => {
-    //         history.push(Routes.production.payment);
-    //       },
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 3,
-    //   name: 'OPERATIONAL',
-    //   route: Routes.production.dashboard,
-    //   sub: [
-    //     {
-    //       id: 0,
-    //       name: 'DASHBOARD',
-    //       onClick: () => {
-    //         history.push(Routes.production.dashboard);
-    //       },
-    //     },
-    //     {
-    //       id: 1,
-    //       name: 'INPUT',
-    //       onClick: () => {
-    //         history.push(Routes.production.input);
-    //       },
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'PAYMENT TIMELINE',
-    //       onClick: () => {
-    //         history.push(Routes.production.payment);
-    //       },
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 4,
-    //   name: 'SALES',
-    //   route: Routes.production.dashboard,
-    //   sub: [
-    //     {
-    //       id: 0,
-    //       name: 'DASHBOARD',
-    //       onClick: () => {
-    //         history.push(Routes.production.dashboard);
-    //       },
-    //     },
-    //     {
-    //       id: 1,
-    //       name: 'INPUT',
-    //       onClick: () => {
-    //         history.push(Routes.production.input);
-    //       },
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'PAYMENT TIMELINE',
-    //       onClick: () => {
-    //         history.push(Routes.production.payment);
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      id: 1,
+      name: 'SHIPPING AND WAREHOUSE MODEL',
+      route: Routes.shippingAndWarehouse.dashboard,
+      sub: [
+        {
+          id: 0,
+          name: 'DASHBOARD',
+          onClick: () => {
+            history.push(Routes.shippingAndWarehouse.dashboard);
+          },
+        },
+        {
+          id: 1,
+          name: 'INPUT',
+          sub: [
+            {
+              id: 0,
+              name: 'SHIPPING',
+              onClick: () => {
+                history.push(Routes.shippingAndWarehouse.input.shipping);
+              },
+            },
+            {
+              id: 1,
+              name: 'WAREHOUSE',
+              onClick: () => {
+                history.push(Routes.shippingAndWarehouse.input.warehouse);
+              },
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   return (
@@ -295,7 +216,7 @@ const Navbar = (props) => {
                   <PopMenu
                     tabId={tab.id}
                     anchorEl={anchorEl}
-                    items={tab.sub}
+                    items={tab.name === anchorEl.textContent ? tab.sub : []}
                     handleClose={handleClose}
                     childAnchor={childAnchor}
                     handleChild={handleChild}

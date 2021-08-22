@@ -21,7 +21,10 @@ const Charcoal = lazy(() => import('../views/ProductionModel/Input/OutSource/Cha
 const Payment = lazy(() => import('../views/ProductionModel/Input/OutSource/Payment'));
 const Packaging = lazy(() => import('../views/ProductionModel/Input/Packaging'));
 const PaymentTimeline = lazy(() => import('../views/ProductionModel/Payment'));
-const Manage = lazy(() => import('../views/ProductionModel/Dashboard/Manage/index'));
+const Manage = lazy(() => import('../views/ProductionModel/Dashboard/Manage'));
+const ShippingAndWarehouseDashboard = lazy(() => import('../views/ShippingAndWarehouse'));
+const ShippingInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Shipping'));
+const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Warehouse'));
 
 // Create Browser History
 const browserHistory = createBrowserHistory();
@@ -69,6 +72,21 @@ const MyRouter = () => {
           <PrivateRoute
             path={Routes.production.manage}
             component={Manage}
+            exact
+          />
+          <PrivateRoute
+            path={Routes.shippingAndWarehouse.dashboard}
+            component={ShippingAndWarehouseDashboard}
+            exact
+          />
+          <PrivateRoute
+            path={Routes.shippingAndWarehouse.input.shipping}
+            component={ShippingInput}
+            exact
+          />
+          <PrivateRoute
+            path={Routes.shippingAndWarehouse.input.warehouse}
+            component={WarehouseInput}
             exact
           />
           <Route path={Routes.login.root} component={Login} exact />
