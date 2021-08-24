@@ -1,3 +1,4 @@
+@import '../color';
 @import '../base';
 
 .shipping-warehouse {
@@ -9,6 +10,8 @@
   &-form {
     .tambah-item-btn {
       min-width: 150px !important;
+      height: 100%;
+      margin-bottom: 0 !important;
     }
 
     .simpan-btn {
@@ -19,5 +22,9 @@
     .input-field {
       min-width: 25vw;
     }
+  }
+
+  .payment-btn-container {
+    margin-bottom: 20px !important;
   }
 }

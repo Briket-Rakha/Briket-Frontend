@@ -1,6 +1,7 @@
 // Import Modules
 import React, { useState } from 'react';
 import { Grid, Button, CircularProgress } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Styling
@@ -24,19 +25,52 @@ const componentTree = [
   },
   {
     name: 'Shipping',
-    onClick: Routes.shippingAndWarehouse.input.shipping,
+    onClick: Routes.shipping.input,
   },
 ];
 
 const ShippingInput = () => {
   const [container, setContainer] = useState('');
-  const [paymentType, setPaymentType] = useState('');
-  const [nominal, setNominal] = useState(0);
   const [date, setDate] = useState(null);
+  const [paymentList, setPaymentList] = useState([
+    {
+      paymentType: '',
+      nominal: 0,
+    },
+  ]);
 
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const handleAddPayment = () => {
+    const newPayment = {
+      paymentType: '',
+      nominal: 0,
+    };
+
+    setPaymentList((prev) => [...prev, newPayment]);
+  };
+
+  const handleRemovePayment = () => {
+    setPaymentList((prev) => prev.slice(0, prev.length - 1));
+  };
+
+  const handlePaymentType = (idx, val) => {
+    setPaymentList((prev) => {
+      prev[idx].paymentType = val;
+
+      return prev;
+    });
+  };
+
+  const handleNominal = (idx, val) => {
+    setPaymentList((prev) => {
+      prev[idx].nominal = val;
+
+      return prev;
+    });
+  };
 
   const AddShipping = (e) => {
     e.preventDefault();
@@ -69,27 +103,49 @@ const ShippingInput = () => {
           setValue={setContainer}
           required
         />
-        <Grid item container spacing={2}>
-          <Grid item xs={6}>
-            <CustomSelect
-              label="Jenis Pembayaran"
-              value={paymentType}
-              getValues={false}
-              setValue={setPaymentType}
-              required
-            />
+        {paymentList.map(({ paymentType, nominal }, idx) => (
+          <Grid key={idx} item container spacing={2}>
+            <Grid item xs={6}>
+              <CustomSelect
+                label="Jenis Pembayaran"
+                value={paymentType}
+                getValues={false}
+                setValue={(e) => handlePaymentType(idx, e.target.value)}
+                required
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CurrencyTextField
+                label="Nominal"
+                variant="outlined"
+                value={nominal}
+                currencySymbol="Rp"
+                outputFormat="number"
+                decimalCharacter=","
+                digitGroupSeparator="."
+                onChange={(event, value)=> handleNominal(idx, value)}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <CurrencyTextField
-              label="Nominal"
-              variant="outlined"
-              value={nominal}
-              currencySymbol="Rp"
-              outputFormat="number"
-              decimalCharacter=","
-              digitGroupSeparator="."
-              onChange={(event, value)=> setNominal(value)}
-            />
+        ))}
+        <Grid item container spacing={2} justify="flex-end"className="payment-btn-container">
+          {paymentList.length > 1 && (
+            <Grid item>
+              <Button
+                className="align-end btn delete-btn"
+                onClick={handleRemovePayment}
+              >
+                <Delete fontSize="small" />
+              </Button>
+            </Grid>
+          )}
+          <Grid item>
+            <Button
+              className="align-end btn tambah-item-btn"
+              onClick={handleAddPayment}
+            >
+              Tambah Pembayaran
+            </Button>
           </Grid>
         </Grid>
         <DatePicker label="Tanggal" value={date} setValue={setDate} required />

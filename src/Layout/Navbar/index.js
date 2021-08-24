@@ -158,35 +158,43 @@ const Navbar = (props) => {
     },
     {
       id: 1,
-      name: 'SHIPPING AND WAREHOUSE MODEL',
-      route: Routes.shippingAndWarehouse.dashboard,
+      name: 'SHIPPING MODEL',
+      route: Routes.shipping.dashboard,
       sub: [
         {
           id: 0,
-          name: 'DASHBOARD',
+          name: 'INPUT',
           onClick: () => {
-            history.push(Routes.shippingAndWarehouse.dashboard);
+            history.push(Routes.shipping.input);
           },
         },
         {
           id: 1,
+          name: 'DASHBOARD',
+          onClick: () => {
+            history.push(Routes.shipping.dashboard);
+          },
+        },
+      ],
+    },
+    {
+      id: 1,
+      name: 'TRUCKING MODEL',
+      route: Routes.warehouse.dashboard,
+      sub: [
+        {
+          id: 0,
           name: 'INPUT',
-          sub: [
-            {
-              id: 0,
-              name: 'SHIPPING',
-              onClick: () => {
-                history.push(Routes.shippingAndWarehouse.input.shipping);
-              },
-            },
-            {
-              id: 1,
-              name: 'WAREHOUSE',
-              onClick: () => {
-                history.push(Routes.shippingAndWarehouse.input.warehouse);
-              },
-            },
-          ],
+          onClick: () => {
+            history.push(Routes.warehouse.input);
+          },
+        },
+        {
+          id: 1,
+          name: 'DASHBOARD',
+          onClick: () => {
+            history.push(Routes.warehouse.dashboard);
+          },
         },
       ],
     },
@@ -198,7 +206,7 @@ const Navbar = (props) => {
         <Grid item className="navbar-brand">
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />
         </Grid>
-        <Grid container className="navbar-list">
+        <Grid container className="navbar-list" spacing={4}>
           {tabs.map((tab) => (
             <Grid
               key={tab.id}

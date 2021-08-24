@@ -75,17 +75,22 @@ const MyRouter = () => {
             exact
           />
           <PrivateRoute
-            path={Routes.shippingAndWarehouse.dashboard}
+            path={Routes.shipping.dashboard}
             component={ShippingAndWarehouseDashboard}
             exact
           />
           <PrivateRoute
-            path={Routes.shippingAndWarehouse.input.shipping}
+            path={Routes.warehouse.dashboard}
+            component={ShippingAndWarehouseDashboard}
+            exact
+          />
+          <PrivateRoute
+            path={Routes.shipping.input}
             component={ShippingInput}
             exact
           />
           <PrivateRoute
-            path={Routes.shippingAndWarehouse.input.warehouse}
+            path={Routes.warehouse.input}
             component={WarehouseInput}
             exact
           />
