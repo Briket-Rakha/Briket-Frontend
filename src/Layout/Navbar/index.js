@@ -193,7 +193,7 @@ const Navbar = (props) => {
           id: 1,
           name: 'DASHBOARD',
           onClick: () => {
-            history.push(Routes.warehouse.input);
+            history.push(Routes.warehouse.dashboard);
           },
         },
       ],
@@ -206,7 +206,7 @@ const Navbar = (props) => {
         <Grid item className="navbar-brand">
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />
         </Grid>
-        <Grid container className="navbar-list">
+        <Grid container className="navbar-list" spacing={4}>
           {tabs.map((tab) => (
             <Grid
               key={tab.id}
