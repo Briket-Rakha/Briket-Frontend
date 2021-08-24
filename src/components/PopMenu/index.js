@@ -70,12 +70,12 @@ function PopMenu(props) {
                                 className="navbar-list-item-sub-item"
                                 item
                                 key={child.id}
-                                onClick={handleGChild}
+                                onMouseOver={handleGChild}
                               >
                                 <Grid
                                   container
                                   alignContent="space-between"
-                                  onClick={handleGChild}
+                                  onMouseOver={handleGChild}
                                 >
                                   {child.name}
                                   {showGChild && <ArrowForwardIos />}
