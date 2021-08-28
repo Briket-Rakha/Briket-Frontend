@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // Import Library
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -28,7 +28,8 @@ import PopMenu from '../../components/PopMenu';
 
 const Navbar = (props) => {
   const history = useHistory();
-  const { activeTab } = useSelector((state) => state.tabReducer);
+  const [item, setItem] = useState(history.location.pathname == '/' ? 0 : localStorage.getItem('tab'));
+  console.log(history);
   const [anchorEl, setAnchorEl] = useState(null);
   const [childAnchor, setChildAnchor] = useState(false);
   const [gChildAnchor, setGChildAnchor] = useState(false);
@@ -45,8 +46,11 @@ const Navbar = (props) => {
     history.push(Routes.login.root);
   };
 
-  const handleOpenPop = (e) => {
+  const handleOpenPop = (e, value) => {
     setAnchorEl(e.currentTarget);
+    console.log(value);
+    localStorage.setItem('tab', value);
+    setItem(localStorage.getItem('tab'));
   };
 
   const handleClose = () => {
@@ -202,6 +206,8 @@ const Navbar = (props) => {
 
   return (
     <AppBar position="absolute">
+      {console.log(localStorage.getItem('tab'))}
+      {console.log(item)}
       <Toolbar className="navbar">
         <Grid item className="navbar-brand">
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />
@@ -212,11 +218,11 @@ const Navbar = (props) => {
               key={tab.id}
               item
               className={
-                activeTab === tab.id ?
+                tab.id == item ?
                   'navbar-list-item active-tab' :
                   'navbar-list-item'
               }
-              onClick={handleOpenPop}
+              onClick={(e) => handleOpenPop(e, tab.id)}
             >
               {tab.name}
               {Boolean(anchorEl) && (
