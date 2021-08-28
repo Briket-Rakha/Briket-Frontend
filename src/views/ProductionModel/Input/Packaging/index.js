@@ -1,6 +1,7 @@
 // Import Library
 import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
+import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
 // Import Styling
 import '../../../../styles/views/packaging.scss';
@@ -35,6 +36,10 @@ const Packaging = () => {
   // Jenis dan Jumlah Packaging
   const [inputList, setInputList] = useState([
     { package_id: '', amount: '', asal: '', asal_id: '' },
+  ]);
+  // Pricing
+  const [priceList, setPriceList] = useState([
+    { asal_id: '', harga: 0, harga_total: 0 },
   ]);
 
   // Reset State when submitted
@@ -78,6 +83,31 @@ const Packaging = () => {
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
+
+    if (name === 'asal_id') {
+      const list = [...priceList];
+      list[index][name] = value;
+      setPriceList(list);
+    }
+    if (name === 'amount') {
+      setHargaTotal(index);
+    }
+  };
+
+  // handle price change
+  const handlePriceChange = (value, index) => {
+    setPriceList((prev) => {
+      prev[index].harga = value;
+
+      return prev;
+    });
+    // setHargaTotal(index);
+  };
+
+  const setHargaTotal = (index) => {
+    const list = [...priceList];
+    list[index].harga_total = priceList[index].harga * inputList[index].amount;
+    setPriceList(list);
   };
 
   // handle click event of the Add button
@@ -224,6 +254,37 @@ const Packaging = () => {
         >
               Tambah Packaging
         </Button>
+        {priceList.map((x, i) => {
+          return (
+            <Grid
+              container
+              spacing={2}
+              className="packaging-jenis"
+              key={i}
+            >
+              <Grid item xs={4}>
+                {x.asal_id}
+              </Grid>
+              <Grid item xs={4}>
+                <CurrencyTextField
+                  label="Harga Per kg"
+                  variant="outlined"
+                  required
+                  value={x.harga}
+                  currencySymbol="Rp"
+                  outputFormat="number"
+                  decimalCharacter=","
+                  digitGroupSeparator="."
+                  onChange={(e) =>
+                    handlePriceChange(e.target.value, i)}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                {x.harga_total}
+              </Grid>
+            </Grid>
+          );
+        })}
         <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
           {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}

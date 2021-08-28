@@ -22,7 +22,8 @@ const Payment = lazy(() => import('../views/ProductionModel/Input/OutSource/Paym
 const Packaging = lazy(() => import('../views/ProductionModel/Input/Packaging'));
 const PaymentTimeline = lazy(() => import('../views/ProductionModel/Payment'));
 const Manage = lazy(() => import('../views/ProductionModel/Dashboard/Manage'));
-const ShippingAndWarehouseDashboard = lazy(() => import('../views/ShippingAndWarehouse'));
+const ShippingDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dashboard/DashboardShipping'));
+const WarehouseDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dashboard/DashboardWarehouse'));
 const ShippingInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Shipping'));
 const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Warehouse'));
 
@@ -76,12 +77,12 @@ const MyRouter = () => {
           />
           <PrivateRoute
             path={Routes.shipping.dashboard}
-            component={ShippingAndWarehouseDashboard}
+            component={ShippingDashboard}
             exact
           />
           <PrivateRoute
             path={Routes.warehouse.dashboard}
-            component={ShippingAndWarehouseDashboard}
+            component={WarehouseDashboard}
             exact
           />
           <PrivateRoute
