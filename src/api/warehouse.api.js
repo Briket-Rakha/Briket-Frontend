@@ -1,16 +1,19 @@
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
+import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const apiInputPackagingBaseUrl = {
-  root: `${apiBaseUrl}/input-packaging`,
+const apiWarehouseBaseUrl = {
+  root: `${apiBaseUrl}/warehouse`,
 };
 
-export function apiPostInputPackaging(payload) {
+export async function apiGetWarehouse(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
-        .post(apiInputPackagingBaseUrl.root, payload)
+        .get(`${apiWarehouseBaseUrl.root}?${queries}`)
         .then((response) => {
           resolve({ response });
         })
@@ -20,11 +23,10 @@ export function apiPostInputPackaging(payload) {
   });
 }
 
-export async function apiGetInputPackaging(containerNumber) {
+export async function apiDeleteWarehouse(id) {
   return new Promise((resolve, reject) => {
     axios
-        .get(`
-        ${apiInputPackagingBaseUrl.root}?container_number=${containerNumber}`)
+        .delete(`${apiWarehouseBaseUrl.root}/${id}`)
         .then((response) => {
           resolve({ response });
         })
@@ -34,10 +36,10 @@ export async function apiGetInputPackaging(containerNumber) {
   });
 }
 
-export async function apiGetContainer() {
+export function apiPostWarehouse(payload) {
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiInputPackagingBaseUrl.root}/container`)
+        .post(apiWarehouseBaseUrl.root, payload)
         .then((response) => {
           resolve({ response });
         })
@@ -46,4 +48,3 @@ export async function apiGetContainer() {
         });
   });
 }
-

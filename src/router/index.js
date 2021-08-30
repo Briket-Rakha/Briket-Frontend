@@ -25,7 +25,7 @@ const Manage = lazy(() => import('../views/ProductionModel/Dashboard/Manage'));
 const ShippingDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dashboard/DashboardShipping'));
 const WarehouseDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dashboard/DashboardWarehouse'));
 const ShippingInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Shipping'));
-const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Warehouse'));
+const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Trucking'));
 
 // Create Browser History
 const browserHistory = createBrowserHistory();

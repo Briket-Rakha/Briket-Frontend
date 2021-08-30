@@ -100,8 +100,8 @@ export default function CustomSelect(props) {
             ((e) => setValue(e.target.value))}
           label={label}
         >
-          {listData.length>0 && !loading && listData.map((el)=>
-            <MenuItem value={el.id ? el.id : el.name} key={el.id}>
+          {listData.length>0 && !loading && listData.map((el, idx)=>
+            <MenuItem value={el.id ? el.id : el.name} key={idx}>
               {el.name}</MenuItem>,
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
