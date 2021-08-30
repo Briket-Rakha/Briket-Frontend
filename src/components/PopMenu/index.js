@@ -37,15 +37,16 @@ function PopMenu(props) {
     <ClickAwayListener onClickAway={handleClose}>
       <Popper id={id} open={open} anchorEl={anchorEl} placement="bottom">
         <Paper elevation={2} className="navbar-list-item-sub">
-          {items.map((item) => {
+          {items.map((item, idx) => {
             const showChild = childAnchor?.textContent === item.name;
             if (item.sub?.length) {
               return (
                 <Grid
                   className="navbar-list-item-sub-item"
                   item
-                  key={item.id}
-                  onMouseOver={handleChild}
+                  id={`child-${idx}`}
+                  key={idx}
+                  onMouseEnter={handleChild}
                 >
                   <Grid
                     container
@@ -56,7 +57,6 @@ function PopMenu(props) {
                   </Grid>
                   {showChild && (
                     <Popper
-                      id={`child-${id}`}
                       open={Boolean(childAnchor)}
                       anchorEl={childAnchor}
                       placement="right-start"
@@ -70,12 +70,12 @@ function PopMenu(props) {
                                 className="navbar-list-item-sub-item"
                                 item
                                 key={child.id}
-                                onMouseOver={handleGChild}
+                                id={`child-item-${id}`}
+                                onMouseEnter={handleGChild}
                               >
                                 <Grid
                                   container
                                   alignContent="space-between"
-                                  onMouseOver={handleGChild}
                                 >
                                   {child.name}
                                   {showGChild && <ArrowForwardIos />}
@@ -96,6 +96,7 @@ function PopMenu(props) {
                                           className="navbar-list-item-sub-item"
                                           item
                                           key={gchild.id}
+                                          id={`grandchild-item-${id}`}
                                           onClick={() =>
                                             handleRoute(
                                                 gchild.onClick,
@@ -121,6 +122,7 @@ function PopMenu(props) {
                                 className="navbar-list-item-sub-item"
                                 item
                                 key={child.id}
+                                onMouseEnter={handleGChild}
                                 onClick={() =>
                                   handleRoute(child.onClick)
                                 }
@@ -142,6 +144,7 @@ function PopMenu(props) {
                 <Grid
                   className="navbar-list-item-sub-item"
                   item
+                  onMouseEnter={handleChild}
                   key={item.id}
                   onClick={() => handleRoute(item.onClick)}
                 >

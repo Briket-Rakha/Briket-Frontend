@@ -113,13 +113,14 @@ const ItemContainer = (props) => {
 ItemContainer.defaultProps = {
   setOpenModal: () => {},
   handleError: () => {},
+  addItems: () => {},
 };
 
 ItemContainer.propTypes = {
   title: PropTypes.string.isRequired,
   getItems: PropTypes.func.isRequired,
   deleteItem: PropTypes.func.isRequired,
-  addItems: PropTypes.func.isRequired,
+  addItems: PropTypes.func,
   setOpenModal: PropTypes.func,
   handleError: PropTypes.func,
 };
