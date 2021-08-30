@@ -8,6 +8,9 @@ import CustomAlert from '../../../components/Alert';
 // Import Styling
 import '../../../styles/views/tambah-pabrik.scss';
 
+// Import API
+import { apiPostWarehouse } from '../../../api/warehouse.api';
+
 const TambahWarehouse = () => {
   const [inputState, setInputState] = useState({
     name: '',
@@ -44,24 +47,24 @@ const TambahWarehouse = () => {
     if (!loading) {
       setLoading(true);
 
-      // const payload = {
-      //   name,
-      //   address,
-      //   city,
-      //   zipcode,
-      //   phone,
-      // };
-      // await apiPostPabrik(payload)
-      //     .then((i) => {
-      //       const { response: { data } } = i;
-      //       setSuccessMessage(data?.message);
-      //       setLoading(false);
-      //       window.location.reload(true);
-      //     })
-      //     .catch((err) => {
-      //       setErrorMessage(err?.message ? err.message : 'Server Error');
-      //       setLoading(false);
-      //     });
+      const payload = {
+        name,
+        address,
+        city,
+        zipcode,
+        phone,
+      };
+      await apiPostWarehouse(payload)
+          .then((i) => {
+            const { response: { data } } = i;
+            setSuccessMessage(data?.message);
+            setLoading(false);
+            window.location.reload(true);
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
 
       resetInput();
     }

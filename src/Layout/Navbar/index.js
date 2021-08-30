@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // Import Library
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -26,10 +26,9 @@ import Routes from '../../router/RouteList';
 // Import Component
 import PopMenu from '../../components/PopMenu';
 
-const Navbar = (props) => {
+const Navbar = () => {
   const history = useHistory();
-  const [item, setItem] = useState(history.location.pathname == '/' ? 0 : localStorage.getItem('tab'));
-  console.log(history);
+  const { activeTab } = useSelector((state) => state.tabReducer);
   const [anchorEl, setAnchorEl] = useState(null);
   const [childAnchor, setChildAnchor] = useState(false);
   const [gChildAnchor, setGChildAnchor] = useState(false);
@@ -46,11 +45,8 @@ const Navbar = (props) => {
     history.push(Routes.login.root);
   };
 
-  const handleOpenPop = (e, value) => {
+  const handleOpenPop = (e) => {
     setAnchorEl(e.currentTarget);
-    console.log(value);
-    localStorage.setItem('tab', value);
-    setItem(localStorage.getItem('tab'));
   };
 
   const handleClose = () => {
@@ -60,12 +56,18 @@ const Navbar = (props) => {
   };
 
   const handleChild = (e) => {
+    setGChildAnchor(false);
     setChildAnchor(e.currentTarget);
   };
 
   const handleGChild = (e) => {
     // setChildAnchor(e.currentTarget.parentNode);
     setGChildAnchor(e.currentTarget);
+  };
+
+  const leavePopper = () => {
+    setChildAnchor(false);
+    setGChildAnchor(false);
   };
 
   const tabs = [
@@ -206,8 +208,6 @@ const Navbar = (props) => {
 
   return (
     <AppBar position="absolute">
-      {console.log(localStorage.getItem('tab'))}
-      {console.log(item)}
       <Toolbar className="navbar">
         <Grid item className="navbar-brand">
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />
@@ -218,25 +218,27 @@ const Navbar = (props) => {
               key={tab.id}
               item
               className={
-                tab.id == item ?
+                activeTab === tab.id ?
                   'navbar-list-item active-tab' :
                   'navbar-list-item'
               }
-              onClick={(e) => handleOpenPop(e, tab.id)}
+              onClick={handleOpenPop}
             >
               {tab.name}
               {Boolean(anchorEl) && (
                 <ClickAwayListener onClickAway={handleClose}>
-                  <PopMenu
-                    tabId={tab.id}
-                    anchorEl={anchorEl}
-                    items={tab.name === anchorEl.textContent ? tab.sub : []}
-                    handleClose={handleClose}
-                    childAnchor={childAnchor}
-                    handleChild={handleChild}
-                    gChildAnchor={gChildAnchor}
-                    handleGChild={handleGChild}
-                  />
+                  <Grid item container onMouseLeave={leavePopper}>
+                    <PopMenu
+                      tabId={tab.id}
+                      anchorEl={anchorEl}
+                      items={tab.name === anchorEl.textContent ? tab.sub : []}
+                      handleClose={handleClose}
+                      childAnchor={childAnchor}
+                      handleChild={handleChild}
+                      gChildAnchor={gChildAnchor}
+                      handleGChild={handleGChild}
+                    />
+                  </Grid>
                 </ClickAwayListener>
               )}
             </Grid>

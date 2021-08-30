@@ -16,15 +16,20 @@ import CustomBreadcrumbs from '../../../../components/Breadcrumb';
 import CustomSelect from '../../../../components/Select';
 import DatePicker from '../../../../components/DatePicker';
 
+// Import API
+import { apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiPostShipping } from '../../../../api/shipping.api';
+import { apiGetPaymentType } from '../../../../api/payment.api';
+
+// Import Utils
+import { getUser } from '../../../../utils/auth';
+
 const componentTree = [
   {
-    name: 'Shipping and Warehouse Model',
+    name: 'Shipping Model',
   },
   {
     name: 'Input',
-  },
-  {
-    name: 'Shipping',
     onClick: Routes.shipping.input,
   },
 ];
@@ -56,29 +61,50 @@ const ShippingInput = () => {
     setPaymentList((prev) => prev.slice(0, prev.length - 1));
   };
 
-  const handlePaymentType = (idx, val) => {
+  const handlePaymentChange = (name, val, idx) => {
     setPaymentList((prev) => {
-      prev[idx].paymentType = val;
+      const newPaymentList = [...prev];
+      newPaymentList[idx][name] = val;
 
-      return prev;
+      return newPaymentList;
     });
   };
 
-  const handleNominal = (idx, val) => {
-    setPaymentList((prev) => {
-      prev[idx].nominal = val;
-
-      return prev;
+  const resetState = () => {
+    setContainer('');
+    setPaymentList({
+      paymentType: '',
+      nominal: 0,
     });
+    setDate('');
   };
 
-  const AddShipping = (e) => {
+  const AddShipping = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      console.log('Add Shipping');
-      setLoading(false);
-    }, 3000);
+
+    if (!loading) {
+      setLoading(true);
+
+      const payload = {
+        container_number: container,
+        employee_id: getUser().ID,
+        date,
+        items: paymentList,
+      };
+
+      await apiPostShipping(payload)
+          .then((i) => {
+            const { response: { data } } = i;
+            setSuccessMessage(data?.message);
+            setLoading(false);
+            resetState();
+            window.scrollTo(0, 0);
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ?? 'Server Error');
+            setLoading(false);
+          });
+    }
   };
 
   return (
@@ -99,7 +125,7 @@ const ShippingInput = () => {
         <CustomSelect
           label="No. Container"
           value={container}
-          getValues={false}
+          getValues={apiGetContainer}
           setValue={setContainer}
           required
         />
@@ -107,10 +133,13 @@ const ShippingInput = () => {
           <Grid key={idx} item container spacing={2}>
             <Grid item xs={6}>
               <CustomSelect
+                name="paymentType"
                 label="Jenis Pembayaran"
                 value={paymentType}
-                getValues={false}
-                setValue={(e) => handlePaymentType(idx, e.target.value)}
+                getValues={() => apiGetPaymentType('shipping')}
+                index={idx}
+                setValue={handlePaymentChange}
+                customSetFunction
                 required
               />
             </Grid>
@@ -119,11 +148,12 @@ const ShippingInput = () => {
                 label="Nominal"
                 variant="outlined"
                 value={nominal}
+                name="nominal"
                 currencySymbol="Rp"
                 outputFormat="number"
                 decimalCharacter=","
                 digitGroupSeparator="."
-                onChange={(event, value)=> handleNominal(idx, value)}
+                onChange={(e, value)=> handlePaymentChange(e.target.name, value, idx)}
               />
             </Grid>
           </Grid>

@@ -38,9 +38,13 @@ function DatePicker(props) {
   );
 }
 
+DatePicker.defaultProps = {
+  value: null,
+};
+
 DatePicker.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.instanceOf(Date).isRequired,
+  value: PropTypes.instanceOf(Date),
   setValue: PropTypes.func.isRequired,
   required: PropTypes.bool,
 };
