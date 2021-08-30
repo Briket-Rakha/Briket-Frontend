@@ -43,12 +43,9 @@ const TambahWarehouse = () => {
   };
 
   const handleClickSimpan = async (e) => {
-    console.log('TEST1');
-
     e.preventDefault();
     if (!loading) {
       setLoading(true);
-      console.log('TEST');
 
       const payload = {
         name,
