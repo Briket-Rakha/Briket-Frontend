@@ -1,5 +1,5 @@
 // Import Library
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 
 // Import views
@@ -9,20 +9,23 @@ import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarou
 import '../../../../styles/views/dashboard.scss';
 
 // Import API
-import { apiGetInputPackaging,
-  apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiGetWarehouse } from '../../../../api/warehouse.api';
+import { apiGetTrucking } from '../../../../api/trucking.api';
 
 const DashboardWarehoue = () => {
+  const [warehouse, setWarehouse] = useState('');
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title=""
-          getData={apiGetInputPackaging}
-          getDataDropdown={apiGetContainer}
+          getData={apiGetTrucking}
+          getDataDropdown={apiGetWarehouse}
           carouselName ="packaging"
-          dropdownLabel="Container"
+          dropdownLabel="Warehouse"
           enableDropdown
+          dropdownVal={warehouse}
+          setDropdownVal={setWarehouse}
           addition/>
       </Grid>
     </Grid>

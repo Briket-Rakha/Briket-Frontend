@@ -20,3 +20,16 @@ export function apiPostTrucking(payload) {
   });
 }
 
+export function apiGetTrucking(warehouseID) {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiTruckingBaseUrl.root}?warehouse_id=${warehouseID}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+

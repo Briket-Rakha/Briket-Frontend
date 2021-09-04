@@ -1,5 +1,5 @@
 // Import Library
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
 // Import views
@@ -12,21 +12,46 @@ import '../../../../styles/views/dashboard.scss';
 import { formatCurrency } from '../../../../utils/helper';
 
 // Import API
+import { apiGetShipping } from '../../../../api/shipping.api';
+
 import { apiGetInputPackaging,
   apiGetContainer } from '../../../../api/input-packaging.api';
 
 const DashboardShipping = () => {
-  // const [totalWeight, setTotalWeight] = useState('');
-  // const [charcoalPrice, setCharcoalPrice] = useState('');
+  const [totalWeight, setTotalWeight] = useState('');
+  const [containerWorth] = useState('blom diintegrasi');
+  const [charcoalPrice, setCharcoalPrice] = useState('');
+  const [container, setContainer] = useState('');
+  const [tipePembayaran, setTipePembayaran] = useState([]);
 
-  const [totalWeight] = useState('X');
-  const [charcoalPrice] = useState('X');
+  const payload = {
+    container_number: container,
+  };
 
-  const [tipePembayaran] = useState([
-    { id: 0, name: 'Pembayaran A', price: 'X' },
-    { id: 1, name: 'Pembayaran B', price: 'X' },
-    { id: 2, name: 'Pembayaran C', price: 'X' },
-  ]);
+  const getShippingData = async () => {
+    await apiGetShipping(payload)
+        .then((res) => {
+          const { response: { data } } = res;
+          setTotalWeight(data.result.total_weight);
+          setCharcoalPrice(data.result.charcoal_price);
+          setTipePembayaran(data.result.shipping_price);
+          return (data.result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  };
+
+  useEffect(() => {
+    console.log('halo');
+    getShippingData().then((data) => {
+      if (data) {
+        setTotalWeight(data.result.total_weight);
+        setCharcoalPrice(data.result.charcoal_price);
+        setTipePembayaran(data.result.shipping_price);
+      }
+    });
+  }, [container]);
 
   return (
     <Grid container className="dashboard" direction="column">
@@ -38,6 +63,8 @@ const DashboardShipping = () => {
           carouselName ="packaging"
           dropdownLabel="Container"
           enableDropdown
+          dropdownVal={container}
+          setDropdownVal={setContainer}
           addition/>
       </Grid>
       <Grid item className="dashboard-section-content">
@@ -54,6 +81,11 @@ const DashboardShipping = () => {
               <td>Total Weight</td>
               <td>:</td>
               <td>{totalWeight}</td>
+            </tr>
+            <tr>
+              <td>Container Worth</td>
+              <td>:</td>
+              <td>{containerWorth}</td>
             </tr>
             <tr>
               <td>Charcoal Price</td>
@@ -76,11 +108,11 @@ const DashboardShipping = () => {
         </Grid>
         <table className="dashboard-section-content-table">
           <tbody>
-            {tipePembayaran.map(({ id, name, price }) => (
-              <tr key={id}>
-                <td>{name}</td>
+            {tipePembayaran.map((el, idx) => (
+              <tr key={el.idx}>
+                <td>{el.nama_pembayaran}</td>
                 <td>:</td>
-                <td>{formatCurrency(price)}</td>
+                <td>{formatCurrency(el.harga)}</td>
               </tr>
             ))}
             <tr>

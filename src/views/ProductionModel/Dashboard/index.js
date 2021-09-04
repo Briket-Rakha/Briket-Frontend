@@ -1,5 +1,5 @@
 // Import Library
-import React from 'react';
+import { React, useState } from 'react';
 import { Grid } from '@material-ui/core';
 
 // Import views
@@ -18,6 +18,9 @@ import { apiGetHasilDashboard } from '../../../api/hasil-produksi.api';
 import { apiGetPabrik } from '../../../api/pabrik.api';
 
 const Dashboard = () => {
+  const [pabrik, setPabrik] = useState('');
+  const [container, setContainer] = useState('');
+
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
@@ -27,6 +30,8 @@ const Dashboard = () => {
           getDataDropdown={apiGetPabrik}
           carouselName ="material"
           dropdownLabel="Pabrik"
+          dropdownVal={pabrik}
+          setDropdownVal={setPabrik}
           enableDropdown/>
       </Grid>
       <Grid item className="dashboard-section-content">
@@ -43,6 +48,8 @@ const Dashboard = () => {
           carouselName ="packaging"
           dropdownLabel="Container"
           enableDropdown
+          dropdownVal={container}
+          setDropdownVal={setContainer}
           addition/>
       </Grid>
       <FactoryProduction />

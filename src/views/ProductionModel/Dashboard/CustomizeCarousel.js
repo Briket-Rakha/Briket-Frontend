@@ -14,8 +14,8 @@ import PilihTanggal from './PilihTanggal';
 
 const CarouselView = (props) => {
   const { title, enableDropdown, dropdownLabel,
-    getData, getDataDropdown, carouselName, addition } = props;
-  const [dropdownVal, setDropdownVal] = useState(null);
+    getData, getDataDropdown, carouselName, addition,
+    dropdownVal, setDropdownVal } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -90,6 +90,7 @@ CarouselView.defaultProps = {
   addition: false,
   dropdownLabel: '',
   getDataDropdown: () => {},
+  setDropdownVal: () => {},
 };
 
 CarouselView.propTypes = {
@@ -100,6 +101,8 @@ CarouselView.propTypes = {
   dropdownLabel: PropTypes.string,
   carouselName: PropTypes.string.isRequired,
   addition: PropTypes.bool,
+  dropdownVal: PropTypes.any,
+  setDropdownVal: PropTypes.func,
 };
 
 export default CarouselView;
