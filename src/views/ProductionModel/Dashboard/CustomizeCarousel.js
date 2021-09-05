@@ -14,8 +14,8 @@ import PilihTanggal from './PilihTanggal';
 
 const CarouselView = (props) => {
   const { title, enableDropdown, dropdownLabel,
-    getData, getDataDropdown, carouselName, addition,
-    dropdownVal, setDropdownVal } = props;
+    getData, getDataDropdown, carouselName,
+    dropdownVal, setDropdownVal, getDataNonFunc } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -66,8 +66,9 @@ const CarouselView = (props) => {
             getData={getData}
             parentID={dropdownVal}
             haveParent
-            addition={addition}/> :
-          <CustomCarousel getData={getData}/>
+            carouselName={carouselName}
+            getDataNonFunc={getDataNonFunc}/> :
+          <CustomCarousel getData={getData} getDataNonFunc={getDataNonFunc} carouselName={carouselName}/>
         }
         <Button
           className="align-end btn dashboard-section-btn"
@@ -87,8 +88,8 @@ CarouselView.defaultProps = {
   title: '',
   enableDropdown: false,
   carouselName: '',
-  addition: false,
   dropdownLabel: '',
+  getDataNonFunc: false,
   getDataDropdown: () => {},
   setDropdownVal: () => {},
 };
@@ -96,11 +97,11 @@ CarouselView.defaultProps = {
 CarouselView.propTypes = {
   title: PropTypes.string,
   enableDropdown: PropTypes.bool,
-  getData: PropTypes.func.isRequired,
+  getData: PropTypes.any.isRequired,
+  getDataNonFunc: PropTypes.bool,
   getDataDropdown: PropTypes.func,
   dropdownLabel: PropTypes.string,
   carouselName: PropTypes.string.isRequired,
-  addition: PropTypes.bool,
   dropdownVal: PropTypes.any,
   setDropdownVal: PropTypes.func,
 };

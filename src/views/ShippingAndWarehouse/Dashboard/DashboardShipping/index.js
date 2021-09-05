@@ -14,15 +14,15 @@ import { formatCurrency } from '../../../../utils/helper';
 // Import API
 import { apiGetShipping } from '../../../../api/shipping.api';
 
-import { apiGetInputPackaging,
-  apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiGetContainer } from '../../../../api/input-packaging.api';
 
 const DashboardShipping = () => {
   const [totalWeight, setTotalWeight] = useState('');
-  const [containerWorth] = useState('blom diintegrasi');
+  const [containerWorth] = useState('blom ada');
   const [charcoalPrice, setCharcoalPrice] = useState('');
   const [container, setContainer] = useState('');
   const [tipePembayaran, setTipePembayaran] = useState([]);
+  const [carouselData, setCarouselData] = useState('');
 
   const payload = {
     container_number: container,
@@ -35,7 +35,7 @@ const DashboardShipping = () => {
           setTotalWeight(data.result.total_weight);
           setCharcoalPrice(data.result.charcoal_price);
           setTipePembayaran(data.result.shipping_price);
-          return (data.result);
+          setCarouselData(data.result.data);
         })
         .catch((err) => {
           console.log(err);
@@ -44,13 +44,7 @@ const DashboardShipping = () => {
 
   useEffect(() => {
     console.log('halo');
-    getShippingData().then((data) => {
-      if (data) {
-        setTotalWeight(data.result.total_weight);
-        setCharcoalPrice(data.result.charcoal_price);
-        setTipePembayaran(data.result.shipping_price);
-      }
-    });
+    getShippingData();
   }, [container]);
 
   return (
@@ -58,7 +52,8 @@ const DashboardShipping = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title=""
-          getData={apiGetInputPackaging}
+          getData={carouselData}
+          getDataNonFunc
           getDataDropdown={apiGetContainer}
           carouselName ="packaging"
           dropdownLabel="Container"

@@ -21,7 +21,7 @@ const DashboardWarehoue = () => {
           title=""
           getData={apiGetTrucking}
           getDataDropdown={apiGetWarehouse}
-          carouselName ="packaging"
+          carouselName ="warehouse"
           dropdownLabel="Warehouse"
           enableDropdown
           dropdownVal={warehouse}

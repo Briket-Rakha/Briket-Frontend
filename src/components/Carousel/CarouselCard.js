@@ -7,31 +7,27 @@ import PropTypes from 'prop-types';
 import '../../styles/components/carousel-card.scss';
 
 const CarouselCard = (props) => {
-  const { total, name, asal, addition, infix } = props;
+  const { total, infix, elements } = props;
   return (
     <div className="carousel-card">
       <h1>{`${total} ${infix}`}</h1>
-      <p>{name}</p>
-      <p>{asal}</p>
-      <p>{addition}</p>
+      {elements.map((el, idx) => (
+        <p key={idx}>{el}</p>
+      ))}
     </div>
   );
 };
 
 CarouselCard.defaultProps = {
   total: 0,
-  name: '',
-  asal: '',
-  addition: '',
   infix: '',
+  elements: [],
 };
 
 CarouselCard.propTypes = {
   total: PropTypes.number,
-  name: PropTypes.string,
-  asal: PropTypes.string,
-  addition: PropTypes.string,
   infix: PropTypes.string,
+  elements: PropTypes.array,
 };
 
 
