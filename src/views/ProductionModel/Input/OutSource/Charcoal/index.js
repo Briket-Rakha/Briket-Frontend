@@ -104,6 +104,7 @@ const Charcoal = () => {
 
   return (
     <Grid item className="raw-material">
+      {console.log(commission)}
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}

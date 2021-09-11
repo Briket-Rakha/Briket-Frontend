@@ -28,6 +28,7 @@ export default function CustomSelect(props) {
     haveParent,
     size,
     disabled,
+    twoValue,
   } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -100,8 +101,8 @@ export default function CustomSelect(props) {
             ((e) => setValue(e.target.value))}
           label={label}
         >
-          {listData.length>0 && !loading && listData.map((el, idx)=>
-            <MenuItem value={el.id ? el.id : el.name} key={idx}>
+          {listData.length>0 && !loading && listData.map( (el, idx)=>
+            <MenuItem value={twoValue? ({ id: el.id, name: el.name }) : ( el.id ? el.id : el.name )} key={idx}>
               {el.name}</MenuItem>,
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
@@ -127,6 +128,7 @@ CustomSelect.defaultProps = {
   index: 0,
   size: 'medium',
   disabled: false,
+  twoValue: false,
 };
 
 CustomSelect.propTypes = {
@@ -143,4 +145,5 @@ CustomSelect.propTypes = {
   haveParent: PropTypes.bool,
   size: PropTypes.string,
   disabled: PropTypes.bool,
+  twoValue: PropTypes.bool,
 };

@@ -1,5 +1,5 @@
 // Import Library
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
@@ -35,18 +35,41 @@ const Packaging = () => {
   const [successMessage, setSuccessMessage] = useState('');
   // Jenis dan Jumlah Packaging
   const [inputList, setInputList] = useState([
-    { package_id: '', amount: '', asal: '', asal_id: '' },
+    {
+      package_id: '',
+      amount: 0,
+      asal: '',
+      asal_id: '',
+      asal_name: '',
+      price: 0,
+      harga_total: function() {
+        return (this.amount*this.price);
+      },
+    },
   ]);
-  // Pricing
-  const [priceList, setPriceList] = useState([
-    { asal_id: '', harga: 0, harga_total: 0 },
-  ]);
+
+  useEffect(() => {
+    inputList.map((x, i) => {
+      x.harga_total();
+    });
+  }, []);
 
   // Reset State when submitted
   const resetState = () => {
     setContainerNumber('');
     setBrand('');
-    setInputList([{ package_id: '', amount: '', asal: '', asal_id: '' }]);
+    setInputList([{
+      package_id: '',
+      amount: 0,
+      asal: '',
+      asal_id: '',
+      asal_name: '',
+      price: 0,
+      harga_total: function() {
+        return (this.amount*this.price);
+      },
+    },
+    ]);
     setDate(null);
   };
 
@@ -81,39 +104,37 @@ const Packaging = () => {
   // handle input change
   const handleInputChange = (name, value, index) => {
     const list = [...inputList];
-    list[index][name] = value;
-    setInputList(list);
-
-    if (name === 'asal_id') {
-      const list = [...priceList];
+    if ( name == 'asal_id' ) {
+      list[index].asal_id = value.id;
+      list[index].asal_name = value.name;
+    } else {
       list[index][name] = value;
-      setPriceList(list);
     }
-    if (name === 'amount') {
-      setHargaTotal(index);
-    }
+    setInputList(list);
   };
 
   // handle price change
   const handlePriceChange = (value, index) => {
-    setPriceList((prev) => {
-      prev[index].harga = value;
-
-      return prev;
-    });
-    // setHargaTotal(index);
-  };
-
-  const setHargaTotal = (index) => {
-    const list = [...priceList];
-    list[index].harga_total = priceList[index].harga * inputList[index].amount;
-    setPriceList(list);
+    const list = [...inputList];
+    list[index].price = value;
+    setInputList(list);
   };
 
   // handle click event of the Add button
   const handleAddClick = () => {
     setInputList([...inputList,
-      { package_id: '', amount: '', asal: '', asal_id: '' }]);
+      {
+        package_id: '',
+        amount: 0,
+        asal: '',
+        asal_id: '',
+        asal_name: '',
+        price: 0,
+        harga_total: function() {
+          return (this.amount*this.price);
+        },
+      },
+    ]);
   };
 
   const jenisProdusen = [
@@ -243,6 +264,7 @@ const Packaging = () => {
                   customSetFunction
                   required
                   haveParent
+                  twoValue
                 />
               </Grid>
             </Grid>
@@ -254,7 +276,7 @@ const Packaging = () => {
         >
               Tambah Packaging
         </Button>
-        {priceList.map((x, i) => {
+        {inputList.map((x, i) => {
           return (
             <Grid
               container
@@ -263,24 +285,43 @@ const Packaging = () => {
               key={i}
             >
               <Grid item xs={4}>
-                {x.asal_id}
+                <TextField
+                  className="input-field"
+                  placeholder="Produsen"
+                  label="Produsen"
+                  size="medium"
+                  value={x.asal_name}
+                  type="text"
+                  variant="outlined"
+                  disabled
+                />
               </Grid>
               <Grid item xs={4}>
                 <CurrencyTextField
                   label="Harga Per kg"
                   variant="outlined"
                   required
-                  value={x.harga}
+                  value={x.price}
                   currencySymbol="Rp"
                   outputFormat="number"
                   decimalCharacter=","
                   digitGroupSeparator="."
-                  onChange={(e) =>
-                    handlePriceChange(e.target.value, i)}
+                  onChange={(e, value) =>
+                    handlePriceChange(value, i)}
                 />
               </Grid>
               <Grid item xs={4}>
-                {x.harga_total}
+                <CurrencyTextField
+                  label="Harga Total"
+                  variant="outlined"
+                  required
+                  value={x.harga_total()}
+                  currencySymbol="Rp"
+                  outputFormat="number"
+                  decimalCharacter=","
+                  digitGroupSeparator="."
+                  disabled
+                />
               </Grid>
             </Grid>
           );
