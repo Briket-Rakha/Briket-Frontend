@@ -21,6 +21,17 @@ const Dashboard = () => {
   const [pabrik, setPabrik] = useState('');
   const [container, setContainer] = useState('');
 
+  const downloadCategory = [
+    {
+      id: 'hasilproduksi',
+      name: 'hasilproduksi',
+    },
+    {
+      id: 'outsource',
+      name: 'outsource',
+    },
+  ];
+
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
@@ -38,7 +49,8 @@ const Dashboard = () => {
         <CustomizeCarousel
           title="Hasil Produksi dan Outsource"
           carouselName ="hasilproduksi"
-          getData={apiGetHasilDashboard}/>
+          getData={apiGetHasilDashboard}
+          downloadCategory={downloadCategory}/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel

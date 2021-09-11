@@ -15,7 +15,7 @@ import PilihTanggal from './PilihTanggal';
 const CarouselView = (props) => {
   const { title, enableDropdown, dropdownLabel,
     getData, getDataDropdown, carouselName,
-    dropdownVal, setDropdownVal, getDataNonFunc } = props;
+    dropdownVal, setDropdownVal, getDataNonFunc, downloadCategory } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -77,7 +77,11 @@ const CarouselView = (props) => {
           DOWNLOAD
         </Button>
         <CustomModal open={openTanggal} setOpen={setOpenTanggal}>
-          <PilihTanggal downloadName={carouselName}/>
+          {
+            downloadCategory ?
+            <PilihTanggal downloadName={carouselName} dropdownAddition={downloadCategory}/> :
+            <PilihTanggal downloadName={carouselName}/>
+          }
         </CustomModal>
       </Grid>
     </Grid>
@@ -104,6 +108,7 @@ CarouselView.propTypes = {
   carouselName: PropTypes.string.isRequired,
   dropdownVal: PropTypes.any,
   setDropdownVal: PropTypes.func,
+  downloadCategory: PropTypes.array,
 };
 
 export default CarouselView;
