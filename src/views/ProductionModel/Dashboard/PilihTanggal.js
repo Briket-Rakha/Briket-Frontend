@@ -31,7 +31,6 @@ const PilihTanggal = (props) => {
 
   return (
     <form className="pilih-tanggal">
-      {console.log(url)}
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}

@@ -7,7 +7,8 @@ import CustomAlert from '../../../components/Alert';
 import CustomSelect from '../../../components/Select';
 
 // Import utils
-import { getListOfMonths } from '../../../utils/date';
+// eslint-disable-next-line no-unused-vars
+import { getListOfMonths, getListOfYears } from '../../../utils/date';
 
 // Import API
 import {
@@ -25,6 +26,7 @@ import CustomTable from '../../../components/Table';
 
 const PaymentTimeline = () => {
   const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
   const [payment, setPayment] = useState('');
   const [outsource, setOutsource] = useState([]);
   const [timeline, setTimeline] = useState();
@@ -58,6 +60,7 @@ const PaymentTimeline = () => {
         });
   };
 
+
   useEffect(() => {
     if (payment) {
       fetchOutsourceMaterial(payment);
@@ -90,7 +93,7 @@ const PaymentTimeline = () => {
         spacing={2}
         className="timeline-payment-input"
       >
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <CustomSelect
             value={month}
             label="Bulan"
@@ -99,16 +102,25 @@ const PaymentTimeline = () => {
             size="medium"
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
+          <CustomSelect
+            value={year}
+            label="Tahun"
+            getValues={getListOfYears}
+            setValue={setYear}
+            size="medium"
+          />
+        </Grid>
+        <Grid item xs={4}>
           <CustomSelect
             value={payment}
             label="Transaction"
-            getValues={month ? (() => apiGetPaymentByMonth(month)) : null}
+            getValues={month && year ? (() => apiGetPaymentByMonth(month, year)) : null}
             setValue={setPayment}
             size="medium"
             disabled={Boolean(!month)}
             haveParent
-            parentValue={month}
+            parentValue={[month, year]}
           />
         </Grid>
       </Grid>

@@ -7,6 +7,7 @@ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 const apiHasilProduksiBaseUrl = {
   root: `${apiBaseUrl}/hasil`,
   graph: `${apiBaseUrl}/graph/hasilproduksi`,
+  year: `${apiBaseUrl}/graph/hasilproduksi/year`,
 };
 
 export function apiPostHasilProduksi(payload) {
@@ -27,6 +28,18 @@ export function apiGetHasilProduksiGraph(params) {
 
   return new Promise((resolve, reject) => {
     axios.get(`${apiHasilProduksiBaseUrl.graph}?${queries}`)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export function apiGetHasilProduksiYear() {
+  return new Promise((resolve, reject) => {
+    axios.get(`${apiHasilProduksiBaseUrl.year}`)
         .then((res) => {
           resolve(res);
         })
