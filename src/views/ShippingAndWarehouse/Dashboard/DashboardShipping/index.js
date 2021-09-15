@@ -12,39 +12,38 @@ import '../../../../styles/views/dashboard.scss';
 import { formatCurrency } from '../../../../utils/helper';
 
 // Import API
-import { apiGetShipping, apiGetContainerShipping } from '../../../../api/shipping.api';
+import { apiGetShipping } from '../../../../api/shipping.api';
+
+import { apiGetContainer } from '../../../../api/input-packaging.api';
 
 const DashboardShipping = () => {
   const [totalWeight, setTotalWeight] = useState('');
-  const [containerWorth, setContainerWorth] = useState('');
+  const [containerWorth] = useState('blom ada');
   const [charcoalPrice, setCharcoalPrice] = useState('');
-  const [container, setContainer] = useState(null);
+  const [container, setContainer] = useState('');
   const [tipePembayaran, setTipePembayaran] = useState([]);
   const [carouselData, setCarouselData] = useState('');
-  const noData = 'Tidak Ada Data Tersedia';
 
   const payload = {
     container_number: container,
   };
 
   const getShippingData = async () => {
-    if (container) {
-      await apiGetShipping(payload)
-          .then((res) => {
-            const { response: { data } } = res;
-            setTotalWeight(data.result.total_weight);
-            setCharcoalPrice(data.result.charcoal_price);
-            setTipePembayaran(data.result.shipping_price);
-            setCarouselData(data.result.data);
-            setContainerWorth(data.result.container_worth);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-    }
+    await apiGetShipping(payload)
+        .then((res) => {
+          const { response: { data } } = res;
+          setTotalWeight(data.result.total_weight);
+          setCharcoalPrice(data.result.charcoal_price);
+          setTipePembayaran(data.result.shipping_price);
+          setCarouselData(data.result.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   useEffect(() => {
+    console.log('halo');
     getShippingData();
   }, [container]);
 
@@ -55,7 +54,7 @@ const DashboardShipping = () => {
           title=""
           getData={carouselData}
           getDataNonFunc
-          getDataDropdown={apiGetContainerShipping}
+          getDataDropdown={apiGetContainer}
           carouselName ="packaging"
           dropdownLabel="Container"
           enableDropdown
@@ -76,17 +75,17 @@ const DashboardShipping = () => {
             <tr>
               <td>Total Weight</td>
               <td>:</td>
-              <td>{totalWeight == '' ? noData : totalWeight}</td>
+              <td>{totalWeight}</td>
             </tr>
             <tr>
               <td>Container Worth</td>
               <td>:</td>
-              <td>{containerWorth == '' ? noData : containerWorth}</td>
+              <td>{containerWorth}</td>
             </tr>
             <tr>
               <td>Charcoal Price</td>
               <td>:</td>
-              <td>{charcoalPrice == '' ? noData : formatCurrency(charcoalPrice)}</td>
+              <td>{formatCurrency(charcoalPrice)}</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -104,15 +103,13 @@ const DashboardShipping = () => {
         </Grid>
         <table className="dashboard-section-content-table">
           <tbody>
-            {tipePembayaran.length == 0 ?
-            <p style={{ color: '#d32f2f', fontStyle: 'italic', fontWeight: '500' }}>{noData}</p> :
-            (tipePembayaran.map((el, idx) => (
+            {tipePembayaran.map((el, idx) => (
               <tr key={el.idx}>
                 <td>{el.nama_pembayaran}</td>
                 <td>:</td>
                 <td>{formatCurrency(el.harga)}</td>
               </tr>
-            )))}
+            ))}
             <tr>
               <td>&nbsp;</td>
             </tr>
