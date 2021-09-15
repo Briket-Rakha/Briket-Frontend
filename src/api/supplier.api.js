@@ -9,6 +9,7 @@ const apiSupplierBaseUrl = {
   outsource: `${apiBaseUrl}/outsource`,
   om: `${apiBaseUrl}/OM`,
   graph: `${apiBaseUrl}/graph/outsource`,
+  year: `${apiBaseUrl}/graph/outsource/year`,
 };
 
 export async function apiGetSupplierMaterial(params) {
@@ -111,6 +112,18 @@ export function apiGetOutsourceProduksiGraph(params) {
 
   return new Promise((resolve, reject) => {
     axios.get(`${apiSupplierBaseUrl.graph}?${queries}`)
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export function apiGetOutsourceProduksiYear() {
+  return new Promise((resolve, reject) => {
+    axios.get(`${apiSupplierBaseUrl.year}`)
         .then((res) => {
           resolve(res);
         })

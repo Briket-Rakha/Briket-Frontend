@@ -37,10 +37,10 @@ export async function apiGetAvailablePayment() {
   });
 }
 
-export async function apiGetPaymentByMonth(month) {
+export async function apiGetPaymentByMonth(month, year) {
   return new Promise((resolve, reject) => {
     axios
-        .get(`${apiPaymentBaseUrl.root}/month/${month}`)
+        .get(`${apiPaymentBaseUrl.root}/month/${month}/${year}`)
         .then((response) => {
           resolve({ response });
         })

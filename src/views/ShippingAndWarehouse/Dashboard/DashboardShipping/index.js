@@ -39,7 +39,7 @@ const DashboardShipping = () => {
             setContainerWorth(data.result.container_worth);
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
     }
   };

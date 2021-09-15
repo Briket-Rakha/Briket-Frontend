@@ -12,10 +12,11 @@ import CustomChart from '../../../components/Chart';
 import { getListOfMonths } from '../../../utils/date';
 
 // Import API
-import { apiGetOutsourceProduksiGraph } from '../../../api/supplier.api';
+import { apiGetOutsourceProduksiGraph, apiGetOutsourceProduksiYear } from '../../../api/supplier.api';
 
 const OutsourceProduction = () => {
   const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
   const [series, setSeries] = useState([]);
   const [total, setTotal] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -24,7 +25,7 @@ const OutsourceProduction = () => {
   const fetchGraphOutsourceProduksi = async () => {
     const payload = {
       bulan: month,
-      tahun: (new Date()).getFullYear(),
+      tahun: year,
     };
 
     setLoading(true);
@@ -45,8 +46,8 @@ const OutsourceProduction = () => {
   };
 
   useEffect(() => {
-    if (month) fetchGraphOutsourceProduksi();
-  }, [month]);
+    if (month && year) fetchGraphOutsourceProduksi();
+  }, [month, year]);
 
   return (
     <Grid container className="dashboard-section" direction="column">
@@ -74,6 +75,14 @@ const OutsourceProduction = () => {
             setValue={setMonth}
             size="small"
           />
+          <CustomSelect
+            value={year}
+            label="Tahun"
+            getValues={apiGetOutsourceProduksiYear}
+            setValue={setYear}
+            size="small"
+            customField="YEAR(date)"
+          />
         </Grid>
       </Grid>
       <Grid item className="dashboard-section-content">
@@ -85,7 +94,7 @@ const OutsourceProduction = () => {
             series={series}
             type="bar"
             ytitle="Jumlah (kg)"
-            xtitle={month && moment.months(month - 1)}
+            xtitle={(month && year) && `${moment.months(month - 1)} - ${year}`}
           />
         }
       </Grid>
