@@ -29,17 +29,20 @@ const DashboardShipping = () => {
   };
 
   const getShippingData = async () => {
-    await apiGetShipping(payload)
-        .then((res) => {
-          const { response: { data } } = res;
-          setTotalWeight(data.result.total_weight);
-          setCharcoalPrice(data.result.charcoal_price);
-          setTipePembayaran(data.result.shipping_price);
-          setCarouselData(data.result.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (container) {
+      await apiGetShipping(payload)
+          .then((res) => {
+            const { response: { data } } = res;
+            setTotalWeight(data.result.total_weight);
+            setCharcoalPrice(data.result.charcoal_price);
+            setTipePembayaran(data.result.shipping_price);
+            setCarouselData(data.result.data);
+            setContainerWorth(data.result.container_worth);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+    }
   };
 
   useEffect(() => {

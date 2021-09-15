@@ -29,6 +29,7 @@ export default function CustomSelect(props) {
     size,
     disabled,
     twoValue,
+    customField,
   } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -40,7 +41,7 @@ export default function CustomSelect(props) {
       setLoading(true);
       await getValues()
           .then((res) => {
-            const { response: { data } } = res;
+            const data = res?.response?.data || res?.data;
             setListData(data.data);
             setLoading(false);
             return (data.data);
@@ -52,15 +53,24 @@ export default function CustomSelect(props) {
     }
   };
 
-  const dynamicVal = haveParent ? [parentValue] : [];
+  let dynamicVal;
+  if (Array.isArray(parentValue)) {
+    dynamicVal = parentValue;
+  } else {
+    dynamicVal = haveParent ? [parentValue] : [];
+  }
+
+
   useEffect(() => {
-    constantValues ?
-    setListData(getValues) :
-    getListData().then((data) => {
-      if (data) {
-        setListData(data);
-      }
-    });
+    if (dynamicVal.every((item) => item)) {
+      constantValues ?
+      setListData(getValues) :
+      getListData().then((data) => {
+        if (data) {
+          setListData(data);
+        }
+      });
+    }
   }, dynamicVal);
 
   return (
@@ -102,8 +112,12 @@ export default function CustomSelect(props) {
           label={label}
         >
           {listData.length>0 && !loading && listData.map( (el, idx)=>
-            <MenuItem value={twoValue? ({ id: el.id, name: el.name }) : ( el.id ? el.id : el.name )} key={idx}>
-              {el.name}</MenuItem>,
+            <MenuItem
+              value={twoValue? ({ id: el.id, name: el.name }) : ( el[customField] || el.id || el.name )}
+              key={idx}
+            >
+              {el[customField] || el.name}
+            </MenuItem>,
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
             Tidak ada data yang tersedia!</p>}
@@ -129,6 +143,7 @@ CustomSelect.defaultProps = {
   size: 'medium',
   disabled: false,
   twoValue: false,
+  customField: '',
 };
 
 CustomSelect.propTypes = {
@@ -146,4 +161,5 @@ CustomSelect.propTypes = {
   size: PropTypes.string,
   disabled: PropTypes.bool,
   twoValue: PropTypes.bool,
+  customField: PropTypes.string,
 };

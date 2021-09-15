@@ -13,10 +13,11 @@ import { getListOfMonths } from '../../../utils/date';
 
 // Import API
 import { apiGetPabrik } from '../../../api/pabrik.api';
-import { apiGetHasilProduksiGraph } from '../../../api/hasil-produksi.api';
+import { apiGetHasilProduksiGraph, apiGetHasilProduksiYear } from '../../../api/hasil-produksi.api';
 
 const FactoryProduction = () => {
   const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
   const [pabrik, setPabrik] = useState('');
   const [series, setSeries] = useState([]);
   const [total, setTotal] = useState('');
@@ -27,7 +28,7 @@ const FactoryProduction = () => {
     const payload = {
       pabrik,
       bulan: month,
-      tahun: (new Date()).getFullYear(),
+      tahun: year,
     };
     setLoading(true);
     await apiGetHasilProduksiGraph(payload)
@@ -47,8 +48,8 @@ const FactoryProduction = () => {
   };
 
   useEffect(() => {
-    if (pabrik && month) fetchGraphHasilProduksi();
-  }, [month, pabrik]);
+    if (pabrik && month && year) fetchGraphHasilProduksi();
+  }, [month, year, pabrik]);
 
   return (
     <Grid container className="dashboard-section" direction="column">
@@ -77,6 +78,14 @@ const FactoryProduction = () => {
             size="small"
           />
           <CustomSelect
+            value={year}
+            label="Tahun"
+            getValues={apiGetHasilProduksiYear}
+            setValue={setYear}
+            size="small"
+            customField="YEAR(date)"
+          />
+          <CustomSelect
             value={pabrik}
             label="Pabrik"
             getValues={apiGetPabrik}
@@ -94,7 +103,7 @@ const FactoryProduction = () => {
             series={series}
             type="bar"
             ytitle="Jumlah (kg)"
-            xtitle={month && moment.months(month - 1)}
+            xtitle={(month && year) && `${moment.months(month - 1)} - ${year}`}
           />
         }
       </Grid>
