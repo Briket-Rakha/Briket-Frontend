@@ -12,7 +12,7 @@ import { getListOfMonths, getListOfYears } from '../../../utils/date';
 
 // Import API
 import {
-  apiGetPaymentByMonth,
+  apiGetPaymentByFilter,
   apiGetPaymentTimeline,
 } from '../../../api/payment.api';
 import { apiGetOutsourceMaterial } from '../../../api/supplier.api';
@@ -24,9 +24,13 @@ import '../../../styles/views/payment-timeline.scss';
 import OutSouceMaterial from './OutSouceMaterial';
 import CustomTable from '../../../components/Table';
 
+// Import constat
+import { statusList } from '../../../constants/transactionStatus';
+
 const PaymentTimeline = () => {
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
+  const [status, setStatus] = useState('');
   const [payment, setPayment] = useState('');
   const [outsource, setOutsource] = useState([]);
   const [timeline, setTimeline] = useState();
@@ -93,7 +97,7 @@ const PaymentTimeline = () => {
         spacing={2}
         className="timeline-payment-input"
       >
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <CustomSelect
             value={month}
             label="Bulan"
@@ -102,7 +106,7 @@ const PaymentTimeline = () => {
             size="medium"
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <CustomSelect
             value={year}
             label="Tahun"
@@ -111,16 +115,26 @@ const PaymentTimeline = () => {
             size="medium"
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
+          <CustomSelect
+            value={status}
+            label="Status"
+            getValues={statusList}
+            setValue={setStatus}
+            size="medium"
+            constantValues
+          />
+        </Grid>
+        <Grid item xs={3}>
           <CustomSelect
             value={payment}
             label="Transaction"
-            getValues={month && year ? (() => apiGetPaymentByMonth(month, year)) : null}
+            getValues={month && year ? (() => apiGetPaymentByFilter(month, year, status)) : null}
             setValue={setPayment}
             size="medium"
             disabled={Boolean(!month)}
             haveParent
-            parentValue={[month, year]}
+            parentValue={[month, year, status]}
           />
         </Grid>
       </Grid>
