@@ -113,10 +113,10 @@ export default function CustomSelect(props) {
         >
           {listData.length>0 && !loading && listData.map( (el, idx)=>
             <MenuItem
-              value={twoValue? ({ id: el.id, name: el.name }) : ( el[customField] || el.id || el.name )}
+              value={twoValue? ({ id: el.id, name: el.name }) : ( el[customField] ?? el.id ?? el.name )}
               key={idx}
             >
-              {el[customField] || el.name}
+              {el[customField] ?? el.name}
             </MenuItem>,
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
