@@ -15,14 +15,14 @@ import CustomAlert from '../../../../components/Alert';
 import CustomBreadcrumbs from '../../../../components/Breadcrumb';
 import CustomSelect from '../../../../components/Select';
 import DatePicker from '../../../../components/DatePicker';
-import CustomModal from '../../../../components/Modal';
-import TambahWarehouse from '../../../ProductionModel/Input/TambahWarehouse';
+// import CustomModal from '../../../../components/Modal';
+// import TambahWarehouse from '../../../ProductionModel/Input/TambahWarehouse';
 
 // Import API
 import { apiGetContainer } from '../../../../api/input-packaging.api';
 import { apiGetPaymentType } from '../../../../api/payment.api';
 import { apiPostTrucking } from '../../../../api/trucking.api';
-import { apiGetWarehouse } from '../../../../api/warehouse.api';
+// import { apiGetWarehouse } from '../../../../api/warehouse.api';
 
 // Import Utils
 import { getUser } from '../../../../utils/auth';
@@ -45,9 +45,9 @@ const WarehouseInput = () => {
       nominal: 0,
     },
   ]);
-  const [date, setDate] = useState('');
-  const [warehouse, setWarehouse] = useState('');
-  const [warehouseModal, setWarehouseModal] = useState(false);
+  const [date, setDate] = useState(null);
+  // const [warehouse, setWarehouse] = useState('');
+  // const [warehouseModal, setWarehouseModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -83,7 +83,7 @@ const WarehouseInput = () => {
         nominal: 0,
       },
     ]);
-    setWarehouse('');
+    // setWarehouse('');
     setDate('');
   };
 
@@ -95,7 +95,7 @@ const WarehouseInput = () => {
 
       const payload = {
         container_number: container,
-        warehouse_id: warehouse,
+        // warehouse_id: warehouse,
         employee_id: getUser().ID,
         date,
         items: paymentList,
@@ -158,7 +158,7 @@ const WarehouseInput = () => {
                 variant="outlined"
                 value={nominal}
                 name="nominal"
-                currencySymbol="Rp"
+                currencySymbol="R$"
                 outputFormat="number"
                 decimalCharacter=","
                 digitGroupSeparator="."
@@ -187,21 +187,21 @@ const WarehouseInput = () => {
             </Button>
           </Grid>
         </Grid>
-        <CustomSelect
+        {/* <CustomSelect
           label="Pilih Warehouse"
           value={warehouse}
           getValues={apiGetWarehouse}
           setValue={setWarehouse}
           required
-        />
-        <Grid item container justify="flex-end">
+        /> */}
+        {/* <Grid item container justify="flex-end">
           <Button
             className="align-end btn tambah-item-btn"
             onClick={() => setWarehouseModal(true)}
           >
             Tambah Warehouse
           </Button>
-        </Grid>
+        </Grid> */}
         <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Grid item container justify="flex-end">
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
@@ -209,9 +209,9 @@ const WarehouseInput = () => {
           </Button>
         </Grid>
       </form>
-      <CustomModal open={warehouseModal} setOpen={setWarehouseModal}>
+      {/* <CustomModal open={warehouseModal} setOpen={setWarehouseModal}>
         <TambahWarehouse />
-      </CustomModal>
+      </CustomModal> */}
     </Grid>
   );
 };

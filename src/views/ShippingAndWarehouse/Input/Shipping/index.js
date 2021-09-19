@@ -72,10 +72,10 @@ const ShippingInput = () => {
 
   const resetState = () => {
     setContainer('');
-    setPaymentList({
+    setPaymentList([{
       paymentType: '',
       nominal: 0,
-    });
+    }]);
     setDate('');
   };
 
