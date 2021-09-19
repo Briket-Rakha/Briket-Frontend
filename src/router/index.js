@@ -26,6 +26,7 @@ const ShippingDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dashb
 const WarehouseDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dashboard/DashboardWarehouse'));
 const ShippingInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Shipping'));
 const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Trucking'));
+const NationalPrice = lazy(() => import('../views/ShippingAndWarehouse/Input/NationalPrice'));
 
 // Create Browser History
 const browserHistory = createBrowserHistory();
@@ -97,7 +98,7 @@ const MyRouter = () => {
           />
           <PrivateRoute
             path={Routes.warehouse.nationalPrice}
-            component={WarehouseInput}
+            component={NationalPrice}
             exact
           />
           <Route path={Routes.login.root} component={Login} exact />

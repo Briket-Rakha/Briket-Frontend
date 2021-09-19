@@ -171,16 +171,16 @@ const Navbar = () => {
       sub: [
         {
           id: 0,
-          name: 'INPUT',
+          name: 'DASHBOARD',
           onClick: () => {
-            history.push(Routes.shipping.input);
+            history.push(Routes.shipping.dashboard);
           },
         },
         {
           id: 1,
-          name: 'DASHBOARD',
+          name: 'INPUT',
           onClick: () => {
-            history.push(Routes.shipping.dashboard);
+            history.push(Routes.shipping.input);
           },
         },
       ],
@@ -192,17 +192,31 @@ const Navbar = () => {
       sub: [
         {
           id: 0,
-          name: 'INPUT',
-          onClick: () => {
-            history.push(Routes.warehouse.input);
-          },
-        },
-        {
-          id: 1,
           name: 'DASHBOARD',
           onClick: () => {
             history.push(Routes.warehouse.dashboard);
           },
+        },
+        {
+          id: 1,
+          name: 'INPUT',
+          sub: [
+            {
+              id: 0,
+              name: 'WAREHOUSE',
+              onClick: () => {
+                history.push(Routes.warehouse.input);
+              },
+            },
+            {
+              id: 1,
+              name: 'NATIONAL PRICE',
+              onClick: () => {
+                history.push(Routes.warehouse.nationalPrice);
+              },
+            },
+          ],
+          onClick: () => { },
         },
       ],
     },
