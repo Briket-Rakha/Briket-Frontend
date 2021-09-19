@@ -12,17 +12,16 @@ import '../../../../styles/views/dashboard.scss';
 import { formatCurrency } from '../../../../utils/helper';
 
 // Import API
-import { apiGetShipping } from '../../../../api/shipping.api';
-
-import { apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiGetShipping, apiGetContainerShipping } from '../../../../api/shipping.api';
 
 const DashboardShipping = () => {
   const [totalWeight, setTotalWeight] = useState('');
-  const [containerWorth] = useState('blom ada');
+  const [containerWorth, setContainerWorth] = useState('');
   const [charcoalPrice, setCharcoalPrice] = useState('');
-  const [container, setContainer] = useState('');
+  const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
   const [carouselData, setCarouselData] = useState('');
+  const noData = 'Tidak Ada Data Tersedia';
 
   const payload = {
     container_number: container,
@@ -40,13 +39,12 @@ const DashboardShipping = () => {
             setContainerWorth(data.result.container_worth);
           })
           .catch((err) => {
-            console.error(err);
+            console.log(err);
           });
     }
   };
 
   useEffect(() => {
-    console.log('halo');
     getShippingData();
   }, [container]);
 
@@ -57,7 +55,7 @@ const DashboardShipping = () => {
           title=""
           getData={carouselData}
           getDataNonFunc
-          getDataDropdown={apiGetContainer}
+          getDataDropdown={apiGetContainerShipping}
           carouselName ="packaging"
           dropdownLabel="Container"
           enableDropdown
@@ -78,17 +76,17 @@ const DashboardShipping = () => {
             <tr>
               <td>Total Weight</td>
               <td>:</td>
-              <td>{totalWeight}</td>
+              <td>{totalWeight == '' ? noData : totalWeight}</td>
             </tr>
             <tr>
               <td>Container Worth</td>
               <td>:</td>
-              <td>{containerWorth}</td>
+              <td>{containerWorth == '' ? noData : containerWorth}</td>
             </tr>
             <tr>
               <td>Charcoal Price</td>
               <td>:</td>
-              <td>{formatCurrency(charcoalPrice)}</td>
+              <td>{charcoalPrice == '' ? noData : formatCurrency(charcoalPrice)}</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -106,13 +104,15 @@ const DashboardShipping = () => {
         </Grid>
         <table className="dashboard-section-content-table">
           <tbody>
-            {tipePembayaran.map((el, idx) => (
+            {tipePembayaran.length == 0 ?
+            <p style={{ color: '#d32f2f', fontStyle: 'italic', fontWeight: '500' }}>{noData}</p> :
+            (tipePembayaran.map((el, idx) => (
               <tr key={el.idx}>
                 <td>{el.nama_pembayaran}</td>
                 <td>:</td>
                 <td>{formatCurrency(el.harga)}</td>
               </tr>
-            ))}
+            )))}
             <tr>
               <td>&nbsp;</td>
             </tr>
