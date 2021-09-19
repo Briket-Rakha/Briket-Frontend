@@ -30,7 +30,7 @@ html {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: $grey;
-  border-radius: 8px; 
+  // border-radius: 8px; 
 }
 
 /* Handle on hover */
@@ -38,10 +38,9 @@ html {
   background: $darkGrey; 
 }
 
-body,
-main {
+body {
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 main {
@@ -246,4 +245,14 @@ td {
 .MuiPagination-ul {
   display: flex;
   justify-content: center;
+}
+
+.MuiContainer-root {
+  max-width: unset !important;
+  min-width: unset !important;
+}
+
+main {
+  min-width: 824px !important;
+  margin: 64px 100px 0;
 }

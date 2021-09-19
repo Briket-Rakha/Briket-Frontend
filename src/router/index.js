@@ -95,6 +95,11 @@ const MyRouter = () => {
             component={WarehouseInput}
             exact
           />
+          <PrivateRoute
+            path={Routes.warehouse.nationalPrice}
+            component={WarehouseInput}
+            exact
+          />
           <Route path={Routes.login.root} component={Login} exact />
           <Route path={Routes.register.root} component={Register} exact />
         </Switch>

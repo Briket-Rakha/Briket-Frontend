@@ -1,29 +1,18 @@
 @import '../color';
 
 .custom-breadcrumbs {
-  width: 100%;
+  width: calc(100% + 200px);
   position: absolute;
-  left: 50%;
+  left: calc(50% + 100px);
   top: 0;
-  transform: translateX(-50%);
+  transform: translateX(calc(-50%));
   background-color: $lightGrey;
+  margin: 0 -100px 0;
+  z-index: 1000;
 
   ol {
     width: 100%;
-  }
-
-  @media (min-width: 960px) {
-    ol {
-      max-width: 960px;
-      padding: 5px 0 4px;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-
-      li {
-        display: flex;
-      }
-    }
+    padding: 5px 100px;
   }
 
   &-item {

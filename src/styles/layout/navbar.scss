@@ -1,6 +1,13 @@
 @import '../color';
 @import '../base';
 
+.MuiAppBar-colorPrimary {
+  min-width: 1024px !important;
+  left: 0 !important;
+  width: 100% !important;
+  right: unset !important;
+}
+
 .hamburger-btn {
   display: none !important;
 

@@ -22,6 +22,7 @@ const RouteList = {
   warehouse: {
     dashboard: '/warehouse',
     input: '/warehouse/input',
+    nationalPrice: '/warehouse/national-price',
   },
   login: {
     root: '/login',
