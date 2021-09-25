@@ -146,7 +146,7 @@ const PaymentTimeline = () => {
           ) : (
             <Grid item md={12}>
               <h3 className="no-data">
-              Tidak ada data pembayaran outsource material
+              No Data Found!
               </h3>
             </Grid>
           )
@@ -166,7 +166,7 @@ const PaymentTimeline = () => {
         ) : (
           <Grid item md={12}>
             <h3 className="no-data">
-              Tidak ada data timeline pembayaran
+            No Data Found!
             </h3>
           </Grid>
         )}
