@@ -1,7 +1,7 @@
 export const menu = [
   'Material',
-  'Pabrik',
+  'Factory',
   'Brand',
-  'Penjual Material',
-  'Penjual Outsource',
+  'Material\'s Seller',
+  'Outsource\'s Seller',
 ];
