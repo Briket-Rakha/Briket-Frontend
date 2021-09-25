@@ -168,7 +168,7 @@ const HasilProduksi = () => {
           id="jumlah"
           name="Amount"
           className="input-field"
-          placeholder="Please enter the amount (in kg)"
+          placeholder="Please enter the amount in kg"
           label="Amount"
           size="medium"
           value={jumlah}
