@@ -100,7 +100,7 @@ const PaymentTimeline = () => {
         <Grid item xs={3}>
           <CustomSelect
             value={month}
-            label="Bulan"
+            label="Month"
             getValues={getListOfMonths}
             setValue={setMonth}
             size="medium"

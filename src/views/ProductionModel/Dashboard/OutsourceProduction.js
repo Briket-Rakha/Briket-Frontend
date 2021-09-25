@@ -70,14 +70,14 @@ const OutsourceProduction = () => {
         <Grid container className="dashboard-section-header-input">
           <CustomSelect
             value={month}
-            label="Bulan"
+            label="Month"
             getValues={getListOfMonths}
             setValue={setMonth}
             size="small"
           />
           <CustomSelect
             value={year}
-            label="Tahun"
+            label="Year"
             getValues={apiGetOutsourceProduksiYear}
             setValue={setYear}
             size="small"
