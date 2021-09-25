@@ -16,6 +16,7 @@ const DashboardWarehoue = () => {
   const [warehouse, setWarehouse] = useState('');
   return (
     <Grid container className="dashboard" direction="column">
+      {/* TODO: call the right api for getData, set the right attribute to show */}
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Warehouse"
@@ -27,6 +28,7 @@ const DashboardWarehoue = () => {
           dropdownVal={warehouse}
           setDropdownVal={setWarehouse}/>
       </Grid>
+      {/* TODO: delete dropdown, call the right api for getData */}
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="National Price"
@@ -38,6 +40,7 @@ const DashboardWarehoue = () => {
           dropdownVal={warehouse}
           setDropdownVal={setWarehouse}/>
       </Grid>
+      {/* TODO: delete dropdown, call the right api for getData */}
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Ini Apa??"
