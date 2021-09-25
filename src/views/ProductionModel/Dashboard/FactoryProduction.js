@@ -41,7 +41,7 @@ const FactoryProduction = () => {
         .catch((err) => {
           setErrorMessage(
               err?.message ||
-              'Gagal mengambil data hasil produksi',
+              'Failed to get data',
           );
           setLoading(false);
         });

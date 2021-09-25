@@ -105,7 +105,7 @@ const HasilProduksi = () => {
       name: 'Self Produce',
     },
     {
-      name: 'Hasil Produksi',
+      name: 'Factory Production',
       onClick: Routes.production.input.selfProduce.hasilProduksi,
     },
   ];
@@ -136,7 +136,7 @@ const HasilProduksi = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="hasil-produksi-title">Input Hasil Produksi</h3>
+      <h3 className="hasil-produksi-title">Factory Production Input</h3>
       <Grid container className="hasil-produksi-form" direction="column">
         <CustomSelect
           label="Pabrik"
