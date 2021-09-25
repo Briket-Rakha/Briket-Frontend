@@ -207,7 +207,7 @@ const Charcoal = () => {
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
             {loading ? (
             <CircularProgress size={20} thickness={5} />
-          ) : 'SIMPAN'}
+          ) : 'SUBMIT'}
           </Button>
         </Grid>
       </form>

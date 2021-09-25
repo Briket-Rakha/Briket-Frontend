@@ -328,7 +328,7 @@ const Packaging = () => {
         })}
         <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
         </Button>
       </Grid>
     </form>
