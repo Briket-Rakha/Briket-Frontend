@@ -274,7 +274,7 @@ const Packaging = () => {
           className="align-end btn tambah-item-btn"
           onClick={handleAddClick}
         >
-              Tambah Packaging
+              Add Packaging
         </Button>
         {inputList.map((x, i) => {
           return (

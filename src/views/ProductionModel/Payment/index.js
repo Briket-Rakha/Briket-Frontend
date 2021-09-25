@@ -153,7 +153,7 @@ const PaymentTimeline = () => {
         }
         {timeline?.length ? (
           <CustomTable
-            header={['Tanggal', 'Pembayaran', 'Deskripsi']}
+            header={['Date', 'Payment', 'Description']}
             content={timeline}
             alignHead="left"
             alignBody="left"
