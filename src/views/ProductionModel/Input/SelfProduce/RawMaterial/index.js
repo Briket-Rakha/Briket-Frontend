@@ -127,7 +127,7 @@ const RawMaterial = () => {
       <form onSubmit={postRawMaterial}>
         <Grid container className="raw-material-form" direction="column">
           <CustomSelect
-            label="Pabrik"
+            label="Factory"
             value={pabrik}
             getValues={apiGetPabrik}
             setValue={setPabrik}
@@ -159,8 +159,8 @@ const RawMaterial = () => {
             id="jumlah"
             name="jumlah"
             className="input-field"
-            placeholder="Jumlah*"
-            label="Jumlah"
+            placeholder="Amount*"
+            label="Amount"
             size="medium"
             value={jumlah}
             type="number"
@@ -169,7 +169,7 @@ const RawMaterial = () => {
             onChange={(e) => setJumlah(e.target.value)}
           />
           <CurrencyTextField
-            label="Harga"
+            label="Price"
             variant="outlined"
             value={harga}
             currencySymbol="Rp"
@@ -179,7 +179,7 @@ const RawMaterial = () => {
             onChange={(event, value)=> setHarga(value)}
           />
           <CustomSelect
-            label="Penjual"
+            label="Seller"
             value={penjual}
             getValues={apiGetSupplierMaterial}
             setValue={setPenjual}
@@ -189,11 +189,11 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPenjual(true)}
           >
-            Add Penjual
+            Add Seller
           </Button>
-          <DatePicker label="Tanggal" value={date} setValue={setDate} required />
+          <DatePicker label="Date" value={date} setValue={setDate} required />
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
-            {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+            {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
           </Button>
 
         </Grid>
@@ -210,7 +210,7 @@ const RawMaterial = () => {
         ) : (
           <CustomAlert
             type='error'
-            message='Pilih pabrik terlebih dahulu'
+            message='Select a factory first'
             onClose={() => setErrorMaterial(false)}
           />
         )}
