@@ -18,15 +18,36 @@ const DashboardWarehoue = () => {
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
-          title=""
+          title="Warehouse"
           getData={apiGetTrucking}
           getDataDropdown={apiGetWarehouse}
           carouselName ="warehouse"
           dropdownLabel="Warehouse"
           enableDropdown
           dropdownVal={warehouse}
-          setDropdownVal={setWarehouse}
-          addition/>
+          setDropdownVal={setWarehouse}/>
+      </Grid>
+      <Grid item className="dashboard-section-content">
+        <CustomizeCarousel
+          title="National Price"
+          getData={apiGetTrucking}
+          getDataDropdown={apiGetWarehouse}
+          carouselName ="nationalprice"
+          dropdownLabel="Warehouse"
+          enableDropdown
+          dropdownVal={warehouse}
+          setDropdownVal={setWarehouse}/>
+      </Grid>
+      <Grid item className="dashboard-section-content">
+        <CustomizeCarousel
+          title="Ini Apa??"
+          getData={apiGetTrucking}
+          getDataDropdown={apiGetWarehouse}
+          carouselName ="nationalprice"
+          dropdownLabel="Warehouse"
+          enableDropdown
+          dropdownVal={warehouse}
+          setDropdownVal={setWarehouse}/>
       </Grid>
     </Grid>
   );
