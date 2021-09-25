@@ -187,7 +187,7 @@ const Navbar = () => {
     },
     {
       id: 2,
-      name: 'TRUCKING MODEL',
+      name: 'WAREHOUSE MODEL',
       route: Routes.warehouse.dashboard,
       sub: [
         {
