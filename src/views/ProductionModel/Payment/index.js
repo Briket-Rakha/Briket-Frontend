@@ -109,7 +109,7 @@ const PaymentTimeline = () => {
         <Grid item xs={3}>
           <CustomSelect
             value={year}
-            label="Tahun"
+            label="Year"
             getValues={getListOfYears}
             setValue={setYear}
             size="medium"

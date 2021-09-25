@@ -115,7 +115,7 @@ const Charcoal = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="raw-material-title">Input Charcoal Outsource </h3>
+      <h3 className="raw-material-title">Charcoal Outsource Input</h3>
       <form onSubmit={postCharcoal}>
         <Grid container className="raw-material-form" direction="column">
           <CustomSelect
@@ -129,14 +129,14 @@ const Charcoal = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenBrand(true)}
           >
-          Tambah Brand
+          Add Brand
           </Button>
           <TextField
             id="jumlah"
             name="jumlah"
             className="input-field"
-            placeholder="Jumlah*"
-            label="Jumlah"
+            placeholder="Amount*"
+            label="Amount"
             size="medium"
             value={jumlah}
             type="text"
@@ -167,7 +167,7 @@ const Charcoal = () => {
             onChange={(event, value)=> setCommission(value)}
           />
           <CurrencyTextField
-            label="Pembayaran"
+            label="Payment"
             variant="outlined"
             value={pembayaran}
             required
@@ -178,7 +178,7 @@ const Charcoal = () => {
             onChange={(event, value)=> setPembayaran(value)}
           />
           <CustomSelect
-            label="Penjual"
+            label="Seller"
             value={penjual}
             getValues={apiGetSupplierOutsource}
             setValue={setPenjual}
@@ -188,7 +188,7 @@ const Charcoal = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPenjual(true)}
           >
-            Tambah Penjual
+            Add Seller
           </Button>
           {/* <TextField
           id="penanggung-jawab"
@@ -203,7 +203,7 @@ const Charcoal = () => {
           required
           onChange={(e) => setPj(e.target.value)}
         /> */}
-          <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
+          <DatePicker label="Date" value={date} setValue={setDate} required/>
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
             {loading ? (
             <CircularProgress size={20} thickness={5} />
