@@ -123,7 +123,7 @@ const RawMaterial = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="raw-material-title">Input Material</h3>
+      <h3 className="raw-material-title">Material Input</h3>
       <form onSubmit={postRawMaterial}>
         <Grid container className="raw-material-form" direction="column">
           <CustomSelect
@@ -137,7 +137,7 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPabrik(true)}
           >
-          Tambah Pabrik
+          Add Factory
           </Button>
           <CustomSelect
             label="Material"
@@ -152,7 +152,7 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={handleModalMaterial}
           >
-            Tambah Material
+            Add Material
           </Button>
 
           <TextField
@@ -189,7 +189,7 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPenjual(true)}
           >
-          Tambah Penjual
+            Add Penjual
           </Button>
           <DatePicker label="Tanggal" value={date} setValue={setDate} required />
           <Button type="submit" className="align-end btn btn-lg simpan-btn">

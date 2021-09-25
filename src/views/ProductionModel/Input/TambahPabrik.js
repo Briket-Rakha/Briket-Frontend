@@ -89,8 +89,8 @@ const TambahPabrik = () => {
           id="name"
           name="name"
           className="input-field"
-          label="Nama Pabrik"
-          placeholder="Masukkan Nama Pabrik*"
+          label="Factory Name"
+          placeholder="Please enter the factory name*"
           size="medium"
           value={name}
           type="text"
