@@ -66,7 +66,7 @@ const FactoryProduction = () => {
           className="dashboard-section-header-title"
           direction="column"
         >
-          <h3>Grafik Produksi Pabrik</h3>
+          <h3>Factory Production Chart</h3>
           <p>{`Total: ${total || 0} kg`}</p>
         </Grid>
         <Grid container className="dashboard-section-header-input">
@@ -87,7 +87,7 @@ const FactoryProduction = () => {
           />
           <CustomSelect
             value={pabrik}
-            label="Pabrik"
+            label="Factory"
             getValues={apiGetPabrik}
             setValue={setPabrik}
             size="small"

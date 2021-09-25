@@ -140,12 +140,12 @@ const Packaging = () => {
   const jenisProdusen = [
     {
       id: 'pabrik',
-      name: 'Produksi',
+      name: 'Factory Production',
       value: 'Produksi',
     },
     {
       id: 'outsource',
-      name: 'Outsource',
+      name: 'Outsource Production',
       value: 'Outsource',
     },
   ];

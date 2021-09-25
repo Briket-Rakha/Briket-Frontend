@@ -139,7 +139,7 @@ const HasilProduksi = () => {
       <h3 className="hasil-produksi-title">Factory Production Input</h3>
       <Grid container className="hasil-produksi-form" direction="column">
         <CustomSelect
-          label="Pabrik"
+          label="Factory"
           value={pabrik}
           getValues={apiGetPabrik}
           setValue={setPabrik}
@@ -149,7 +149,7 @@ const HasilProduksi = () => {
           className="align-end btn tambah-item-btn"
           onClick={() => setOpenPabrik(true)}
         >
-          Tambah Pabrik
+          Add Factory
         </Button>
         <CustomSelect
           label="Brand Charcoal"
@@ -162,7 +162,7 @@ const HasilProduksi = () => {
           className="align-end btn tambah-item-btn"
           onClick={() => setOpenBrand(true)}
         >
-          Tambah Brand
+          Add Brand
         </Button>
         <TextField
           id="jumlah"
@@ -242,7 +242,7 @@ const HasilProduksi = () => {
             className="align-end btn tambah-item-btn"
             onClick={handleAddClick}
           >
-              Tambah Material
+              Add Material
           </Button>
         }
         <DatePicker label="Tanggal" value={date} setValue={setDate} required />

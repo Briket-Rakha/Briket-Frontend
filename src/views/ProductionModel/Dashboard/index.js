@@ -40,7 +40,7 @@ const Dashboard = () => {
           getData={apiGetMaterialDashboard}
           getDataDropdown={apiGetPabrik}
           carouselName ="material"
-          dropdownLabel="Pabrik"
+          dropdownLabel="Factory"
           dropdownVal={pabrik}
           setDropdownVal={setPabrik}
           enableDropdown/>

@@ -82,7 +82,7 @@ const Manage = () => {
           {activeMenu === 1 && (
             <>
               <ItemContainer
-                title="Pabrik"
+                title="Factory"
                 deleteItem={handleDeleteItem}
                 getItems={apiGetPabrik}
                 setOpenModal={setOpenModal}
