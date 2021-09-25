@@ -42,13 +42,13 @@ const PilihTanggal = (props) => {
         />
       )}
       <Grid item className="pilih-tanggal-header">
-        <h2>Pilih Tanggal</h2>
+        <h2>Select Date</h2>
       </Grid>
       <Grid item className="pilih-tanggal-form">
         {dropdownAddition ?
           <CustomSelect
             value={category}
-            label="Kategori"
+            label="Category"
             getValues={dropdownAddition}
             setValue={setCategory}
             size="medium"
@@ -57,12 +57,12 @@ const PilihTanggal = (props) => {
           /> : ''
         }
         <DatePicker
-          label="Dari"
+          label="From"
           value={startDate}
           setValue={setStartDate}
           required/>
         <DatePicker
-          label="Sampai"
+          label="To"
           value={endDate}
           setValue={setEndDate}
           required/>
