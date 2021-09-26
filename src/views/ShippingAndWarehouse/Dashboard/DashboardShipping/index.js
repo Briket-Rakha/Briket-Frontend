@@ -12,7 +12,7 @@ import '../../../../styles/views/dashboard.scss';
 import { formatCurrency } from '../../../../utils/helper';
 
 // Import API
-import { apiGetShipping, apiGetContainerShipping } from '../../../../api/shipping.api';
+import { apiGetShipping, apiGetDashboardContainer } from '../../../../api/shipping.api';
 
 const DashboardShipping = () => {
   const [totalWeight, setTotalWeight] = useState('');
@@ -55,7 +55,7 @@ const DashboardShipping = () => {
           title=""
           getData={carouselData}
           getDataNonFunc
-          getDataDropdown={apiGetContainerShipping}
+          getDataDropdown={apiGetDashboardContainer}
           carouselName ="packaging"
           dropdownLabel="Container"
           enableDropdown
