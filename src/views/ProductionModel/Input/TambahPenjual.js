@@ -109,7 +109,7 @@ const TambahPenjual = ({ type }) => {
           name="name"
           className="input-field"
           label="Supplier Name"
-          placeholder="Please enter the seller name*"
+          placeholder="Please enter the supplier name*"
           size="medium"
           value={name}
           type="text"
