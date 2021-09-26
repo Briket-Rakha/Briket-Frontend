@@ -200,7 +200,7 @@ const Packaging = () => {
           required
         />
         <p className="packaging-text">
-            Amount of Packaging and Packaging type *
+            Packaging Amount and Type*
         </p>
         {inputList.map((x, i) => {
           return (
@@ -225,7 +225,7 @@ const Packaging = () => {
               <Grid item xs={3} className="packaging-jenis-item">
                 <TextField
                   id="jumlah"
-                  name="amount"
+                  name="Amount"
                   className="input-field"
                   placeholder="Please enter the amount in kg"
                   label="amount"
