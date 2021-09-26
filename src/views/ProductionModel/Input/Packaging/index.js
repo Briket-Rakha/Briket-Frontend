@@ -288,7 +288,7 @@ const Packaging = () => {
                 <TextField
                   className="input-field"
                   placeholder="Producer"
-                  label="Produsen"
+                  label="Producer"
                   size="medium"
                   value={x.asal_name}
                   type="text"
