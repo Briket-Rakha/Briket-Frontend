@@ -225,10 +225,10 @@ const Packaging = () => {
               <Grid item xs={3} className="packaging-jenis-item">
                 <TextField
                   id="jumlah"
-                  name="Amount"
+                  name="amount"
                   className="input-field"
                   placeholder="Please enter the amount in kg"
-                  label="amount"
+                  label="Amount"
                   size="medium"
                   type="number"
                   value={x.amount}
