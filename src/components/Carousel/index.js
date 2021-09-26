@@ -120,7 +120,7 @@ const CustomCarousel = (props) => {
             dataCarousel.length>0?
             <Carousel>
               {threeItemsRender}
-            </Carousel> : <p className="no-data">Tidak Ada Data Tersedia</p>
+            </Carousel> : <p className="no-data">No Data Found!</p>
           )
 
 

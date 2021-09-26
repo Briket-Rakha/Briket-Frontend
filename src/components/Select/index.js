@@ -120,7 +120,7 @@ export default function CustomSelect(props) {
             </MenuItem>,
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
-            Tidak ada data yang tersedia!</p>}
+            No Data Found!</p>}
           {loading && (
             <Grid container className="loading-container">
               <CircularProgress size={20} thickness={5} />

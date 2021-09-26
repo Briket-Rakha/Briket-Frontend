@@ -104,7 +104,7 @@ const Navbar = () => {
                 },
                 {
                   id: 1,
-                  name: 'HASIL PRODUKSI',
+                  name: 'FACTORY PRODUCTION',
                   onClick: () => {
                     history.push(
                         Routes.production.input.selfProduce.hasilProduksi,
@@ -187,7 +187,7 @@ const Navbar = () => {
     },
     {
       id: 2,
-      name: 'TRUCKING MODEL',
+      name: 'WAREHOUSE MODEL',
       route: Routes.warehouse.dashboard,
       sub: [
         {

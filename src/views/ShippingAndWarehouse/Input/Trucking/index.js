@@ -29,7 +29,7 @@ import { getUser } from '../../../../utils/auth';
 
 const componentTree = [
   {
-    name: 'Trucking Model',
+    name: 'Warehouse Model',
   },
   {
     name: 'Input',
@@ -129,7 +129,7 @@ const WarehouseInput = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="shipping-warehouse-title">Input Warehouse</h3>
+      <h3 className="shipping-warehouse-title">Warehouse Input</h3>
       <form container className="shipping-warehouse-form" onSubmit={AddWarehouse}>
         <CustomSelect
           label="No. Container"
@@ -183,7 +183,7 @@ const WarehouseInput = () => {
               className="align-end btn tambah-item-btn"
               onClick={handleAddPayment}
             >
-              Tambah Pembayaran
+              Add Payment
             </Button>
           </Grid>
         </Grid>
@@ -199,13 +199,13 @@ const WarehouseInput = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setWarehouseModal(true)}
           >
-            Tambah Warehouse
+            Add Warehouse
           </Button>
         </Grid>
         <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Grid item container justify="flex-end">
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
-            {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+            {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
           </Button>
         </Grid>
       </form>

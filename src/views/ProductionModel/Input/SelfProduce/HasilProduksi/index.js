@@ -105,7 +105,7 @@ const HasilProduksi = () => {
       name: 'Self Produce',
     },
     {
-      name: 'Hasil Produksi',
+      name: 'Factory Production',
       onClick: Routes.production.input.selfProduce.hasilProduksi,
     },
   ];
@@ -113,12 +113,12 @@ const HasilProduksi = () => {
   const arraySelection = [
     {
       id: 0,
-      name: 'Ya',
+      name: 'Yes',
       value: 'yes',
     },
     {
       id: 1,
-      name: 'Tidak',
+      name: 'No',
       value: 'no',
     },
   ];
@@ -136,10 +136,10 @@ const HasilProduksi = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="hasil-produksi-title">Input Hasil Produksi</h3>
+      <h3 className="hasil-produksi-title">Factory Production Input</h3>
       <Grid container className="hasil-produksi-form" direction="column">
         <CustomSelect
-          label="Pabrik"
+          label="Factory"
           value={pabrik}
           getValues={apiGetPabrik}
           setValue={setPabrik}
@@ -149,10 +149,10 @@ const HasilProduksi = () => {
           className="align-end btn tambah-item-btn"
           onClick={() => setOpenPabrik(true)}
         >
-          Tambah Pabrik
+          Add Factory
         </Button>
         <CustomSelect
-          label="Brand Charcoal"
+          label="Charcoal Brand"
           value={brand}
           getValues={apiGetBrand}
           setValue={setBrand}
@@ -162,14 +162,14 @@ const HasilProduksi = () => {
           className="align-end btn tambah-item-btn"
           onClick={() => setOpenBrand(true)}
         >
-          Tambah Brand
+          Add Brand
         </Button>
         <TextField
           id="jumlah"
-          name="jumlah"
+          name="Amount"
           className="input-field"
-          placeholder="Masukkan jumlah (dalam kg)"
-          label="Jumlah"
+          placeholder="Please enter the amount in kg"
+          label="Amount"
           size="medium"
           value={jumlah}
           type="number"
@@ -179,7 +179,7 @@ const HasilProduksi = () => {
         />
         <RadioSelect
           arraySelection={arraySelection}
-          title="Ubah Raw Material?"
+          title="Modify Raw Material?"
           value={isRaw}
           setValue={setIsRaw}
           required
@@ -220,7 +220,7 @@ const HasilProduksi = () => {
                       name='amount'
                       className="input-field"
                       placeholder="Masukkan jumlah"
-                      label="Jumlah"
+                      label="Amount"
                       size="medium"
                       value={x.amount}
                       onChange={(e) =>
@@ -242,12 +242,12 @@ const HasilProduksi = () => {
             className="align-end btn tambah-item-btn"
             onClick={handleAddClick}
           >
-              Tambah Material
+              Add Material
           </Button>
         }
         <DatePicker label="Tanggal" value={date} setValue={setDate} required />
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
         </Button>
       </Grid>
       <CustomModal open={openPabrik} setOpen={setOpenPabrik}>

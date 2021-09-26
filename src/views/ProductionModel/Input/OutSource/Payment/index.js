@@ -37,12 +37,12 @@ const Payment = () => {
   const arraySelection = [
     {
       id: 0,
-      name: 'Ya',
+      name: 'Yes',
       value: 'yes',
     },
     {
       id: 1,
-      name: 'Tidak',
+      name: 'No',
       value: 'no',
     },
   ];
@@ -116,17 +116,17 @@ const Payment = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="raw-material-title">Input Payment Outsource </h3>
+      <h3 className="raw-material-title">Payment Outsource Input</h3>
       <Grid container className="raw-material-form" direction="column">
         <CustomSelect
-          label="Transaksi"
+          label="Transaction"
           value={transaction}
           getValues={apiGetAvailablePayment}
           setValue={setTransaction}
           required
         />
         <CurrencyTextField
-          label="Pembayaran"
+          label="Payment"
           variant="outlined"
           required
           value={payment}
@@ -150,7 +150,7 @@ const Payment = () => {
           onChange={(e) => setInformation(e.target.value)}
         />
         <CustomRadio
-          title="Harga complete payment berubah?"
+          title="Any changes from complete payment?"
           arraySelection={arraySelection}
           required
           setValue={setPaymentChange}
@@ -169,9 +169,9 @@ const Payment = () => {
             onChange={(event, value)=> setCompletePayment(value)}
           />
         )}
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required/>
+        <DatePicker label="Date" value={date} setValue={setDate} required/>
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
         </Button>
       </Grid>
     </form>

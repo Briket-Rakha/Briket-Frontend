@@ -100,7 +100,7 @@ const PaymentTimeline = () => {
         <Grid item xs={3}>
           <CustomSelect
             value={month}
-            label="Bulan"
+            label="Month"
             getValues={getListOfMonths}
             setValue={setMonth}
             size="medium"
@@ -109,7 +109,7 @@ const PaymentTimeline = () => {
         <Grid item xs={3}>
           <CustomSelect
             value={year}
-            label="Tahun"
+            label="Year"
             getValues={getListOfYears}
             setValue={setYear}
             size="medium"
@@ -146,14 +146,14 @@ const PaymentTimeline = () => {
           ) : (
             <Grid item md={12}>
               <h3 className="no-data">
-              Tidak ada data pembayaran outsource material
+              No Data Found!
               </h3>
             </Grid>
           )
         }
         {timeline?.length ? (
           <CustomTable
-            header={['Tanggal', 'Pembayaran', 'Deskripsi']}
+            header={['Date', 'Payment', 'Description']}
             content={timeline}
             alignHead="left"
             alignBody="left"
@@ -166,7 +166,7 @@ const PaymentTimeline = () => {
         ) : (
           <Grid item md={12}>
             <h3 className="no-data">
-              Tidak ada data timeline pembayaran
+            No Data Found!
             </h3>
           </Grid>
         )}

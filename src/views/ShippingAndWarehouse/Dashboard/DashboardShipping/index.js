@@ -21,7 +21,7 @@ const DashboardShipping = () => {
   const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
   const [carouselData, setCarouselData] = useState('');
-  const noData = 'Tidak Ada Data Tersedia';
+  const noData = 'No Data Found!';
 
   const payload = {
     container_number: container,

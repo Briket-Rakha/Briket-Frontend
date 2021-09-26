@@ -18,7 +18,7 @@ const OutSouceMaterial = ({ data }) => {
               <td>{formatCurrency(data.timeline[0].complete_price)}</td>
             </tr>
             <tr>
-              <td>Harga Commission</td>
+              <td>Commission Price</td>
               <td>:</td>
               <td>{formatCurrency(data.timeline[0].commision_price)}</td>
             </tr>
@@ -26,7 +26,7 @@ const OutSouceMaterial = ({ data }) => {
               <td>&nbsp;</td>
             </tr>
             <tr>
-              <td>Deskripsi</td>
+              <td>Description</td>
             </tr>
             <tr>
               <td><li>Brand</li></td>
@@ -34,12 +34,12 @@ const OutSouceMaterial = ({ data }) => {
               <td>{data.timeline[0].charcoal_brand_name}</td>
             </tr>
             <tr>
-              <td><li>Jumlah (kg)</li></td>
+              <td><li>Amount (kg)</li></td>
               <td>:</td>
               <td>{`${data.timeline[0].amount} kg`}</td>
             </tr>
             <tr>
-              <td><li>Nama Outsource</li></td>
+              <td><li>Outsource Name</li></td>
               <td>:</td>
               <td>{data.timeline[0].outsource_name}</td>
             </tr>
@@ -50,7 +50,7 @@ const OutSouceMaterial = ({ data }) => {
         <table className="outsource-material-item">
           <tbody>
             <tr>
-              <td>Sisa Pembayaran</td>
+              <td>Remaining Payment</td>
               <td>:</td>
               <td>
                 {

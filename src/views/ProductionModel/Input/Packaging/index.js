@@ -140,12 +140,12 @@ const Packaging = () => {
   const jenisProdusen = [
     {
       id: 'pabrik',
-      name: 'Produksi',
+      name: 'Factory Production',
       value: 'Produksi',
     },
     {
       id: 'outsource',
-      name: 'Outsource',
+      name: 'Outsource Production',
       value: 'Outsource',
     },
   ];
@@ -177,14 +177,14 @@ const Packaging = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="packaging-title">Input Packaging</h3>
+      <h3 className="packaging-title">Packaging Input</h3>
       <Grid container className="packaging-form" direction="column">
         <TextField
           id="containerNumber"
           name="containerNumber"
           className="input-field"
-          placeholder="Masukkan nomor container"
-          label="Nomor container"
+          placeholder="Please enter the container number"
+          label="Container Number"
           size="medium"
           value={containerNumber}
           type="text"
@@ -193,14 +193,14 @@ const Packaging = () => {
           onChange={(e) => setContainerNumber(e.target.value)}
         />
         <CustomSelect
-          label="Brand Charcoal"
+          label="Charcoal Brand"
           value={brand}
           getValues={apiGetBrand}
           setValue={setBrand}
           required
         />
         <p className="packaging-text">
-            Jumlah dan Jenis Packaging *
+            Packaging Amount and Type*
         </p>
         {inputList.map((x, i) => {
           return (
@@ -213,7 +213,7 @@ const Packaging = () => {
               <Grid item xs={3} className="packaging-jenis-item">
                 <CustomSelect
                   name="package_id"
-                  label="Jenis Packaging"
+                  label="Packaging Type"
                   value={x.package_id}
                   getValues={apiGetPackaging}
                   setValue={handleInputChange}
@@ -227,8 +227,8 @@ const Packaging = () => {
                   id="jumlah"
                   name="amount"
                   className="input-field"
-                  placeholder="Masukkan jumlah (dalam kg)"
-                  label="Jumlah"
+                  placeholder="Please enter the amount in kg"
+                  label="Amount"
                   size="medium"
                   type="number"
                   value={x.amount}
@@ -241,7 +241,7 @@ const Packaging = () => {
               <Grid item xs={3}>
                 <CustomSelect
                   name="asal"
-                  label="Jenis Produsen"
+                  label="Producer Type"
                   value={x.asal}
                   getValues={jenisProdusen}
                   setValue={handleInputChange}
@@ -254,7 +254,7 @@ const Packaging = () => {
               <Grid item xs={3}>
                 <CustomSelect
                   name="asal_id"
-                  label="Produsen"
+                  label="Producer"
                   value={x.asal_id}
                   getValues={x.asal ? (x.asal=='pabrik'?
                     apiGetPabrik : apiGetSupplierOutsource) : null}
@@ -274,7 +274,7 @@ const Packaging = () => {
           className="align-end btn tambah-item-btn"
           onClick={handleAddClick}
         >
-              Tambah Packaging
+              Add Packaging
         </Button>
         {inputList.map((x, i) => {
           return (
@@ -287,8 +287,8 @@ const Packaging = () => {
               <Grid item xs={4}>
                 <TextField
                   className="input-field"
-                  placeholder="Produsen"
-                  label="Produsen"
+                  placeholder="Producer"
+                  label="Producer"
                   size="medium"
                   value={x.asal_name}
                   type="text"
@@ -298,7 +298,7 @@ const Packaging = () => {
               </Grid>
               <Grid item xs={4}>
                 <CurrencyTextField
-                  label="Harga Per kg"
+                  label="Price Per kg"
                   variant="outlined"
                   required
                   value={x.price}
@@ -312,7 +312,7 @@ const Packaging = () => {
               </Grid>
               <Grid item xs={4}>
                 <CurrencyTextField
-                  label="Harga Total"
+                  label="Total Price"
                   variant="outlined"
                   required
                   value={x.harga_total()}
@@ -326,9 +326,9 @@ const Packaging = () => {
             </Grid>
           );
         })}
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required />
+        <DatePicker label="Date" value={date} setValue={setDate} required />
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
         </Button>
       </Grid>
     </form>

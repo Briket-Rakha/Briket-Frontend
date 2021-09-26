@@ -66,7 +66,7 @@ const TambahMaterial = ({ pabrik, dropdownPabrik }) => {
         {
           dropdownPabrik &&
           <CustomSelect
-            label="Pabrik"
+            label="Factory"
             value={idPabrik || pabrik}
             getValues={apiGetPabrik}
             setValue={setPabrik}
@@ -77,8 +77,8 @@ const TambahMaterial = ({ pabrik, dropdownPabrik }) => {
           id="name"
           name="name"
           className="input-field"
-          placeholder="Masukkan nama jenis material*"
-          label="Nama Material"
+          placeholder="Please enter the material name*"
+          label="Material Name"
           size="medium"
           value={name}
           type="text"
@@ -88,7 +88,7 @@ const TambahMaterial = ({ pabrik, dropdownPabrik }) => {
         />
       </Grid>
       <Button type="submit" className="btn btn-lg simpan-btn">
-        {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+        {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
       </Button>
     </form>
   );

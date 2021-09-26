@@ -41,7 +41,7 @@ const FactoryProduction = () => {
         .catch((err) => {
           setErrorMessage(
               err?.message ||
-              'Gagal mengambil data hasil produksi',
+              'Failed to get data',
           );
           setLoading(false);
         });
@@ -66,20 +66,20 @@ const FactoryProduction = () => {
           className="dashboard-section-header-title"
           direction="column"
         >
-          <h3>Grafik Produksi Pabrik</h3>
+          <h3>Factory Production Chart</h3>
           <p>{`Total: ${total || 0} kg`}</p>
         </Grid>
         <Grid container className="dashboard-section-header-input">
           <CustomSelect
             value={month}
-            label="Bulan"
+            label="Month"
             getValues={getListOfMonths}
             setValue={setMonth}
             size="small"
           />
           <CustomSelect
             value={year}
-            label="Tahun"
+            label="Year"
             getValues={apiGetHasilProduksiYear}
             setValue={setYear}
             size="small"
@@ -87,7 +87,7 @@ const FactoryProduction = () => {
           />
           <CustomSelect
             value={pabrik}
-            label="Pabrik"
+            label="Factory"
             getValues={apiGetPabrik}
             setValue={setPabrik}
             size="small"

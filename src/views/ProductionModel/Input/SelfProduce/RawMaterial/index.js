@@ -123,11 +123,11 @@ const RawMaterial = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="raw-material-title">Input Material</h3>
+      <h3 className="raw-material-title">Material Input</h3>
       <form onSubmit={postRawMaterial}>
         <Grid container className="raw-material-form" direction="column">
           <CustomSelect
-            label="Pabrik"
+            label="Factory"
             value={pabrik}
             getValues={apiGetPabrik}
             setValue={setPabrik}
@@ -137,7 +137,7 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPabrik(true)}
           >
-          Tambah Pabrik
+          Add Factory
           </Button>
           <CustomSelect
             label="Material"
@@ -152,15 +152,15 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={handleModalMaterial}
           >
-            Tambah Material
+            Add Material
           </Button>
 
           <TextField
             id="jumlah"
             name="jumlah"
             className="input-field"
-            placeholder="Jumlah*"
-            label="Jumlah"
+            placeholder="Amount*"
+            label="Amount"
             size="medium"
             value={jumlah}
             type="number"
@@ -169,7 +169,7 @@ const RawMaterial = () => {
             onChange={(e) => setJumlah(e.target.value)}
           />
           <CurrencyTextField
-            label="Harga"
+            label="Price"
             variant="outlined"
             value={harga}
             currencySymbol="Rp"
@@ -179,7 +179,7 @@ const RawMaterial = () => {
             onChange={(event, value)=> setHarga(value)}
           />
           <CustomSelect
-            label="Penjual"
+            label="Supplier"
             value={penjual}
             getValues={apiGetSupplierMaterial}
             setValue={setPenjual}
@@ -189,11 +189,11 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPenjual(true)}
           >
-          Tambah Penjual
+            Add Supplier
           </Button>
-          <DatePicker label="Tanggal" value={date} setValue={setDate} required />
+          <DatePicker label="Date" value={date} setValue={setDate} required />
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
-            {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+            {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
           </Button>
 
         </Grid>
@@ -210,7 +210,7 @@ const RawMaterial = () => {
         ) : (
           <CustomAlert
             type='error'
-            message='Pilih pabrik terlebih dahulu'
+            message='Select a factory first'
             onClose={() => setErrorMaterial(false)}
           />
         )}

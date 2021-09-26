@@ -120,10 +120,10 @@ const ShippingInput = () => {
         />
       )}
       <CustomBreadcrumbs componentTree={componentTree} />
-      <h3 className="shipping-warehouse-title">Input Shipping</h3>
+      <h3 className="shipping-warehouse-title">Shipping Input</h3>
       <Grid container className="shipping-warehouse-form" direction="column">
         <CustomSelect
-          label="No. Container"
+          label="Container Number"
           value={container}
           getValues={apiGetContainer}
           setValue={setContainer}
@@ -134,7 +134,7 @@ const ShippingInput = () => {
             <Grid item xs={6}>
               <CustomSelect
                 name="paymentType"
-                label="Jenis Pembayaran"
+                label="Payment Type"
                 value={paymentType}
                 getValues={() => apiGetPaymentType('shipping')}
                 index={idx}
@@ -145,7 +145,7 @@ const ShippingInput = () => {
             </Grid>
             <Grid item xs={6}>
               <CurrencyTextField
-                label="Nominal"
+                label="Payment Amount"
                 variant="outlined"
                 value={nominal}
                 name="nominal"
@@ -174,13 +174,13 @@ const ShippingInput = () => {
               className="align-end btn tambah-item-btn"
               onClick={handleAddPayment}
             >
-              Tambah Pembayaran
+              Add Payment
             </Button>
           </Grid>
         </Grid>
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required />
+        <DatePicker label="Date" value={date} setValue={setDate} required />
         <Button type="submit" className="align-end btn btn-lg simpan-btn">
-          {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+          {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
         </Button>
       </Grid>
     </form>

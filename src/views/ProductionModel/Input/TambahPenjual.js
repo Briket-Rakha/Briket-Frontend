@@ -108,8 +108,8 @@ const TambahPenjual = ({ type }) => {
           id="name"
           name="name"
           className="input-field"
-          label="Nama Penjual"
-          placeholder="Masukkan Nama Penjual*"
+          label="Supplier Name"
+          placeholder="Please enter the supplier name*"
           size="medium"
           value={name}
           type="text"
@@ -121,8 +121,8 @@ const TambahPenjual = ({ type }) => {
           id="address"
           name="address"
           className="input-field"
-          placeholder="Masukkan Alamat*"
-          label="Alamat"
+          placeholder="Please enter the address*"
+          label="Address"
           size="medium"
           value={address}
           type="text"
@@ -135,8 +135,8 @@ const TambahPenjual = ({ type }) => {
           id="kota"
           name="city"
           className="input-field"
-          placeholder="Masukkan Kota*"
-          label="Kota"
+          placeholder="Please enter the city*"
+          label="City"
           size="medium"
           value={city}
           type="text"
@@ -148,8 +148,8 @@ const TambahPenjual = ({ type }) => {
           id="zipcode"
           name="zipcode"
           className="input-field"
-          placeholder="Masukkan Kode Pos*"
-          label="Kode Pos"
+          placeholder="Please enter the postal code*"
+          label="Postal Code"
           size="medium"
           value={zipcode}
           type="text"
@@ -161,8 +161,8 @@ const TambahPenjual = ({ type }) => {
           id="phone"
           name="phone"
           className="input-field"
-          placeholder="Masukkan Nomor Telepon*"
-          label="No. Telepon"
+          placeholder="Please enter the phone number*"
+          label="Phone Number"
           size="medium"
           value={phone}
           type="text"
@@ -173,7 +173,7 @@ const TambahPenjual = ({ type }) => {
         />
       </Grid>
       <Button type="submit" className="btn btn-lg simpan-btn">
-        {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+        {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
       </Button>
     </form>
   );
