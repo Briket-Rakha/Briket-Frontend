@@ -179,7 +179,7 @@ const RawMaterial = () => {
             onChange={(event, value)=> setHarga(value)}
           />
           <CustomSelect
-            label="Seller"
+            label="Supplier"
             value={penjual}
             getValues={apiGetSupplierMaterial}
             setValue={setPenjual}
@@ -189,7 +189,7 @@ const RawMaterial = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPenjual(true)}
           >
-            Add Seller
+            Add Supplier
           </Button>
           <DatePicker label="Date" value={date} setValue={setDate} required />
           <Button type="submit" className="align-end btn btn-lg simpan-btn">

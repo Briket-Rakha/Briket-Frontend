@@ -122,7 +122,7 @@ const Manage = () => {
           {activeMenu === 3 && (
             <>
               <ItemContainer
-                title="MAterial's Seller"
+                title="Material Supplier"
                 deleteItem={handleDeleteItem}
                 getItems={apiGetSupplierMaterial}
                 setOpenModal={setOpenModal}
@@ -142,7 +142,7 @@ const Manage = () => {
           {activeMenu === 4 && (
             <>
               <ItemContainer
-                title="Outsource's Seller"
+                title="Outsource Supplier"
                 deleteItem={handleDeleteItem}
                 getItems={apiGetSupplierOutsource}
                 setOpenModal={setOpenModal}

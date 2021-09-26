@@ -178,7 +178,7 @@ const Charcoal = () => {
             onChange={(event, value)=> setPembayaran(value)}
           />
           <CustomSelect
-            label="Seller"
+            label="Supplier"
             value={penjual}
             getValues={apiGetSupplierOutsource}
             setValue={setPenjual}
@@ -188,7 +188,7 @@ const Charcoal = () => {
             className="align-end btn tambah-item-btn"
             onClick={() => setOpenPenjual(true)}
           >
-            Add Seller
+            Add Supplier
           </Button>
           {/* <TextField
           id="penanggung-jawab"
