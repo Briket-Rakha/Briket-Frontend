@@ -65,7 +65,7 @@ const CustomCarousel = (props) => {
                 carouselName=='material' ? [dataCarousel[i].name]:
                 carouselName=='hasilproduksi' ? [dataCarousel[i].name, dataCarousel[i].asal]:
                 carouselName=='packaging'? [dataCarousel[i].name, dataCarousel[i].asal, dataCarousel[i].package_name]:
-                carouselName=='warehouse'? [dataCarousel[i].container_number]:
+                carouselName=='warehouse'? [dataCarousel[i].total, dataCarousel[i].name, dataCarousel[i].package]:
                 []
               }/>
             {i+1 < dataCarousel.length &&
@@ -78,7 +78,8 @@ const CustomCarousel = (props) => {
                       carouselName=='hasilproduksi' ? [dataCarousel[i+1].name, dataCarousel[i+1].asal]:
                       carouselName=='packaging'?
                       [dataCarousel[i+1].name, dataCarousel[i+1].asal, dataCarousel[i+1].package_name]:
-                      carouselName=='warehouse'? [dataCarousel[i+1].container_number]:
+                      carouselName=='warehouse'?
+                      [dataCarousel[i+1].total, dataCarousel[i+1].name, dataCarousel[i+1].package]:
                       []
                     }/>
             }
@@ -92,7 +93,8 @@ const CustomCarousel = (props) => {
                       carouselName=='hasilproduksi' ? [dataCarousel[i+2].name, dataCarousel[i+2].asal]:
                       carouselName=='packaging'?
                       [dataCarousel[i+2].name, dataCarousel[i+2].asal, dataCarousel[i+2].package_name]:
-                      carouselName=='warehouse'? [dataCarousel[i+2].container_number]:
+                      carouselName=='warehouse'?
+                      [dataCarousel[i+1].total, dataCarousel[i+1].name, dataCarousel[i+1].package]:
                       []
                     }/>
             }
