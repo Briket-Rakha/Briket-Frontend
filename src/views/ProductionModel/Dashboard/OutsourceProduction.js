@@ -39,7 +39,7 @@ const OutsourceProduction = () => {
         .catch((err) => {
           setErrorMessage(
               err?.message ||
-              'Gagal mengambil data outsource produksi',
+              'Failed to get data',
           );
           setLoading(false);
         });

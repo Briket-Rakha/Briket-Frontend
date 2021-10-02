@@ -73,7 +73,7 @@ const Login = (props) => {
           })
           .catch((error) => {
             console.error(error);
-            setErrorMessage('Login Gagal');
+            setErrorMessage('Failed to Login');
             setOpenAlert(true);
             setLoading(false);
           });
