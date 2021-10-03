@@ -19,9 +19,8 @@ import DatePicker from '../../../../components/DatePicker';
 // import TambahWarehouse from '../../../ProductionModel/Input/TambahWarehouse';
 
 // Import API
-import { apiGetContainer } from '../../../../api/input-packaging.api';
 import { apiGetPaymentType } from '../../../../api/payment.api';
-import { apiPostTrucking } from '../../../../api/trucking.api';
+import { apiPostTrucking, apiGetTruckingContainer } from '../../../../api/trucking.api';
 // import { apiGetWarehouse } from '../../../../api/warehouse.api';
 
 // Import Utils
@@ -84,7 +83,7 @@ const WarehouseInput = () => {
       },
     ]);
     // setWarehouse('');
-    setDate('');
+    setDate(null);
   };
 
   const AddWarehouse = async (e) => {
@@ -93,9 +92,19 @@ const WarehouseInput = () => {
     if (!loading) {
       setLoading(true);
 
+      console.log('TYPE', paymentList);
+      const payment = paymentList.map((item) => {
+        item.jenis_pembayaran_id = item.paymentType;
+        item.price = item.nominal;
+
+        delete item.paymentType;
+        delete item.nominal;
+
+        return item;
+      });
+      console.log('PAYMENT', payment);
       const payload = {
         container_number: container,
-        // warehouse_id: warehouse,
         employee_id: getUser().ID,
         date,
         items: paymentList,
@@ -134,8 +143,9 @@ const WarehouseInput = () => {
         <CustomSelect
           label="No. Container"
           value={container}
-          getValues={apiGetContainer}
+          getValues={apiGetTruckingContainer}
           setValue={setContainer}
+          customField="container_number"
           required
         />
         {paymentList.map(({ paymentType, nominal }, idx) => (
@@ -143,7 +153,7 @@ const WarehouseInput = () => {
             <Grid item xs={6}>
               <CustomSelect
                 name="paymentType"
-                label="Jenis Pembayaran"
+                label="Payment Type"
                 value={paymentType}
                 getValues={() => apiGetPaymentType('trucking')}
                 index={idx}
@@ -202,7 +212,7 @@ const WarehouseInput = () => {
             Add Warehouse
           </Button>
         </Grid> */}
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required />
+        <DatePicker label="Date" value={date} setValue={setDate} required />
         <Grid item container justify="flex-end">
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
             {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
