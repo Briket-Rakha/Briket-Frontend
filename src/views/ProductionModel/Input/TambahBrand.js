@@ -63,8 +63,8 @@ const TambahBrand = () => {
           id="name"
           name="name"
           className="input-field"
-          placeholder="Masukkan nama jenis brand charcoal"
-          label="Jenis Brand Charcoal"
+          placeholder="Please enter name of charcoal brand"
+          label="Charcoal Brand"
           size="medium"
           value={name}
           type="text"
@@ -77,7 +77,7 @@ const TambahBrand = () => {
         type="submit"
         className="btn btn-lg simpan-btn"
       >
-        {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+        {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
       </Button>
     </form>
   );

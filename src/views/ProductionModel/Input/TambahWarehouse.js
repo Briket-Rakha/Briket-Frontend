@@ -155,7 +155,7 @@ const TambahWarehouse = () => {
         />
       </Grid>
       <Button type="submit" className="btn btn-lg simpan-btn">
-        {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
+        {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
       </Button>
     </form>
   );

@@ -12,7 +12,7 @@ import '../../../../styles/views/dashboard.scss';
 import { formatCurrency } from '../../../../utils/helper';
 
 // Import API
-import { apiGetShipping, apiGetContainerShipping } from '../../../../api/shipping.api';
+import { apiGetShipping, apiGetDashboardContainer } from '../../../../api/shipping.api';
 
 const DashboardShipping = () => {
   const [totalWeight, setTotalWeight] = useState('');
@@ -21,7 +21,7 @@ const DashboardShipping = () => {
   const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
   const [carouselData, setCarouselData] = useState('');
-  const noData = 'Tidak Ada Data Tersedia';
+  const noData = 'No Data Found!';
 
   const payload = {
     container_number: container,
@@ -55,7 +55,7 @@ const DashboardShipping = () => {
           title=""
           getData={carouselData}
           getDataNonFunc
-          getDataDropdown={apiGetContainerShipping}
+          getDataDropdown={apiGetDashboardContainer}
           carouselName ="packaging"
           dropdownLabel="Container"
           enableDropdown

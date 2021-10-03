@@ -24,11 +24,11 @@ const Dashboard = () => {
   const downloadCategory = [
     {
       id: 'hasilproduksi',
-      name: 'hasilproduksi',
+      name: 'Factory Production',
     },
     {
       id: 'outsource',
-      name: 'outsource',
+      name: 'Outsource Production',
     },
   ];
 
@@ -40,14 +40,14 @@ const Dashboard = () => {
           getData={apiGetMaterialDashboard}
           getDataDropdown={apiGetPabrik}
           carouselName ="material"
-          dropdownLabel="Pabrik"
+          dropdownLabel="Factory"
           dropdownVal={pabrik}
           setDropdownVal={setPabrik}
           enableDropdown/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
-          title="Hasil Produksi dan Outsource"
+          title="Factory and Outsource Production"
           carouselName ="hasilproduksi"
           getData={apiGetHasilDashboard}
           downloadCategory={downloadCategory}/>
