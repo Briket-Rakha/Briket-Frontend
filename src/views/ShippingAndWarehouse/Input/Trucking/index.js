@@ -92,7 +92,6 @@ const WarehouseInput = () => {
     if (!loading) {
       setLoading(true);
 
-      console.log('TYPE', paymentList);
       const payment = paymentList.map((item) => {
         item.jenis_pembayaran_id = item.paymentType;
         item.price = item.nominal;
@@ -102,12 +101,12 @@ const WarehouseInput = () => {
 
         return item;
       });
-      console.log('PAYMENT', payment);
+
       const payload = {
         container_number: container,
         employee_id: getUser().ID,
         date,
-        items: paymentList,
+        items: payment,
       };
 
       await apiPostTrucking(payload)
