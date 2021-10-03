@@ -1,5 +1,5 @@
 // Import Modules
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Button, CircularProgress } from '@material-ui/core';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
@@ -14,6 +14,7 @@ import DetailContainer from './DetailContainer';
 
 // Import API
 import { apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiGetNationalPriceData, apiPostNationalPrice } from '../../../../api/national-price.api';
 
 // Import Styling
 import '../../../../styles/views/shipping-warehouse.scss';
@@ -31,12 +32,65 @@ const componentTree = [
 const NationalPrice = () => {
   const [container, setContainer] = useState('');
   const [nationalPrice, setNationalPrice] = useState(0);
+  const [metadata, setMetadata] = useState();
 
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const fetchMetadata = async () => {
+    const params = {
+      container_number: container,
+    };
+
+    await apiGetNationalPriceData(params)
+        .then((i) => {
+          const { response: { data } } = i;
+          setMetadata(data.result);
+        })
+        .catch((err) => {
+          setErrorMessage(err.message || 'Server Error');
+        });
+  };
+
+  const resetState = () => {
+    setContainer('');
+    setNationalPrice(0);
+  };
+
+  const addNationalPrice = async (e) => {
+    e.preventDefault();
+
+    if (!container) {
+      setErrorMessage('Choose container number first!');
+      return;
+    }
+    const payload = {
+      container,
+      national_price: nationalPrice,
+    };
+
+    setLoading(true);
+    await apiPostNationalPrice(payload)
+        .then((i) => {
+          const { response: { data } } = i;
+          setSuccessMessage(data?.message);
+          setLoading(false);
+          resetState();
+          window.scrollTo(0, 0);
+        })
+        .catch((err) => {
+          setErrorMessage(err?.message || 'Failed to Add National Price!');
+          setLoading(false);
+        });
+  };
+
+  useEffect(() => {
+    if (container) fetchMetadata();
+  }, [container]);
+
   return (
-    <form className="shipping-warehouse">
+    <form className="shipping-warehouse" onSubmit={addNationalPrice}>
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
@@ -57,7 +111,7 @@ const NationalPrice = () => {
           setValue={setContainer}
           required
         />
-        <DetailContainer />
+        <DetailContainer data={metadata} />
         <CurrencyTextField
           label="National Price"
           variant="outlined"
@@ -69,7 +123,7 @@ const NationalPrice = () => {
           digitGroupSeparator="."
           onChange={(e, value)=> setNationalPrice(value)}
         />
-        <Button type="submit" className="align-end btn btn-lg simpan-btn">
+        <Button className="align-end btn btn-lg simpan-btn" onClick={addNationalPrice}>
           {loading ? <CircularProgress size={20} thickness={5} /> : 'SIMPAN'}
         </Button>
       </Grid>
