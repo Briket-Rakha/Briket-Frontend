@@ -6,6 +6,7 @@ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const apiShippingBaseUrl = {
   root: `${apiBaseUrl}/shipping`,
+  dashboard: `${apiBaseUrl}/shipping/containerDashboard`,
 };
 
 export function apiPostShipping(payload) {
@@ -42,6 +43,19 @@ export async function apiGetContainerShipping() {
     axios
         .get(`
         ${apiShippingBaseUrl.root}/containerDashboard`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiGetDashboardContainer() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(apiShippingBaseUrl.dashboard)
         .then((response) => {
           resolve({ response });
         })

@@ -15,14 +15,13 @@ import CustomAlert from '../../../../components/Alert';
 import CustomBreadcrumbs from '../../../../components/Breadcrumb';
 import CustomSelect from '../../../../components/Select';
 import DatePicker from '../../../../components/DatePicker';
-import CustomModal from '../../../../components/Modal';
-import TambahWarehouse from '../../../ProductionModel/Input/TambahWarehouse';
+// import CustomModal from '../../../../components/Modal';
+// import TambahWarehouse from '../../../ProductionModel/Input/TambahWarehouse';
 
 // Import API
-import { apiGetContainer } from '../../../../api/input-packaging.api';
 import { apiGetPaymentType } from '../../../../api/payment.api';
-import { apiPostTrucking } from '../../../../api/trucking.api';
-import { apiGetWarehouse } from '../../../../api/warehouse.api';
+import { apiPostTrucking, apiGetTruckingContainer } from '../../../../api/trucking.api';
+// import { apiGetWarehouse } from '../../../../api/warehouse.api';
 
 // Import Utils
 import { getUser } from '../../../../utils/auth';
@@ -45,9 +44,9 @@ const WarehouseInput = () => {
       nominal: 0,
     },
   ]);
-  const [date, setDate] = useState('');
-  const [warehouse, setWarehouse] = useState('');
-  const [warehouseModal, setWarehouseModal] = useState(false);
+  const [date, setDate] = useState(null);
+  // const [warehouse, setWarehouse] = useState('');
+  // const [warehouseModal, setWarehouseModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -83,8 +82,8 @@ const WarehouseInput = () => {
         nominal: 0,
       },
     ]);
-    setWarehouse('');
-    setDate('');
+    // setWarehouse('');
+    setDate(null);
   };
 
   const AddWarehouse = async (e) => {
@@ -93,9 +92,19 @@ const WarehouseInput = () => {
     if (!loading) {
       setLoading(true);
 
+      console.log('TYPE', paymentList);
+      const payment = paymentList.map((item) => {
+        item.jenis_pembayaran_id = item.paymentType;
+        item.price = item.nominal;
+
+        delete item.paymentType;
+        delete item.nominal;
+
+        return item;
+      });
+      console.log('PAYMENT', payment);
       const payload = {
         container_number: container,
-        warehouse_id: warehouse,
         employee_id: getUser().ID,
         date,
         items: paymentList,
@@ -134,8 +143,9 @@ const WarehouseInput = () => {
         <CustomSelect
           label="No. Container"
           value={container}
-          getValues={apiGetContainer}
+          getValues={apiGetTruckingContainer}
           setValue={setContainer}
+          customField="container_number"
           required
         />
         {paymentList.map(({ paymentType, nominal }, idx) => (
@@ -143,7 +153,7 @@ const WarehouseInput = () => {
             <Grid item xs={6}>
               <CustomSelect
                 name="paymentType"
-                label="Jenis Pembayaran"
+                label="Payment Type"
                 value={paymentType}
                 getValues={() => apiGetPaymentType('trucking')}
                 index={idx}
@@ -158,7 +168,7 @@ const WarehouseInput = () => {
                 variant="outlined"
                 value={nominal}
                 name="nominal"
-                currencySymbol="Rp"
+                currencySymbol="R$"
                 outputFormat="number"
                 decimalCharacter=","
                 digitGroupSeparator="."
@@ -187,31 +197,31 @@ const WarehouseInput = () => {
             </Button>
           </Grid>
         </Grid>
-        <CustomSelect
+        {/* <CustomSelect
           label="Pilih Warehouse"
           value={warehouse}
           getValues={apiGetWarehouse}
           setValue={setWarehouse}
           required
-        />
-        <Grid item container justify="flex-end">
+        /> */}
+        {/* <Grid item container justify="flex-end">
           <Button
             className="align-end btn tambah-item-btn"
             onClick={() => setWarehouseModal(true)}
           >
             Add Warehouse
           </Button>
-        </Grid>
-        <DatePicker label="Tanggal" value={date} setValue={setDate} required />
+        </Grid> */}
+        <DatePicker label="Date" value={date} setValue={setDate} required />
         <Grid item container justify="flex-end">
           <Button type="submit" className="align-end btn btn-lg simpan-btn">
             {loading ? <CircularProgress size={20} thickness={5} /> : 'SUBMIT'}
           </Button>
         </Grid>
       </form>
-      <CustomModal open={warehouseModal} setOpen={setWarehouseModal}>
+      {/* <CustomModal open={warehouseModal} setOpen={setWarehouseModal}>
         <TambahWarehouse />
-      </CustomModal>
+      </CustomModal> */}
     </Grid>
   );
 };
