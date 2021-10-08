@@ -9,7 +9,7 @@ import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarou
 import '../../../../styles/views/dashboard.scss';
 
 // Import Utils
-import { formatCurrency } from '../../../../utils/helper';
+import { formatCurrency, numberWithDots } from '../../../../utils/helper';
 
 // Import API
 import { apiGetShipping, apiGetContainerShipping } from '../../../../api/shipping.api';
@@ -20,22 +20,18 @@ const DashboardShipping = () => {
   const [charcoalPrice, setCharcoalPrice] = useState('');
   const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
-  const [carouselData, setCarouselData] = useState('');
-  const noData = 'No Data Found!';
 
-  const payload = {
-    container_number: container,
-  };
+  const FALSY_STATE = ['', null, undefined];
+  const noData = 'No Data Found!';
 
   const getShippingData = async () => {
     if (container) {
-      await apiGetShipping(payload)
+      await apiGetShipping(container)
           .then((res) => {
             const { response: { data } } = res;
             setTotalWeight(data.result.total_weight);
             setCharcoalPrice(data.result.charcoal_price);
             setTipePembayaran(data.result.shipping_price);
-            setCarouselData(data.result.data);
             setContainerWorth(data.result.container_worth);
           })
           .catch((err) => {
@@ -52,16 +48,15 @@ const DashboardShipping = () => {
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
-          title=""
-          getData={carouselData}
-          getDataNonFunc
+          title="Shipping"
+          getData={apiGetShipping}
+          customResponse
           getDataDropdown={apiGetContainerShipping}
-          carouselName ="packaging"
+          carouselName ="shipping"
           dropdownLabel="Container"
           enableDropdown
           dropdownVal={container}
-          setDropdownVal={setContainer}
-          addition/>
+          setDropdownVal={setContainer}/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <Grid
@@ -76,17 +71,17 @@ const DashboardShipping = () => {
             <tr>
               <td>Total Weight</td>
               <td>:</td>
-              <td>{totalWeight == '' ? noData : totalWeight}</td>
+              <td>{FALSY_STATE.includes(totalWeight) ? noData : numberWithDots(totalWeight) + ' kg'}</td>
             </tr>
             <tr>
               <td>Container Worth</td>
               <td>:</td>
-              <td>{containerWorth == '' ? noData : containerWorth}</td>
+              <td>{FALSY_STATE.includes(containerWorth) ? noData : formatCurrency(containerWorth)}</td>
             </tr>
             <tr>
               <td>Charcoal Price</td>
               <td>:</td>
-              <td>{charcoalPrice == '' ? noData : formatCurrency(charcoalPrice)}</td>
+              <td>{FALSY_STATE.includes(charcoalPrice) ? noData : formatCurrency(charcoalPrice)}</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -110,7 +105,7 @@ const DashboardShipping = () => {
               <tr key={el.idx}>
                 <td>{el.nama_pembayaran}</td>
                 <td>:</td>
-                <td>{formatCurrency(el.harga)}</td>
+                <td>{FALSY_STATE.includes(el.harga) ? noData : formatCurrency(el.harga)}</td>
               </tr>
             )))}
             <tr>

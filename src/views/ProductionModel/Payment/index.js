@@ -45,7 +45,7 @@ const PaymentTimeline = () => {
         .catch((err) => {
           setErrorMessage(
               err?.message ||
-            'Gagal mengambil data outsource material',
+            'Failed to get data',
           );
         });
   };
@@ -59,7 +59,7 @@ const PaymentTimeline = () => {
         .catch((err) => {
           setErrorMessage(
               err?.message ||
-            'Gagal mengambil data payment timeline',
+            'Failed to get data',
           );
         });
   };

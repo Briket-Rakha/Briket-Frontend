@@ -11,8 +11,11 @@ import CustomAlert from '../../components/Alert';
 // Import styling
 import '../../styles/components/carousel.scss';
 
+// Import Utils
+import { numberWithDots } from '../../utils/helper';
+
 const CustomCarousel = (props) => {
-  const { getData, parentID, haveParent, getDataNonFunc, carouselName } = props;
+  const { getData, parentID, haveParent, customResponse, carouselName } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -20,24 +23,25 @@ const CustomCarousel = (props) => {
 
   // carousel data getter
   const getDataCarousel = async () => {
-    if ( getDataNonFunc ) {
-      setDataCarousel(getData);
-      return (getData);
-    } else {
-      if (!loading) {
-        setLoading(true);
-        await ( haveParent ? getData(parentID) : getData() )
-            .then((res) => {
-              const { response: { data } } = res;
+    if (!loading) {
+      setLoading(true);
+      await ( haveParent ? getData(parentID) : getData() )
+          .then((res) => {
+            const { response: { data } } = res;
+            if ( customResponse ) {
+              setDataCarousel(data.result.data);
+              setLoading(false);
+              return (data.result.data);
+            } else {
               setDataCarousel(data.data);
               setLoading(false);
               return (data.data);
-            })
-            .catch((err) => {
-              setErrorMessage(err?.message ? err.message : 'Server Error');
-              setLoading(false);
-            });
-      }
+            }
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
     }
   };
 
@@ -60,19 +64,25 @@ const CustomCarousel = (props) => {
             <CarouselCard
               key={i}
               infix="kg"
-              total={dataCarousel[i].total}
+              total={numberWithDots(dataCarousel[i].total)}
               elements={
                 carouselName=='material' ? [dataCarousel[i].name]:
                 carouselName=='hasilproduksi' ? [dataCarousel[i].name, dataCarousel[i].asal]:
                 carouselName=='packaging'? [dataCarousel[i].name, dataCarousel[i].asal, dataCarousel[i].package_name]:
                 carouselName=='warehouse'? [dataCarousel[i].name, dataCarousel[i].package]:
+                carouselName=='shipping'?
+                [
+                  dataCarousel[i].name,
+                  dataCarousel[i].asal,
+                  dataCarousel[i].package_name,
+                ]:
                 []
               }/>
             {i+1 < dataCarousel.length &&
                   <CarouselCard
                     key={i+1}
                     infix="kg"
-                    total={dataCarousel[i+1].total}
+                    total={numberWithDots(dataCarousel[i+1].total)}
                     elements={
                       carouselName=='material' ? [dataCarousel[i+1].name]:
                       carouselName=='hasilproduksi' ? [dataCarousel[i+1].name, dataCarousel[i+1].asal]:
@@ -80,6 +90,12 @@ const CustomCarousel = (props) => {
                       [dataCarousel[i+1].name, dataCarousel[i+1].asal, dataCarousel[i+1].package_name]:
                       carouselName=='warehouse'?
                       [dataCarousel[i+1].name, dataCarousel[i+1].package]:
+                      carouselName=='shipping'?
+                      [
+                        dataCarousel[i+1].name,
+                        dataCarousel[i+1].asal,
+                        dataCarousel[i+1].package_name,
+                      ]:
                       []
                     }/>
             }
@@ -87,7 +103,7 @@ const CustomCarousel = (props) => {
                   <CarouselCard
                     key={i+2}
                     infix="kg"
-                    total={dataCarousel[i+2].total}
+                    total={numberWithDots(dataCarousel[i+2].total)}
                     elements={
                       carouselName=='material' ? [dataCarousel[i+2].name]:
                       carouselName=='hasilproduksi' ? [dataCarousel[i+2].name, dataCarousel[i+2].asal]:
@@ -95,6 +111,12 @@ const CustomCarousel = (props) => {
                       [dataCarousel[i+2].name, dataCarousel[i+2].asal, dataCarousel[i+2].package_name]:
                       carouselName=='warehouse'?
                       [dataCarousel[i+1].name, dataCarousel[i+1].package]:
+                      carouselName=='shipping'?
+                      [
+                        dataCarousel[i+2].name,
+                        dataCarousel[i+2].asal,
+                        dataCarousel[i+2].package_name,
+                      ]:
                       []
                     }/>
             }
@@ -136,7 +158,7 @@ CustomCarousel.defaultProps = {
   parentID: '',
   haveParent: false,
   addition: false,
-  getDataNonFunc: false,
+  customResponse: false,
   carouselName: '',
 };
 
@@ -144,7 +166,7 @@ CustomCarousel.propTypes = {
   dataCarousel: PropTypes.any,
   getData: PropTypes.any.isRequired,
   carouselName: PropTypes.string.isRequired,
-  getDataNonFunc: PropTypes.bool,
+  customResponse: PropTypes.bool,
   parentID: PropTypes.any,
   haveParent: PropTypes.bool,
   addition: PropTypes.bool,

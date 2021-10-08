@@ -5,6 +5,7 @@ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const apiInputPackagingBaseUrl = {
   root: `${apiBaseUrl}/input-packaging`,
+  unshipped: `${apiBaseUrl}/shipping/containerForm`,
 };
 
 export function apiPostInputPackaging(payload) {
@@ -47,3 +48,15 @@ export async function apiGetContainer() {
   });
 }
 
+export async function apiGetUnshippedContainer() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get( apiInputPackagingBaseUrl.unshipped)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}

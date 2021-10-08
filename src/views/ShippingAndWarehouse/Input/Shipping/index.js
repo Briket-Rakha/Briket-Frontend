@@ -17,7 +17,7 @@ import CustomSelect from '../../../../components/Select';
 import DatePicker from '../../../../components/DatePicker';
 
 // Import API
-import { apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiGetUnshippedContainer } from '../../../../api/input-packaging.api';
 import { apiPostShipping } from '../../../../api/shipping.api';
 import { apiGetPaymentType } from '../../../../api/payment.api';
 
@@ -72,11 +72,11 @@ const ShippingInput = () => {
 
   const resetState = () => {
     setContainer('');
-    setPaymentList({
+    setPaymentList([{
       paymentType: '',
       nominal: 0,
-    });
-    setDate('');
+    }]);
+    setDate(null);
   };
 
   const AddShipping = async (e) => {
@@ -85,11 +85,21 @@ const ShippingInput = () => {
     if (!loading) {
       setLoading(true);
 
+      const payment = paymentList.map((item) => {
+        item.jenis_pembayaran_id = item.paymentType;
+        delete item.paymentType;
+
+        item.price = item.nominal;
+        delete item.nominal;
+
+        return item;
+      });
+
       const payload = {
         container_number: container,
         employee_id: getUser().ID,
         date,
-        items: paymentList,
+        items: payment,
       };
 
       await apiPostShipping(payload)
@@ -125,7 +135,7 @@ const ShippingInput = () => {
         <CustomSelect
           label="Container Number"
           value={container}
-          getValues={apiGetContainer}
+          getValues={apiGetUnshippedContainer}
           setValue={setContainer}
           required
         />

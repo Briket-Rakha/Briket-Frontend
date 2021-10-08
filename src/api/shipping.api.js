@@ -1,11 +1,11 @@
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
-import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const apiShippingBaseUrl = {
   root: `${apiBaseUrl}/shipping`,
+  dashboard: `${apiBaseUrl}/shipping/containerDashboard`,
 };
 
 export function apiPostShipping(payload) {
@@ -22,12 +22,10 @@ export function apiPostShipping(payload) {
 }
 
 export async function apiGetShipping(params) {
-  const queries = querystring.stringify(params);
-
   return new Promise((resolve, reject) => {
     axios
         .get(`
-        ${apiShippingBaseUrl.root}?${queries}`)
+        ${apiShippingBaseUrl.root}?container_number=${params}`)
         .then((response) => {
           resolve({ response });
         })
@@ -42,6 +40,19 @@ export async function apiGetContainerShipping() {
     axios
         .get(`
         ${apiShippingBaseUrl.root}/containerDashboard`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiGetDashboardContainer() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(apiShippingBaseUrl.dashboard)
         .then((response) => {
           resolve({ response });
         })

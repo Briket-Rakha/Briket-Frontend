@@ -39,7 +39,7 @@ const OutsourceProduction = () => {
         .catch((err) => {
           setErrorMessage(
               err?.message ||
-              'Gagal mengambil data outsource produksi',
+              'Failed to get data',
           );
           setLoading(false);
         });
@@ -64,7 +64,7 @@ const OutsourceProduction = () => {
           className="dashboard-section-header-title"
           direction="column"
         >
-          <h3>Grafik Produksi Outsource</h3>
+          <h3>Outsource Production Chart</h3>
           <p>{`Total: ${total} kg`}</p>
         </Grid>
         <Grid container className="dashboard-section-header-input">
