@@ -15,7 +15,7 @@ import PilihTanggal from './PilihTanggal';
 const CarouselView = (props) => {
   const { title, enableDropdown, dropdownLabel,
     getData, getDataDropdown, carouselName,
-    dropdownVal, setDropdownVal, getDataNonFunc, downloadCategory,
+    dropdownVal, setDropdownVal, customResponse, downloadCategory,
     enableDownload } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
@@ -68,8 +68,8 @@ const CarouselView = (props) => {
             parentID={dropdownVal}
             haveParent
             carouselName={carouselName}
-            getDataNonFunc={getDataNonFunc}/> :
-          <CustomCarousel getData={getData} getDataNonFunc={getDataNonFunc} carouselName={carouselName}/>
+            customResponse={customResponse}/> :
+          <CustomCarousel getData={getData} customResponse={customResponse} carouselName={carouselName}/>
         }
         {
           enableDownload &&
@@ -97,7 +97,7 @@ CarouselView.defaultProps = {
   enableDropdown: false,
   carouselName: '',
   dropdownLabel: '',
-  getDataNonFunc: false,
+  customResponse: false,
   getDataDropdown: () => {},
   setDropdownVal: () => {},
   enableDownload: false,
@@ -107,7 +107,7 @@ CarouselView.propTypes = {
   title: PropTypes.string,
   enableDropdown: PropTypes.bool,
   getData: PropTypes.any.isRequired,
-  getDataNonFunc: PropTypes.bool,
+  customResponse: PropTypes.bool,
   getDataDropdown: PropTypes.func,
   dropdownLabel: PropTypes.string,
   carouselName: PropTypes.string.isRequired,

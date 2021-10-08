@@ -12,7 +12,7 @@ import CustomAlert from '../../components/Alert';
 import '../../styles/components/carousel.scss';
 
 const CustomCarousel = (props) => {
-  const { getData, parentID, haveParent, getDataNonFunc, carouselName } = props;
+  const { getData, parentID, haveParent, customResponse, carouselName } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -20,24 +20,25 @@ const CustomCarousel = (props) => {
 
   // carousel data getter
   const getDataCarousel = async () => {
-    if ( getDataNonFunc ) {
-      setDataCarousel(getData);
-      return (getData);
-    } else {
-      if (!loading) {
-        setLoading(true);
-        await ( haveParent ? getData(parentID) : getData() )
-            .then((res) => {
-              const { response: { data } } = res;
+    if (!loading) {
+      setLoading(true);
+      await ( haveParent ? getData(parentID) : getData() )
+          .then((res) => {
+            const { response: { data } } = res;
+            if ( customResponse ) {
+              setDataCarousel(data.result.data);
+              setLoading(false);
+              return (data.result.data);
+            } else {
               setDataCarousel(data.data);
               setLoading(false);
               return (data.data);
-            })
-            .catch((err) => {
-              setErrorMessage(err?.message ? err.message : 'Server Error');
-              setLoading(false);
-            });
-      }
+            }
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
     }
   };
 
@@ -152,7 +153,7 @@ CustomCarousel.defaultProps = {
   parentID: '',
   haveParent: false,
   addition: false,
-  getDataNonFunc: false,
+  customResponse: false,
   carouselName: '',
 };
 
@@ -160,7 +161,7 @@ CustomCarousel.propTypes = {
   dataCarousel: PropTypes.any,
   getData: PropTypes.any.isRequired,
   carouselName: PropTypes.string.isRequired,
-  getDataNonFunc: PropTypes.bool,
+  customResponse: PropTypes.bool,
   parentID: PropTypes.any,
   haveParent: PropTypes.bool,
   addition: PropTypes.bool,

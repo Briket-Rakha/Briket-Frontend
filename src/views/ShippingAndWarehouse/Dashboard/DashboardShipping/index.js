@@ -20,21 +20,15 @@ const DashboardShipping = () => {
   const [charcoalPrice, setCharcoalPrice] = useState('');
   const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
-  const [carouselData, setCarouselData] = useState('');
 
   const FALSY_STATE = ['', null, undefined];
   const noData = 'No Data Found!';
 
-  const payload = {
-    container_number: container,
-  };
-
   const getShippingData = async () => {
     if (container) {
-      await apiGetShipping(payload)
+      await apiGetShipping(container)
           .then((res) => {
             const { response: { data } } = res;
-            setCarouselData(data.result.data);
             setTotalWeight(data.result.total_weight);
             setCharcoalPrice(data.result.charcoal_price);
             setTipePembayaran(data.result.shipping_price);
@@ -55,8 +49,8 @@ const DashboardShipping = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Shipping"
-          getData={carouselData}
-          getDataNonFunc
+          getData={apiGetShipping}
+          customResponse
           getDataDropdown={apiGetContainerShipping}
           carouselName ="shipping"
           dropdownLabel="Container"
