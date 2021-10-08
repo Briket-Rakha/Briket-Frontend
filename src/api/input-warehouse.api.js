@@ -47,3 +47,16 @@ export function apiGetNationalPriceDashboard() {
         });
   });
 }
+
+export function apiGetTotalBrandDashboard() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get((`${apiInputWarehouseBaseUrl.dashboard}/all-brand`))
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
