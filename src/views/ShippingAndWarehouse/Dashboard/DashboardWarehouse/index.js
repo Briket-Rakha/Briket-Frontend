@@ -11,7 +11,11 @@ import '../../../../styles/views/dashboard.scss';
 // Import API
 import { apiGetWarehouse } from '../../../../api/warehouse.api';
 import { apiGetTrucking } from '../../../../api/trucking.api';
-import { apiGetWarehouseBrand, apiGetWarehouseSummary } from '../../../../api/input-warehouse.api';
+import {
+  apiGetWarehouseBrand,
+  apiGetWarehouseSummary,
+  apiGetNationalPriceDashboard,
+} from '../../../../api/input-warehouse.api';
 
 const DashboardWarehoue = () => {
   const [brand, setBrand] = useState('');
@@ -45,13 +49,8 @@ const DashboardWarehoue = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="National Price"
-          getData={apiGetTrucking}
-          getDataDropdown={apiGetWarehouse}
-          carouselName ="nationalprice"
-          dropdownLabel="Warehouse"
-          enableDropdown
-          dropdownVal={brand}
-          setDropdownVal={setBrand}/>
+          getData={apiGetNationalPriceDashboard}
+          carouselName ="nationalprice"/>
       </Grid>
     </Grid>
   );

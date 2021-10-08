@@ -12,7 +12,7 @@ import CustomAlert from '../../components/Alert';
 import '../../styles/components/carousel.scss';
 
 // Import Utils
-import { numberWithDots } from '../../utils/helper';
+import { formatCurrency, numberWithDots } from '../../utils/helper';
 
 const CustomCarousel = (props) => {
   const { getData, parentID, haveParent, customResponse, carouselName } = props;
@@ -20,6 +20,7 @@ const CustomCarousel = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const [dataCarousel, setDataCarousel] = useState([]);
+  const isPrice = carouselName=='nationalprice' ? true : false;
 
   // carousel data getter
   const getDataCarousel = async () => {
@@ -63,8 +64,8 @@ const CustomCarousel = (props) => {
           <div className="carousel-wrapper">
             <CarouselCard
               key={i}
-              infix="kg"
-              total={numberWithDots(dataCarousel[i].total)}
+              infix={isPrice ? '' : 'kg'}
+              total={isPrice ? formatCurrency(dataCarousel[i].national_price) : numberWithDots(dataCarousel[i].total)}
               elements={
                 carouselName=='material' ? [dataCarousel[i].name]:
                 carouselName=='hasilproduksi' ? [dataCarousel[i].name, dataCarousel[i].asal]:
@@ -76,13 +77,20 @@ const CustomCarousel = (props) => {
                   dataCarousel[i].asal,
                   dataCarousel[i].package_name,
                 ]:
+                carouselName=='nationalprice'?
+                [
+                  dataCarousel[i].name,
+                ]:
                 []
               }/>
             {i+1 < dataCarousel.length &&
                   <CarouselCard
                     key={i+1}
-                    infix="kg"
-                    total={numberWithDots(dataCarousel[i+1].total)}
+                    infix={isPrice ? '' : 'kg'}
+                    total={
+                      isPrice ?
+                      formatCurrency(dataCarousel[i+1].national_price) : numberWithDots(dataCarousel[i+1].total)
+                    }
                     elements={
                       carouselName=='material' ? [dataCarousel[i+1].name]:
                       carouselName=='hasilproduksi' ? [dataCarousel[i+1].name, dataCarousel[i+1].asal]:
@@ -96,26 +104,37 @@ const CustomCarousel = (props) => {
                         dataCarousel[i+1].asal,
                         dataCarousel[i+1].package_name,
                       ]:
+                      carouselName=='nationalprice'?
+                      [
+                        dataCarousel[i+1].name,
+                      ]:
                       []
                     }/>
             }
             {i+2 < dataCarousel.length &&
                   <CarouselCard
                     key={i+2}
-                    infix="kg"
-                    total={numberWithDots(dataCarousel[i+2].total)}
+                    infix={isPrice ? '' : 'kg'}
+                    total={
+                      isPrice ?
+                      formatCurrency(dataCarousel[i+2].national_price) : numberWithDots(dataCarousel[i+2].total)
+                    }
                     elements={
                       carouselName=='material' ? [dataCarousel[i+2].name]:
                       carouselName=='hasilproduksi' ? [dataCarousel[i+2].name, dataCarousel[i+2].asal]:
                       carouselName=='packaging'?
                       [dataCarousel[i+2].name, dataCarousel[i+2].asal, dataCarousel[i+2].package_name]:
                       carouselName=='warehouse'?
-                      [dataCarousel[i+1].name, dataCarousel[i+1].package]:
+                      [dataCarousel[i+2].name, dataCarousel[i+2].package]:
                       carouselName=='shipping'?
                       [
                         dataCarousel[i+2].name,
                         dataCarousel[i+2].asal,
                         dataCarousel[i+2].package_name,
+                      ]:
+                      carouselName=='nationalprice'?
+                      [
+                        dataCarousel[i+2].name,
                       ]:
                       []
                     }/>

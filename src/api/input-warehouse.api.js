@@ -34,3 +34,16 @@ export async function apiGetWarehouseSummary(brand) {
         });
   });
 }
+
+export function apiGetNationalPriceDashboard() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get((`${apiInputWarehouseBaseUrl.dashboard}/national-price`))
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
