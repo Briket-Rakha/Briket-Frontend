@@ -72,11 +72,11 @@ const ShippingInput = () => {
 
   const resetState = () => {
     setContainer('');
-    setPaymentList({
+    setPaymentList([{
       paymentType: '',
       nominal: 0,
-    });
-    setDate('');
+    }]);
+    setDate(null);
   };
 
   const AddShipping = async (e) => {
@@ -85,11 +85,21 @@ const ShippingInput = () => {
     if (!loading) {
       setLoading(true);
 
+      const payment = paymentList.map((item) => {
+        item.jenis_pembayaran_id = item.paymentType;
+        delete item.paymentType;
+
+        item.price = item.nominal;
+        delete item.nominal;
+
+        return item;
+      });
+
       const payload = {
         container_number: container,
         employee_id: getUser().ID,
         date,
-        items: paymentList,
+        items: payment,
       };
 
       await apiPostShipping(payload)
