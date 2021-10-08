@@ -43,14 +43,16 @@ const Dashboard = () => {
           dropdownLabel="Factory"
           dropdownVal={pabrik}
           setDropdownVal={setPabrik}
-          enableDropdown/>
+          enableDropdown
+          enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Factory and Outsource Production"
           carouselName ="hasilproduksi"
           getData={apiGetHasilDashboard}
-          downloadCategory={downloadCategory}/>
+          downloadCategory={downloadCategory}
+          enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
@@ -62,7 +64,7 @@ const Dashboard = () => {
           enableDropdown
           dropdownVal={container}
           setDropdownVal={setContainer}
-          addition/>
+          enableDownload/>
       </Grid>
       <FactoryProduction />
       <OutsourceProduction />

@@ -15,7 +15,8 @@ import PilihTanggal from './PilihTanggal';
 const CarouselView = (props) => {
   const { title, enableDropdown, dropdownLabel,
     getData, getDataDropdown, carouselName,
-    dropdownVal, setDropdownVal, getDataNonFunc, downloadCategory } = props;
+    dropdownVal, setDropdownVal, getDataNonFunc, downloadCategory,
+    enableDownload } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -70,12 +71,15 @@ const CarouselView = (props) => {
             getDataNonFunc={getDataNonFunc}/> :
           <CustomCarousel getData={getData} getDataNonFunc={getDataNonFunc} carouselName={carouselName}/>
         }
-        <Button
-          className="align-end btn dashboard-section-btn"
-          onClick={handleModalTanggal}
-        >
-          DOWNLOAD
-        </Button>
+        {
+          enableDownload &&
+          <Button
+            className="align-end btn dashboard-section-btn"
+            onClick={handleModalTanggal}
+          >
+            DOWNLOAD
+          </Button>
+        }
         <CustomModal open={openTanggal} setOpen={setOpenTanggal}>
           {
             downloadCategory ?
@@ -96,6 +100,7 @@ CarouselView.defaultProps = {
   getDataNonFunc: false,
   getDataDropdown: () => {},
   setDropdownVal: () => {},
+  enableDownload: false,
 };
 
 CarouselView.propTypes = {
@@ -109,6 +114,7 @@ CarouselView.propTypes = {
   dropdownVal: PropTypes.any,
   setDropdownVal: PropTypes.func,
   downloadCategory: PropTypes.array,
+  enableDownload: PropTypes.bool,
 };
 
 export default CarouselView;
