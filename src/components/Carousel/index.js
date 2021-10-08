@@ -66,6 +66,12 @@ const CustomCarousel = (props) => {
                 carouselName=='hasilproduksi' ? [dataCarousel[i].name, dataCarousel[i].asal]:
                 carouselName=='packaging'? [dataCarousel[i].name, dataCarousel[i].asal, dataCarousel[i].package_name]:
                 carouselName=='warehouse'? [dataCarousel[i].container_number]:
+                carouselName=='shipping'?
+                [
+                  dataCarousel[i].name,
+                  dataCarousel[i].asal,
+                  dataCarousel[i].package_name,
+                ]:
                 []
               }/>
             {i+1 < dataCarousel.length &&
@@ -79,6 +85,12 @@ const CustomCarousel = (props) => {
                       carouselName=='packaging'?
                       [dataCarousel[i+1].name, dataCarousel[i+1].asal, dataCarousel[i+1].package_name]:
                       carouselName=='warehouse'? [dataCarousel[i+1].container_number]:
+                      carouselName=='shipping'?
+                      [
+                        dataCarousel[i+1].name,
+                        dataCarousel[i+1].asal,
+                        dataCarousel[i+1].package_name,
+                      ]:
                       []
                     }/>
             }
@@ -93,6 +105,12 @@ const CustomCarousel = (props) => {
                       carouselName=='packaging'?
                       [dataCarousel[i+2].name, dataCarousel[i+2].asal, dataCarousel[i+2].package_name]:
                       carouselName=='warehouse'? [dataCarousel[i+2].container_number]:
+                      carouselName=='shipping'?
+                      [
+                        dataCarousel[i+2].name,
+                        dataCarousel[i+2].asal,
+                        dataCarousel[i+2].package_name,
+                      ]:
                       []
                     }/>
             }
