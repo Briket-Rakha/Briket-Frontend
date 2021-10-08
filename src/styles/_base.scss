@@ -30,7 +30,7 @@ html {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: $grey;
-  border-radius: 8px; 
+  // border-radius: 8px; 
 }
 
 /* Handle on hover */
@@ -38,10 +38,9 @@ html {
   background: $darkGrey; 
 }
 
-body,
-main {
+body {
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 main {
@@ -84,26 +83,14 @@ span {
   transform: translateX(-50%);
   top: 0;
   right: 0;
-
-  @media (min-width: 360px) {
-    max-width: 360px;
-  }
-
-  @media (min-width: 600px) {
-    max-width: 600px;
-  }
-
-  @media (min-width: 960px) {
-    max-width: 960px;
-  }
-
-  @media (min-width: 1280px) {
-    max-width: 1280px;
-  }
 }
 
 .MuiContainer-root {
   padding: 64px 0 !important;
+
+  @media (max-width: 960px) {
+    max-width: unset;
+  }
 }
 
 .MuiPaper-elevation2 {
@@ -246,4 +233,13 @@ td {
 .MuiPagination-ul {
   display: flex;
   justify-content: center;
+}
+
+.MuiContainer-root {
+  min-width: unset !important;
+}
+
+main {
+  min-width: 824px !important;
+  margin: 64px 100px 0;
 }

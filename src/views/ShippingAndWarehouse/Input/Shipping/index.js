@@ -17,7 +17,7 @@ import CustomSelect from '../../../../components/Select';
 import DatePicker from '../../../../components/DatePicker';
 
 // Import API
-import { apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiGetUnshippedContainer } from '../../../../api/input-packaging.api';
 import { apiPostShipping } from '../../../../api/shipping.api';
 import { apiGetPaymentType } from '../../../../api/payment.api';
 
@@ -135,7 +135,7 @@ const ShippingInput = () => {
         <CustomSelect
           label="Container Number"
           value={container}
-          getValues={apiGetContainer}
+          getValues={apiGetUnshippedContainer}
           setValue={setContainer}
           required
         />

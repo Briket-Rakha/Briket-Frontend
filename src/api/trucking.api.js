@@ -4,7 +4,8 @@ import axios from 'axios';
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const apiTruckingBaseUrl = {
-  root: `${apiBaseUrl}/input-trucking`,
+  root: `${apiBaseUrl}/input-warehouse`,
+  container: `${apiBaseUrl}/input-warehouse/form/container`,
 };
 
 export function apiPostTrucking(payload) {
@@ -24,6 +25,19 @@ export function apiGetTrucking(warehouseID) {
   return new Promise((resolve, reject) => {
     axios
         .get(`${apiTruckingBaseUrl.root}?warehouse_id=${warehouseID}`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
+export async function apiGetTruckingContainer() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(apiTruckingBaseUrl.container)
         .then((response) => {
           resolve({ response });
         })

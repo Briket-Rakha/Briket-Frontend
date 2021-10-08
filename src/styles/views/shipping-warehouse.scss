@@ -28,3 +28,19 @@
     margin-bottom: 20px !important;
   }
 }
+
+.container-detail {
+  margin-bottom: 20px !important;
+
+  h4 {
+    margin: 5px 0 15px !important;
+  }
+
+  &-desc {
+    margin-bottom: 10px !important;
+  }
+
+  &-section {
+    margin-bottom: 15px !important;
+  }
+}
