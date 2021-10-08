@@ -22,6 +22,29 @@ const CustomCarousel = (props) => {
   const [dataCarousel, setDataCarousel] = useState([]);
   const isPrice = carouselName=='nationalprice' ? true : false;
 
+  const getElements = (carouselName, i) => {
+    let result;
+    carouselName =='material' ? result = [dataCarousel[i].name]:
+    carouselName =='hasilproduksi' ? result = [dataCarousel[i].name, dataCarousel[i].asal]:
+    carouselName =='packaging'? result = [dataCarousel[i].name, dataCarousel[i].asal, dataCarousel[i].package_name]:
+    carouselName =='warehouse'? result = [dataCarousel[i].name, dataCarousel[i].package]:
+    carouselName =='shipping'?
+    result =
+    [
+      dataCarousel[i].name,
+      dataCarousel[i].asal,
+      dataCarousel[i].package_name,
+    ]:
+    carouselName =='nationalprice'?
+    result =
+    [
+      dataCarousel[i].name,
+    ]:
+    result = [];
+
+    return result;
+  };
+
   // carousel data getter
   const getDataCarousel = async () => {
     if (!loading) {
@@ -66,23 +89,7 @@ const CustomCarousel = (props) => {
               key={i}
               infix={isPrice ? '' : 'kg'}
               total={isPrice ? formatCurrency(dataCarousel[i].national_price) : numberWithDots(dataCarousel[i].total)}
-              elements={
-                carouselName=='material' ? [dataCarousel[i].name]:
-                carouselName=='hasilproduksi' ? [dataCarousel[i].name, dataCarousel[i].asal]:
-                carouselName=='packaging'? [dataCarousel[i].name, dataCarousel[i].asal, dataCarousel[i].package_name]:
-                carouselName=='warehouse'? [dataCarousel[i].name, dataCarousel[i].package]:
-                carouselName=='shipping'?
-                [
-                  dataCarousel[i].name,
-                  dataCarousel[i].asal,
-                  dataCarousel[i].package_name,
-                ]:
-                carouselName=='nationalprice'?
-                [
-                  dataCarousel[i].name,
-                ]:
-                []
-              }/>
+              elements={getElements(carouselName, i)}/>
             {i+1 < dataCarousel.length &&
                   <CarouselCard
                     key={i+1}
@@ -91,25 +98,7 @@ const CustomCarousel = (props) => {
                       isPrice ?
                       formatCurrency(dataCarousel[i+1].national_price) : numberWithDots(dataCarousel[i+1].total)
                     }
-                    elements={
-                      carouselName=='material' ? [dataCarousel[i+1].name]:
-                      carouselName=='hasilproduksi' ? [dataCarousel[i+1].name, dataCarousel[i+1].asal]:
-                      carouselName=='packaging'?
-                      [dataCarousel[i+1].name, dataCarousel[i+1].asal, dataCarousel[i+1].package_name]:
-                      carouselName=='warehouse'?
-                      [dataCarousel[i+1].name, dataCarousel[i+1].package]:
-                      carouselName=='shipping'?
-                      [
-                        dataCarousel[i+1].name,
-                        dataCarousel[i+1].asal,
-                        dataCarousel[i+1].package_name,
-                      ]:
-                      carouselName=='nationalprice'?
-                      [
-                        dataCarousel[i+1].name,
-                      ]:
-                      []
-                    }/>
+                    elements={getElements(carouselName, i+1)}/>
             }
             {i+2 < dataCarousel.length &&
                   <CarouselCard
@@ -119,25 +108,7 @@ const CustomCarousel = (props) => {
                       isPrice ?
                       formatCurrency(dataCarousel[i+2].national_price) : numberWithDots(dataCarousel[i+2].total)
                     }
-                    elements={
-                      carouselName=='material' ? [dataCarousel[i+2].name]:
-                      carouselName=='hasilproduksi' ? [dataCarousel[i+2].name, dataCarousel[i+2].asal]:
-                      carouselName=='packaging'?
-                      [dataCarousel[i+2].name, dataCarousel[i+2].asal, dataCarousel[i+2].package_name]:
-                      carouselName=='warehouse'?
-                      [dataCarousel[i+2].name, dataCarousel[i+2].package]:
-                      carouselName=='shipping'?
-                      [
-                        dataCarousel[i+2].name,
-                        dataCarousel[i+2].asal,
-                        dataCarousel[i+2].package_name,
-                      ]:
-                      carouselName=='nationalprice'?
-                      [
-                        dataCarousel[i+2].name,
-                      ]:
-                      []
-                    }/>
+                    elements={getElements(carouselName, i+2)}/>
             }
           </div>,
       );
