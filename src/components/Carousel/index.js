@@ -40,6 +40,11 @@ const CustomCarousel = (props) => {
     [
       dataCarousel[i].name,
     ]:
+    carouselName =='totalbrand'?
+    result =
+    [
+      dataCarousel[i].name,
+    ]:
     result = [];
 
     return result;

@@ -9,31 +9,23 @@ import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarou
 import '../../../../styles/views/dashboard.scss';
 
 // Import API
-import { apiGetWarehouse } from '../../../../api/warehouse.api';
-import { apiGetTrucking } from '../../../../api/trucking.api';
 import {
   apiGetWarehouseBrand,
   apiGetWarehouseSummary,
   apiGetNationalPriceDashboard,
+  apiGetTotalBrandDashboard,
 } from '../../../../api/input-warehouse.api';
 
 const DashboardWarehoue = () => {
   const [brand, setBrand] = useState('');
   return (
     <Grid container className="dashboard" direction="column">
-      {/* TODO: delete dropdown, call the right api for getData */}
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Total Brand"
-          getData={apiGetTrucking}
-          getDataDropdown={apiGetWarehouse}
-          carouselName ="nationalprice"
-          dropdownLabel="Warehouse"
-          enableDropdown
-          dropdownVal={brand}
-          setDropdownVal={setBrand}/>
+          getData={apiGetTotalBrandDashboard}
+          carouselName ="totalbrand"/>
       </Grid>
-      {/* TODO: call the right api for getData, set the right attribute to show */}
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Brand Detail"
@@ -45,7 +37,6 @@ const DashboardWarehoue = () => {
           dropdownVal={brand}
           setDropdownVal={setBrand}/>
       </Grid>
-      {/* TODO: delete dropdown, call the right api for getData */}
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="National Price"
