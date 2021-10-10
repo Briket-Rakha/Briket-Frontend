@@ -39,7 +39,7 @@ export async function apiGetAvailablePayment() {
 
 export async function apiGetPaymentByFilter(month, year, status) {
   const params = {};
-  if (status || status == 0) {
+  if (status !== 'ALL') {
     params.status = status;
   }
 

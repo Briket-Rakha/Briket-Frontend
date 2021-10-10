@@ -144,7 +144,7 @@ const PaymentTimeline = () => {
             <OutSouceMaterial data={outsource} />
           </Grid>
           ) : (
-            <Grid item md={12}>
+            <Grid item container md={12}>
               <h3 className="no-data">
               No Data Found!
               </h3>
@@ -164,7 +164,7 @@ const PaymentTimeline = () => {
             ]}
           />
         ) : (
-          <Grid item md={12}>
+          <Grid item container md={12}>
             <h3 className="no-data">
             No Data Found!
             </h3>

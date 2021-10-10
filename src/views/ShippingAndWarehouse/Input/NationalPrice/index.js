@@ -56,6 +56,7 @@ const NationalPrice = () => {
   const resetState = () => {
     setContainer('');
     setNationalPrice(0);
+    setMetadata();
   };
 
   const addNationalPrice = async (e) => {
