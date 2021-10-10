@@ -22,13 +22,13 @@ const DashboardWarehoue = () => {
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
-          title="Total Brand"
+          title="Total Charcoal"
           getData={apiGetTotalBrandDashboard}
           carouselName ="totalbrand"/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
-          title="Brand Detail"
+          title="Charcoal Packaging Details"
           getData={apiGetWarehouseSummary}
           getDataDropdown={apiGetWarehouseBrand}
           carouselName ="warehouse"
