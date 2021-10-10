@@ -15,37 +15,18 @@ import '../../styles/components/carousel.scss';
 import { formatCurrency, numberWithDots } from '../../utils/helper';
 
 const CustomCarousel = (props) => {
-  const { getData, parentID, haveParent, customResponse, carouselName } = props;
+  const { getData, parentID, haveParent, customResponse, carouselName, carouselFields } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const [dataCarousel, setDataCarousel] = useState([]);
   const isPrice = carouselName=='nationalprice' ? true : false;
 
-  const getElements = (carouselName, i) => {
-    let result;
-    carouselName =='material' ? result = [dataCarousel[i].name]:
-    carouselName =='hasilproduksi' ? result = [dataCarousel[i].name, dataCarousel[i].asal]:
-    carouselName =='packaging'? result = [dataCarousel[i].name, dataCarousel[i].asal, dataCarousel[i].package_name]:
-    carouselName =='warehouse'? result = [dataCarousel[i].name, dataCarousel[i].package]:
-    carouselName =='shipping'?
-    result =
-    [
-      dataCarousel[i].name,
-      dataCarousel[i].asal,
-      dataCarousel[i].package_name,
-    ]:
-    carouselName =='nationalprice'?
-    result =
-    [
-      dataCarousel[i].name,
-    ]:
-    carouselName =='totalbrand'?
-    result =
-    [
-      dataCarousel[i].name,
-    ]:
-    result = [];
+  const getElements = (i) => {
+    const result = [];
+    carouselFields.forEach(function(item) {
+      result.push(dataCarousel[i][item]);
+    });
 
     return result;
   };
@@ -94,7 +75,7 @@ const CustomCarousel = (props) => {
               key={i}
               infix={isPrice ? '' : 'kg'}
               total={isPrice ? formatCurrency(dataCarousel[i].national_price) : numberWithDots(dataCarousel[i].total)}
-              elements={getElements(carouselName, i)}/>
+              elements={getElements(i)}/>
             {i+1 < dataCarousel.length &&
                   <CarouselCard
                     key={i+1}
@@ -103,7 +84,7 @@ const CustomCarousel = (props) => {
                       isPrice ?
                       formatCurrency(dataCarousel[i+1].national_price) : numberWithDots(dataCarousel[i+1].total)
                     }
-                    elements={getElements(carouselName, i+1)}/>
+                    elements={getElements(i+1)}/>
             }
             {i+2 < dataCarousel.length &&
                   <CarouselCard
@@ -113,7 +94,7 @@ const CustomCarousel = (props) => {
                       isPrice ?
                       formatCurrency(dataCarousel[i+2].national_price) : numberWithDots(dataCarousel[i+2].total)
                     }
-                    elements={getElements(carouselName, i+2)}/>
+                    elements={getElements(i+2)}/>
             }
           </div>,
       );
@@ -155,6 +136,7 @@ CustomCarousel.defaultProps = {
   addition: false,
   customResponse: false,
   carouselName: '',
+  carouselFields: [],
 };
 
 CustomCarousel.propTypes = {
@@ -165,6 +147,7 @@ CustomCarousel.propTypes = {
   parentID: PropTypes.any,
   haveParent: PropTypes.bool,
   addition: PropTypes.bool,
+  carouselFields: PropTypes.array.isRequired,
 };
 
 export default CustomCarousel;

@@ -16,7 +16,7 @@ const CarouselView = (props) => {
   const { title, enableDropdown, dropdownLabel,
     getData, getDataDropdown, carouselName,
     dropdownVal, setDropdownVal, customResponse, downloadCategory,
-    enableDownload } = props;
+    enableDownload, carouselFields } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -68,8 +68,13 @@ const CarouselView = (props) => {
             parentID={dropdownVal}
             haveParent
             carouselName={carouselName}
-            customResponse={customResponse}/> :
-          <CustomCarousel getData={getData} customResponse={customResponse} carouselName={carouselName}/>
+            customResponse={customResponse}
+            carouselFields={carouselFields}/> :
+          <CustomCarousel
+            getData={getData}
+            customResponse={customResponse}
+            carouselName={carouselName}
+            carouselFields={carouselFields}/>
         }
         {
           enableDownload &&
@@ -101,6 +106,7 @@ CarouselView.defaultProps = {
   getDataDropdown: () => {},
   setDropdownVal: () => {},
   enableDownload: false,
+  carouselFields: [],
 };
 
 CarouselView.propTypes = {
@@ -115,6 +121,7 @@ CarouselView.propTypes = {
   setDropdownVal: PropTypes.func,
   downloadCategory: PropTypes.array,
   enableDownload: PropTypes.bool,
+  carouselFields: PropTypes.array.isRequired,
 };
 
 export default CarouselView;

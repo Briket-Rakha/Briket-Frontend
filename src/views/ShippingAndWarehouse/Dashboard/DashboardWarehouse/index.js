@@ -24,7 +24,8 @@ const DashboardWarehoue = () => {
         <CustomizeCarousel
           title="Total Charcoal"
           getData={apiGetTotalBrandDashboard}
-          carouselName ="totalbrand"/>
+          carouselName ="totalbrand"
+          carouselFields={['name']}/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
@@ -35,13 +36,15 @@ const DashboardWarehoue = () => {
           dropdownLabel="Brand"
           enableDropdown
           dropdownVal={brand}
-          setDropdownVal={setBrand}/>
+          setDropdownVal={setBrand}
+          carouselFields={['name', 'package']}/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="National Price"
           getData={apiGetNationalPriceDashboard}
-          carouselName ="nationalprice"/>
+          carouselName ="nationalprice"
+          carouselFields={['name']}/>
       </Grid>
     </Grid>
   );

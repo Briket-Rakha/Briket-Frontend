@@ -43,6 +43,7 @@ const Dashboard = () => {
           dropdownLabel="Factory"
           dropdownVal={pabrik}
           setDropdownVal={setPabrik}
+          carouselFields={['name']}
           enableDropdown
           enableDownload/>
       </Grid>
@@ -52,6 +53,7 @@ const Dashboard = () => {
           carouselName ="hasilproduksi"
           getData={apiGetHasilDashboard}
           downloadCategory={downloadCategory}
+          carouselFields={['name', 'asal']}
           enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
@@ -64,6 +66,7 @@ const Dashboard = () => {
           enableDropdown
           dropdownVal={container}
           setDropdownVal={setContainer}
+          carouselFields={['name', 'asal', 'package_name']}
           enableDownload/>
       </Grid>
       <FactoryProduction />
