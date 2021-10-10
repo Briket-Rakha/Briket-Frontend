@@ -38,20 +38,6 @@ export async function apiGetShipping(params) {
 export async function apiGetContainerShipping() {
   return new Promise((resolve, reject) => {
     axios
-        .get(`
-        ${apiShippingBaseUrl.root}/containerDashboard`)
-        .then((response) => {
-          resolve({ response });
-        })
-        .catch((err) => {
-          reject(err.response);
-        });
-  });
-}
-
-export async function apiGetDashboardContainer() {
-  return new Promise((resolve, reject) => {
-    axios
         .get(apiShippingBaseUrl.dashboard)
         .then((response) => {
           resolve({ response });

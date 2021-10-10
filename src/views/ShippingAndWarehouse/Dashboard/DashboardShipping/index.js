@@ -56,7 +56,8 @@ const DashboardShipping = () => {
           dropdownLabel="Container"
           enableDropdown
           dropdownVal={container}
-          setDropdownVal={setContainer}/>
+          setDropdownVal={setContainer}
+          carouselFields={['name', 'asal', 'package_name']}/>
       </Grid>
       <Grid item className="dashboard-section-content">
         <Grid

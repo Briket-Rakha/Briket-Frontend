@@ -9,48 +9,42 @@ import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarou
 import '../../../../styles/views/dashboard.scss';
 
 // Import API
-import { apiGetWarehouse } from '../../../../api/warehouse.api';
-import { apiGetTrucking } from '../../../../api/trucking.api';
+import {
+  apiGetWarehouseBrand,
+  apiGetWarehouseSummary,
+  apiGetNationalPriceDashboard,
+  apiGetTotalBrandDashboard,
+} from '../../../../api/input-warehouse.api';
 
 const DashboardWarehoue = () => {
-  const [warehouse, setWarehouse] = useState('');
+  const [brand, setBrand] = useState('');
   return (
     <Grid container className="dashboard" direction="column">
-      {/* TODO: call the right api for getData, set the right attribute to show */}
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
-          title="Warehouse"
-          getData={apiGetTrucking}
-          getDataDropdown={apiGetWarehouse}
-          carouselName ="warehouse"
-          dropdownLabel="Warehouse"
-          enableDropdown
-          dropdownVal={warehouse}
-          setDropdownVal={setWarehouse}/>
+          title="Total Charcoal"
+          getData={apiGetTotalBrandDashboard}
+          carouselName ="totalbrand"
+          carouselFields={['name']}/>
       </Grid>
-      {/* TODO: delete dropdown, call the right api for getData */}
+      <Grid item className="dashboard-section-content">
+        <CustomizeCarousel
+          title="Charcoal Packaging Details"
+          getData={apiGetWarehouseSummary}
+          getDataDropdown={apiGetWarehouseBrand}
+          carouselName ="warehouse"
+          dropdownLabel="Brand"
+          enableDropdown
+          dropdownVal={brand}
+          setDropdownVal={setBrand}
+          carouselFields={['name', 'package']}/>
+      </Grid>
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="National Price"
-          getData={apiGetTrucking}
-          getDataDropdown={apiGetWarehouse}
+          getData={apiGetNationalPriceDashboard}
           carouselName ="nationalprice"
-          dropdownLabel="Warehouse"
-          enableDropdown
-          dropdownVal={warehouse}
-          setDropdownVal={setWarehouse}/>
-      </Grid>
-      {/* TODO: delete dropdown, call the right api for getData */}
-      <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
-          title="Ini Apa??"
-          getData={apiGetTrucking}
-          getDataDropdown={apiGetWarehouse}
-          carouselName ="nationalprice"
-          dropdownLabel="Warehouse"
-          enableDropdown
-          dropdownVal={warehouse}
-          setDropdownVal={setWarehouse}/>
+          carouselFields={['name']}/>
       </Grid>
     </Grid>
   );
