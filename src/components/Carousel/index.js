@@ -20,7 +20,7 @@ const CustomCarousel = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const [dataCarousel, setDataCarousel] = useState([]);
-  const isPrice = carouselName=='nationalprice' ? true : false;
+  const isPrice = carouselName=='nationalprice';
 
   const getElements = (i) => {
     const result = [];
