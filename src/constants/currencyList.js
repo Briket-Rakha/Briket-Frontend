@@ -1,6 +1,6 @@
 export const currencyList = [
   {
-    id: 'IRD',
+    id: 'IDR',
     name: 'Rupiah',
   },
   {
