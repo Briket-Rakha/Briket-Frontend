@@ -18,6 +18,7 @@ import {
 
 const DashboardWarehoue = () => {
   const [brand, setBrand] = useState('');
+  const [currencyNP, setCurrencyNP] = useState(null);
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
@@ -31,20 +32,27 @@ const DashboardWarehoue = () => {
         <CustomizeCarousel
           title="Charcoal Packaging Details"
           getData={brand ? (() => apiGetWarehouseSummary(brand)) : null}
-          getDataDropdown={apiGetWarehouseBrand}
+          getDataDropdown={[apiGetWarehouseBrand]}
           carouselName ="warehouse"
-          dropdownLabel="Brand"
+          dropdownLabel={['Brand']}
           enableDropdown
-          dropdownVal={brand}
-          setDropdownVal={setBrand}
+          dropdownVal={[brand]}
+          setDropdownVal={[setBrand]}
           carouselFields={['name', 'package']}/>
       </Grid>
       <Grid item className="dashboard-section-content">
+        {/* TODO: change getDataDropdown */}
+        {/* TODO: adjust getData with the currency */}
         <CustomizeCarousel
           title="National Price"
           getData={apiGetNationalPriceDashboard}
           carouselName ="nationalprice"
-          carouselFields={['name']}/>
+          carouselFields={['name']}
+          getDataDropdown={[apiGetWarehouseBrand]}
+          dropdownLabel={['Currency']}
+          enableDropdown
+          dropdownVal={[currencyNP]}
+          setDropdownVal={[setCurrencyNP]}/>
       </Grid>
     </Grid>
   );

@@ -36,24 +36,27 @@ const CarouselView = (props) => {
       )}
       <Grid container className="dashboard-section-header">
         <Grid
-          item xs={8}
+          container
           className="dashboard-section-header-title"
           direction="column"
         >
           <h3>{title}</h3>
         </Grid>
-
-        {enableDropdown &&
-          <Grid item xs={4} className="dashboard-section-header-input">
-            <CustomSelect
-              value={dropdownVal}
-              label={dropdownLabel}
-              getValues={getDataDropdown}
-              setValue={setDropdownVal}
-              size="small"
-            />
-          </Grid>
-        }
+        <Grid container className="dashboard-section-header-input">
+          {enableDropdown && dropdownLabel.map((el, idx) => {
+            return (
+              <CustomSelect
+                key={idx}
+                value={dropdownVal[idx]}
+                label={dropdownLabel[idx]}
+                getValues={getDataDropdown[idx]}
+                setValue={setDropdownVal[idx]}
+                size="small"
+              />
+            );
+          })
+          }
+        </Grid>
       </Grid>
 
       <Grid
@@ -101,10 +104,10 @@ CarouselView.defaultProps = {
   title: '',
   enableDropdown: false,
   carouselName: '',
-  dropdownLabel: '',
+  dropdownLabel: [],
   customResponse: false,
   getDataDropdown: () => {},
-  setDropdownVal: () => {},
+  setDropdownVal: [],
   enableDownload: false,
   carouselFields: [],
 };
@@ -114,11 +117,11 @@ CarouselView.propTypes = {
   enableDropdown: PropTypes.bool,
   getData: PropTypes.any.isRequired,
   customResponse: PropTypes.bool,
-  getDataDropdown: PropTypes.func,
-  dropdownLabel: PropTypes.string,
+  getDataDropdown: PropTypes.array,
+  dropdownLabel: PropTypes.array,
   carouselName: PropTypes.string.isRequired,
-  dropdownVal: PropTypes.any,
-  setDropdownVal: PropTypes.func,
+  dropdownVal: PropTypes.array,
+  setDropdownVal: PropTypes.array,
   downloadCategory: PropTypes.array,
   enableDownload: PropTypes.bool,
   carouselFields: PropTypes.array.isRequired,

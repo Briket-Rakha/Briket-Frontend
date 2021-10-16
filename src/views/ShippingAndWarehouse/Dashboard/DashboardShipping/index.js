@@ -2,6 +2,9 @@
 import { React, useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
+// Import Component
+import CustomSelect from '../../../../components/Select';
+
 // Import views
 import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarousel';
 
@@ -20,12 +23,14 @@ const DashboardShipping = () => {
   const [charcoalPrice, setCharcoalPrice] = useState('');
   const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
+  const [currency, setCurrency] = useState(null);
 
   const FALSY_STATE = ['', null, undefined];
   const noData = 'No Data Found!';
 
   const getShippingData = async () => {
     if (container) {
+      {/* TODO: adjust with the currency */}
       await apiGetShipping(container)
           .then((res) => {
             const { response: { data } } = res;
@@ -47,17 +52,34 @@ const DashboardShipping = () => {
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
+        {/* TODO: adjust getData with the currency */}
         <CustomizeCarousel
           title="Shipping"
           getData={container ? (() => apiGetShipping(container)) : null}
           customResponse
-          getDataDropdown={apiGetContainerShipping}
+          getDataDropdown={[apiGetContainerShipping]}
           carouselName ="shipping"
-          dropdownLabel="Container"
+          dropdownLabel={['Container']}
           enableDropdown
-          dropdownVal={container}
-          setDropdownVal={setContainer}
+          dropdownVal={[container]}
+          setDropdownVal={[setContainer]}
           carouselFields={['name', 'asal', 'package_name']}/>
+      </Grid>
+      <Grid container className="dashboard-section-header">
+        <Grid
+          container
+        >
+        </Grid>
+        <Grid container className="dashboard-section-header-input">
+          {/* TODO: change getValues */}
+          <CustomSelect
+            value={currency}
+            label={'Currency'}
+            getValues={apiGetContainerShipping}
+            setValue={setCurrency}
+            size="small"
+          />
+        </Grid>
       </Grid>
       <Grid item className="dashboard-section-content">
         <Grid

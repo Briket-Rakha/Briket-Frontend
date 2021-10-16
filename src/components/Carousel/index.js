@@ -55,9 +55,9 @@ const CustomCarousel = (props) => {
     }
   };
 
-  const dynamicVal = haveParent ? [parentID] : [];
+  const dynamicVal = haveParent ? parentID : [];
   useEffect(() => {
-    if (!haveParent || (haveParent && parentID)) {
+    if (!haveParent || (haveParent && parentID[0])) {
       getDataCarousel().then((data) => {
         if (data) {
           setDataCarousel(data);
@@ -131,7 +131,7 @@ const CustomCarousel = (props) => {
 
 CustomCarousel.defaultProps = {
   dataCarousel: [],
-  parentID: '',
+  parentID: [],
   haveParent: false,
   addition: false,
   customResponse: false,
@@ -144,7 +144,7 @@ CustomCarousel.propTypes = {
   getData: PropTypes.any.isRequired,
   carouselName: PropTypes.string.isRequired,
   customResponse: PropTypes.bool,
-  parentID: PropTypes.any,
+  parentID: PropTypes.array,
   haveParent: PropTypes.bool,
   addition: PropTypes.bool,
   carouselFields: PropTypes.array.isRequired,
