@@ -39,7 +39,7 @@ const Dashboard = () => {
       <Grid item className="dashboard-section-content">
         <DashboardCarousel
           title="Material"
-          getData={pabrik ? (() => apiGetMaterialDashboard(pabrik)) : console.log}
+          getData={pabrik ? (() => apiGetMaterialDashboard(pabrik)) : null}
           carouselName ="material"
           carouselFields={['name']}
           enableDropdown
