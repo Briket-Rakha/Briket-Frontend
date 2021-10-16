@@ -38,6 +38,7 @@ const Packaging = () => {
   const [inputList, setInputList] = useState([
     {
       package_id: '',
+      package_name: '',
       amount: 0,
       asal: '',
       asal_id: '',
@@ -62,7 +63,29 @@ const Packaging = () => {
                 const list = [...inputList];
                 list[idx].asal_name = name;
                 setInputList(list);
-                return name;
+              }
+            });
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
+
+  const getPackagingTypeName = async (idx, packagingTypeID) => {
+    if (!loading) {
+      setLoading(true);
+      await ( apiGetPackaging() )
+          .then((res) => {
+            const data = res?.response?.data.data || res?.data.data;
+            setLoading(false);
+
+            data.map( ({ id, name }) => {
+              if (id === packagingTypeID) {
+                const list = [...inputList];
+                list[idx].package_name = name;
+                setInputList(list);
               }
             });
           })
@@ -85,6 +108,7 @@ const Packaging = () => {
     setBrand('');
     setInputList([{
       package_id: '',
+      package_name: '',
       amount: 0,
       asal: '',
       asal_id: '',
@@ -140,6 +164,11 @@ const Packaging = () => {
       list[index].asal_name = '';
       list[index].asal_id = '';
     }
+
+    if ( name === 'package_id' ) {
+      list[index].package_name = '';
+      getPackagingTypeName(index, inputList[index].package_id);
+    }
     setInputList(list);
   };
 
@@ -155,6 +184,7 @@ const Packaging = () => {
     setInputList([...inputList,
       {
         package_id: '',
+        package_name: '',
         amount: 0,
         asal: '',
         asal_id: '',
@@ -314,7 +344,7 @@ const Packaging = () => {
               className="packaging-jenis"
               key={i}
             >
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <TextField
                   className="input-field"
                   placeholder="Producer"
@@ -326,7 +356,19 @@ const Packaging = () => {
                   disabled
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3} className="packaging-jenis-item">
+                <TextField
+                  className="input-field"
+                  placeholder="Packaging Type"
+                  label="Packaging Type"
+                  size="medium"
+                  value={x.package_name}
+                  type="text"
+                  variant="outlined"
+                  disabled
+                />
+              </Grid>
+              <Grid item xs={3}>
                 <CurrencyTextField
                   label="Price Per kg"
                   variant="outlined"
@@ -340,7 +382,7 @@ const Packaging = () => {
                     handlePriceChange(value, i)}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <CurrencyTextField
                   label="Total Price"
                   variant="outlined"
