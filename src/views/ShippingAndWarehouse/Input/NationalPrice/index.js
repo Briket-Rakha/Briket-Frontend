@@ -13,11 +13,14 @@ import CustomSelect from '../../../../components/Select';
 import DetailContainer from './DetailContainer';
 
 // Import API
-import { apiGetContainer } from '../../../../api/input-packaging.api';
+import { apiGetContainerShipping } from '../../../../api/shipping.api';
 import { apiGetNationalPriceData, apiPostNationalPrice } from '../../../../api/national-price.api';
 
 // Import Styling
 import '../../../../styles/views/shipping-warehouse.scss';
+
+// Import Constants
+import { currencyList } from '../../../../constants/currencyList';
 
 const componentTree = [
   {
@@ -107,17 +110,17 @@ const NationalPrice = () => {
       <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="shipping-warehouse-title">Input National Price</h3>
       <Grid container className="shipping-warehouse-form" direction="column">
-        {/* TODO: adjust the getValues */}
         <CustomSelect
           value={currency}
           label={'Currency'}
-          getValues={apiGetContainer}
+          getValues={currencyList}
           setValue={setCurrency}
+          constantValues
         />
         <CustomSelect
           label="No. Container"
           value={container}
-          getValues={apiGetContainer}
+          getValues={apiGetContainerShipping}
           setValue={setContainer}
           required
         />
