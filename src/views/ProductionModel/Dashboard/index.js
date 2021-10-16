@@ -62,7 +62,7 @@ const Dashboard = () => {
       <Grid item className="dashboard-section-content">
         <DashboardCarousel
           title="Packaging"
-          getData={container ? (() => apiGetInputPackaging(container)) : null}
+          getData={container ? (() => apiGetInputPackaging({ container_number: container })) : null}
           carouselName ="packaging"
           carouselFields={['name', 'asal', 'package_name']}
           enableDropdown

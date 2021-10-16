@@ -56,7 +56,7 @@ const DashboardShipping = () => {
         {/* TODO: adjust getData with the currency */}
         <DashboardCarousel
           title="Shipping"
-          getData={container ? (() => apiGetShipping(container)) : null}
+          getData={container ? (() => apiGetShipping({ container_number: container })) : null}
           customResponse
           carouselName ="shipping"
           carouselFields={['name', 'asal', 'package_name']}

@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
+import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -22,10 +23,12 @@ export function apiPostShipping(payload) {
 }
 
 export async function apiGetShipping(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
         .get(`
-        ${apiShippingBaseUrl.root}?container_number=${params}`)
+        ${apiShippingBaseUrl.root}?${queries}`)
         .then((response) => {
           resolve({ response });
         })

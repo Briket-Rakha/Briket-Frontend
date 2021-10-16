@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
+import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -21,11 +22,13 @@ export function apiPostInputPackaging(payload) {
   });
 }
 
-export async function apiGetInputPackaging(containerNumber) {
+export async function apiGetInputPackaging(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
         .get(`
-        ${apiInputPackagingBaseUrl.root}?container_number=${containerNumber}`)
+        ${apiInputPackagingBaseUrl.root}?${queries}`)
         .then((response) => {
           resolve({ response });
         })
