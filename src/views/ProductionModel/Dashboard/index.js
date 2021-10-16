@@ -2,9 +2,11 @@
 import { React, useState } from 'react';
 import { Grid } from '@material-ui/core';
 
+// Import Component
+import DashboardCarousel from '../../../components/DashboardCarousel';
+
 // Import views
 import FactoryProduction from './FactoryProduction';
-import CustomizeCarousel from './CustomizeCarousel';
 import OutsourceProduction from './OutsourceProduction';
 
 // Import styling
@@ -35,7 +37,7 @@ const Dashboard = () => {
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Material"
           getData={pabrik ? (() => apiGetMaterialDashboard(pabrik)) : console.log}
           carouselName ="material"
@@ -49,7 +51,7 @@ const Dashboard = () => {
           enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Factory and Outsource Production"
           carouselName ="hasilproduksi"
           getData={apiGetHasilDashboard}
@@ -58,7 +60,7 @@ const Dashboard = () => {
           enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Packaging"
           getData={container ? (() => apiGetInputPackaging(container)) : null}
           carouselName ="packaging"

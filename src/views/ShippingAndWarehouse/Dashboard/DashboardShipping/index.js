@@ -4,12 +4,10 @@ import { Grid } from '@material-ui/core';
 
 // Import Component
 import CustomSelect from '../../../../components/Select';
+import DashboardCarousel from '../../../../components/DashboardCarousel';
 
 // Import Constants
 import { currencyList } from '../../../../constants/currencyList';
-
-// Import views
-import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarousel';
 
 // Import styling
 import '../../../../styles/views/dashboard.scss';
@@ -56,7 +54,7 @@ const DashboardShipping = () => {
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
         {/* TODO: adjust getData with the currency */}
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Shipping"
           getData={container ? (() => apiGetShipping(container)) : null}
           customResponse

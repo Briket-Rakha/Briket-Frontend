@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 
-// Import views
-import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarousel';
+// Import Component
+import DashboardCarousel from '../../../../components/DashboardCarousel';
 
 // Import styling
 import '../../../../styles/views/dashboard.scss';
@@ -25,14 +25,14 @@ const DashboardWarehoue = () => {
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Total Charcoal"
           getData={apiGetTotalBrandDashboard}
           carouselName ="totalbrand"
           carouselFields={['name']}/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Charcoal Packaging Details"
           getData={brand ? (() => apiGetWarehouseSummary(brand)) : null}
           carouselName ="warehouse"
@@ -46,7 +46,7 @@ const DashboardWarehoue = () => {
       </Grid>
       <Grid item className="dashboard-section-content">
         {/* TODO: adjust getData with the currency */}
-        <CustomizeCarousel
+        <DashboardCarousel
           title="National Price"
           getData={apiGetNationalPriceDashboard}
           carouselName ="nationalprice"

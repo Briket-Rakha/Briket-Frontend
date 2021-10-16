@@ -5,14 +5,16 @@ import { Grid, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 // Import Component
-import CustomCarousel from '../../../components/Carousel';
-import CustomSelect from '../../../components/Select';
-import CustomAlert from '../../../components/Alert';
-import CustomModal from '../../../components/Modal';
-import PilihTanggal from './PilihTanggal';
+import CustomCarousel from '../Carousel';
+import CustomSelect from '../Select';
+import CustomAlert from '../Alert';
+import CustomModal from '../Modal';
+
+// Import View
+import PilihTanggal from '../../views/ProductionModel/Dashboard/PilihTanggal';
 
 
-const CarouselView = (props) => {
+const DashboardCarousel = (props) => {
   const { title, enableDropdown, dropdownLabel,
     getData, getDataDropdown, carouselName,
     dropdownVal, setDropdownVal, customResponse, downloadCategory,
@@ -101,7 +103,7 @@ const CarouselView = (props) => {
   );
 };
 
-CarouselView.defaultProps = {
+DashboardCarousel.defaultProps = {
   title: '',
   enableDropdown: false,
   carouselName: '',
@@ -114,7 +116,7 @@ CarouselView.defaultProps = {
   customGetDataDropdown: [],
 };
 
-CarouselView.propTypes = {
+DashboardCarousel.propTypes = {
   title: PropTypes.string,
   enableDropdown: PropTypes.bool,
   getData: PropTypes.any.isRequired,
@@ -130,4 +132,4 @@ CarouselView.propTypes = {
   carouselFields: PropTypes.array.isRequired,
 };
 
-export default CarouselView;
+export default DashboardCarousel;
