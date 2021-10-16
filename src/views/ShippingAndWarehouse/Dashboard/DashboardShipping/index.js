@@ -32,7 +32,10 @@ const DashboardShipping = () => {
   const getShippingData = async () => {
     if (container) {
       {/* TODO: adjust with the currency */}
-      await apiGetShipping(container)
+      const params = {
+        container_number: container,
+      };
+      await apiGetShipping(params)
           .then((res) => {
             const { response: { data } } = res;
             setTotalWeight(data.result.total_weight);
