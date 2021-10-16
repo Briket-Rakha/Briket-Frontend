@@ -30,7 +30,7 @@ const DashboardWarehoue = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Charcoal Packaging Details"
-          getData={apiGetWarehouseSummary}
+          getData={brand ? (() => apiGetWarehouseSummary(brand)) : null}
           getDataDropdown={apiGetWarehouseBrand}
           carouselName ="warehouse"
           dropdownLabel="Brand"

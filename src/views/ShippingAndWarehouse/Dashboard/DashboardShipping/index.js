@@ -49,7 +49,7 @@ const DashboardShipping = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Shipping"
-          getData={apiGetShipping}
+          getData={container ? (() => apiGetShipping(container)) : null}
           customResponse
           getDataDropdown={apiGetContainerShipping}
           carouselName ="shipping"

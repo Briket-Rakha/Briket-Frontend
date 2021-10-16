@@ -35,7 +35,7 @@ const CustomCarousel = (props) => {
   const getDataCarousel = async () => {
     if (!loading) {
       setLoading(true);
-      await ( haveParent ? getData(parentID) : getData() )
+      await ( getData() )
           .then((res) => {
             const { response: { data } } = res;
             if ( customResponse ) {

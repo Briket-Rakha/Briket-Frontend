@@ -37,7 +37,7 @@ const Dashboard = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Material"
-          getData={apiGetMaterialDashboard}
+          getData={pabrik ? (() => apiGetMaterialDashboard(pabrik)) : null}
           getDataDropdown={apiGetPabrik}
           carouselName ="material"
           dropdownLabel="Factory"
@@ -59,7 +59,7 @@ const Dashboard = () => {
       <Grid item className="dashboard-section-content">
         <CustomizeCarousel
           title="Packaging"
-          getData={apiGetInputPackaging}
+          getData={container ? (() => apiGetInputPackaging(container)) : null}
           getDataDropdown={apiGetContainer}
           carouselName ="packaging"
           dropdownLabel="Container"
