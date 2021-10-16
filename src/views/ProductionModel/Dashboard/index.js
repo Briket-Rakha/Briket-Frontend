@@ -38,13 +38,14 @@ const Dashboard = () => {
         <CustomizeCarousel
           title="Material"
           getData={pabrik ? (() => apiGetMaterialDashboard(pabrik)) : console.log}
-          getDataDropdown={[apiGetPabrik]}
           carouselName ="material"
+          carouselFields={['name']}
+          enableDropdown
           dropdownLabel={['Factory']}
           dropdownVal={[pabrik]}
           setDropdownVal={[setPabrik]}
-          carouselFields={['name']}
-          enableDropdown
+          getDataDropdown={[apiGetPabrik]}
+          customGetDataDropdown={[false]}
           enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
@@ -60,13 +61,14 @@ const Dashboard = () => {
         <CustomizeCarousel
           title="Packaging"
           getData={container ? (() => apiGetInputPackaging(container)) : null}
-          getDataDropdown={[apiGetContainer]}
           carouselName ="packaging"
-          dropdownLabel={['Container']}
+          carouselFields={['name', 'asal', 'package_name']}
           enableDropdown
+          dropdownLabel={['Container']}
+          getDataDropdown={[apiGetContainer]}
           dropdownVal={[container]}
           setDropdownVal={[setContainer]}
-          carouselFields={['name', 'asal', 'package_name']}
+          customGetDataDropdown={[false]}
           enableDownload/>
       </Grid>
       <FactoryProduction />

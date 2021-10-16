@@ -5,6 +5,9 @@ import { Grid } from '@material-ui/core';
 // Import Component
 import CustomSelect from '../../../../components/Select';
 
+// Import Constants
+import { currencyList } from '../../../../constants/currencyList';
+
 // Import views
 import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarousel';
 
@@ -57,13 +60,14 @@ const DashboardShipping = () => {
           title="Shipping"
           getData={container ? (() => apiGetShipping(container)) : null}
           customResponse
-          getDataDropdown={[apiGetContainerShipping]}
           carouselName ="shipping"
-          dropdownLabel={['Container']}
+          carouselFields={['name', 'asal', 'package_name']}
           enableDropdown
+          dropdownLabel={['Container']}
+          getDataDropdown={[apiGetContainerShipping]}
           dropdownVal={[container]}
           setDropdownVal={[setContainer]}
-          carouselFields={['name', 'asal', 'package_name']}/>
+          customGetDataDropdown={[false]}/>
       </Grid>
       <Grid container className="dashboard-section-header">
         <Grid
@@ -71,12 +75,12 @@ const DashboardShipping = () => {
         >
         </Grid>
         <Grid container className="dashboard-section-header-input">
-          {/* TODO: change getValues */}
           <CustomSelect
             value={currency}
             label={'Currency'}
-            getValues={apiGetContainerShipping}
+            getValues={currencyList}
             setValue={setCurrency}
+            constantValues
             size="small"
           />
         </Grid>

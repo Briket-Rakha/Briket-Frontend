@@ -8,6 +8,9 @@ import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarou
 // Import styling
 import '../../../../styles/views/dashboard.scss';
 
+// Import Constants
+import { currencyList } from '../../../../constants/currencyList';
+
 // Import API
 import {
   apiGetWarehouseBrand,
@@ -32,27 +35,28 @@ const DashboardWarehoue = () => {
         <CustomizeCarousel
           title="Charcoal Packaging Details"
           getData={brand ? (() => apiGetWarehouseSummary(brand)) : null}
-          getDataDropdown={[apiGetWarehouseBrand]}
           carouselName ="warehouse"
-          dropdownLabel={['Brand']}
+          carouselFields={['name', 'package']}
           enableDropdown
+          dropdownLabel={['Brand']}
           dropdownVal={[brand]}
+          getDataDropdown={[apiGetWarehouseBrand]}
           setDropdownVal={[setBrand]}
-          carouselFields={['name', 'package']}/>
+          customGetDataDropdown={[false]}/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        {/* TODO: change getDataDropdown */}
         {/* TODO: adjust getData with the currency */}
         <CustomizeCarousel
           title="National Price"
           getData={apiGetNationalPriceDashboard}
           carouselName ="nationalprice"
           carouselFields={['name']}
-          getDataDropdown={[apiGetWarehouseBrand]}
-          dropdownLabel={['Currency']}
           enableDropdown
+          getDataDropdown={[currencyList]}
+          dropdownLabel={['Currency']}
           dropdownVal={[currencyNP]}
-          setDropdownVal={[setCurrencyNP]}/>
+          setDropdownVal={[setCurrencyNP]}
+          customGetDataDropdown={[true]}/>
       </Grid>
     </Grid>
   );

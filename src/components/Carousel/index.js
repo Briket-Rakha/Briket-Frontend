@@ -133,7 +133,6 @@ CustomCarousel.defaultProps = {
   dataCarousel: [],
   parentID: [],
   haveParent: false,
-  addition: false,
   customResponse: false,
   carouselName: '',
   carouselFields: [],
@@ -146,7 +145,6 @@ CustomCarousel.propTypes = {
   customResponse: PropTypes.bool,
   parentID: PropTypes.array,
   haveParent: PropTypes.bool,
-  addition: PropTypes.bool,
   carouselFields: PropTypes.array.isRequired,
 };
 
