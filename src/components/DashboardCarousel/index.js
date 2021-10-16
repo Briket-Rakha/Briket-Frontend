@@ -17,7 +17,7 @@ import PilihTanggal from '../../views/ProductionModel/Dashboard/PilihTanggal';
 const DashboardCarousel = (props) => {
   const { title, enableDropdown, dropdownLabel,
     getData, getDataDropdown, carouselName,
-    dropdownVal, setDropdownVal, customResponse, downloadCategory,
+    dropdownVal, setDropdownVal, downloadCategory,
     enableDownload, carouselFields, customGetDataDropdown } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
@@ -74,11 +74,9 @@ const DashboardCarousel = (props) => {
             parentID={dropdownVal}
             haveParent
             carouselName={carouselName}
-            customResponse={customResponse}
             carouselFields={carouselFields}/> :
           <CustomCarousel
             getData={getData}
-            customResponse={customResponse}
             carouselName={carouselName}
             carouselFields={carouselFields}/>
         }
@@ -108,7 +106,6 @@ DashboardCarousel.defaultProps = {
   enableDropdown: false,
   carouselName: '',
   dropdownLabel: [],
-  customResponse: false,
   getDataDropdown: () => {},
   setDropdownVal: [],
   enableDownload: false,
@@ -120,7 +117,6 @@ DashboardCarousel.propTypes = {
   title: PropTypes.string,
   enableDropdown: PropTypes.bool,
   getData: PropTypes.any.isRequired,
-  customResponse: PropTypes.bool,
   getDataDropdown: PropTypes.array,
   customGetDataDropdown: PropTypes.array,
   dropdownLabel: PropTypes.array,

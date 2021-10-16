@@ -15,7 +15,7 @@ import '../../styles/components/carousel.scss';
 import { formatCurrency, numberWithDots } from '../../utils/helper';
 
 const CustomCarousel = (props) => {
-  const { getData, parentID, haveParent, customResponse, carouselName, carouselFields } = props;
+  const { getData, parentID, haveParent, carouselName, carouselFields } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -37,16 +37,10 @@ const CustomCarousel = (props) => {
       setLoading(true);
       await ( getData() )
           .then((res) => {
-            const { response: { data } } = res;
-            if ( customResponse ) {
-              setDataCarousel(data.result.data);
-              setLoading(false);
-              return (data.result.data);
-            } else {
-              setDataCarousel(data.data);
-              setLoading(false);
-              return (data.data);
-            }
+            const data = res?.response?.data?.result || res?.response?.data || res?.data;
+            setDataCarousel(data.data);
+            setLoading(false);
+            return data.data;
           })
           .catch((err) => {
             setErrorMessage(err?.message ? err.message : 'Server Error');
@@ -133,7 +127,6 @@ CustomCarousel.defaultProps = {
   dataCarousel: [],
   parentID: [],
   haveParent: false,
-  customResponse: false,
   carouselName: '',
   carouselFields: [],
 };
@@ -142,7 +135,6 @@ CustomCarousel.propTypes = {
   dataCarousel: PropTypes.any,
   getData: PropTypes.any.isRequired,
   carouselName: PropTypes.string.isRequired,
-  customResponse: PropTypes.bool,
   parentID: PropTypes.array,
   haveParent: PropTypes.bool,
   carouselFields: PropTypes.array.isRequired,

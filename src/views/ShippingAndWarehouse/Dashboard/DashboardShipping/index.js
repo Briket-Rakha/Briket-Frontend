@@ -57,7 +57,6 @@ const DashboardShipping = () => {
         <DashboardCarousel
           title="Shipping"
           getData={container ? (() => apiGetShipping({ container_number: container })) : null}
-          customResponse
           carouselName ="shipping"
           carouselFields={['name', 'asal', 'package_name']}
           enableDropdown

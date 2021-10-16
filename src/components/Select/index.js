@@ -28,8 +28,8 @@ export default function CustomSelect(props) {
     haveParent,
     size,
     disabled,
-    twoValue,
     customField,
+    customNoData,
   } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -113,14 +113,14 @@ export default function CustomSelect(props) {
         >
           {listData.length>0 && !loading && listData.map( (el, idx)=>
             <MenuItem
-              value={twoValue? ({ id: el.id, name: el.name }) : ( el[customField] ?? el.id ?? el.name )}
+              value={( el[customField] ?? el.id ?? el.name )}
               key={idx}
             >
               {el[customField] ?? el.name}
             </MenuItem>,
           )}
           {!listData.length && !loading && <p className="custom-select-no-data">
-            No Data Found!</p>}
+            { customNoData ?? 'No Data Found!' }</p>}
           {loading && (
             <Grid container className="loading-container">
               <CircularProgress size={20} thickness={5} />
@@ -142,7 +142,6 @@ CustomSelect.defaultProps = {
   index: 0,
   size: 'medium',
   disabled: false,
-  twoValue: false,
   customField: '',
 };
 
@@ -160,6 +159,6 @@ CustomSelect.propTypes = {
   haveParent: PropTypes.bool,
   size: PropTypes.string,
   disabled: PropTypes.bool,
-  twoValue: PropTypes.bool,
   customField: PropTypes.string,
+  customNoData: PropTypes.string,
 };

@@ -25,14 +25,15 @@ import { apiGetPackaging } from '../../../../api/packaging.api';
 import { apiGetSupplierOutsource } from '../../../../api/supplier.api';
 import { apiPostInputPackaging } from '../../../../api/input-packaging.api';
 
-
 const Packaging = () => {
   const [containerNumber, setContainerNumber] = useState('');
   const [brand, setBrand] = useState('');
   const [date, setDate] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
   // Jenis dan Jumlah Packaging
   const [inputList, setInputList] = useState([
     {
@@ -47,6 +48,30 @@ const Packaging = () => {
       },
     },
   ]);
+
+  const getProducerName = async (idx, asal, asalID) => {
+    if (!loading) {
+      setLoading(true);
+      await (asal === 'pabrik' ? apiGetPabrik() : apiGetSupplierOutsource() )
+          .then((res) => {
+            const data = res?.response?.data.data || res?.data.data;
+            setLoading(false);
+
+            data.map( ({ id, name }) => {
+              if (id === asalID) {
+                const list = [...inputList];
+                list[idx].asal_name = name;
+                setInputList(list);
+                return name;
+              }
+            });
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
 
   useEffect(() => {
     inputList.map((x, i) => {
@@ -104,11 +129,16 @@ const Packaging = () => {
   // handle input change
   const handleInputChange = (name, value, index) => {
     const list = [...inputList];
-    if ( name == 'asal_id' ) {
-      list[index].asal_id = value.id;
-      list[index].asal_name = value.name;
+    if ( name === 'asal_id' ) {
+      list[index].asal_id = value;
+      getProducerName(index, inputList[index].asal, inputList[index].asal_id);
     } else {
       list[index][name] = value;
+    }
+
+    if ( name === 'asal' ) {
+      list[index].asal_name = '';
+      list[index].asal_id = '';
     }
     setInputList(list);
   };
@@ -256,15 +286,15 @@ const Packaging = () => {
                   name="asal_id"
                   label="Producer"
                   value={x.asal_id}
-                  getValues={x.asal ? (x.asal=='pabrik'?
+                  getValues={x.asal ? (x.asal === 'pabrik'?
                     apiGetPabrik : apiGetSupplierOutsource) : null}
                   setValue={handleInputChange}
                   index={i}
                   parentValue={x.asal}
+                  customNoData={'Select Producer Type First'}
                   customSetFunction
                   required
                   haveParent
-                  twoValue
                 />
               </Grid>
             </Grid>
