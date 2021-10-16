@@ -50,6 +50,7 @@ const Packaging = () => {
     },
   ]);
 
+  // get producer name by its id
   const getProducerName = async (idx, asal, asalID) => {
     if (!loading) {
       setLoading(true);
@@ -73,6 +74,7 @@ const Packaging = () => {
     }
   };
 
+  // get package type name by its id
   const getPackagingTypeName = async (idx, packagingTypeID) => {
     if (!loading) {
       setLoading(true);
