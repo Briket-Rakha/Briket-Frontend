@@ -2,9 +2,11 @@
 import { React, useState } from 'react';
 import { Grid } from '@material-ui/core';
 
+// Import Component
+import DashboardCarousel from '../../../components/DashboardCarousel';
+
 // Import views
 import FactoryProduction from './FactoryProduction';
-import CustomizeCarousel from './CustomizeCarousel';
 import OutsourceProduction from './OutsourceProduction';
 
 // Import styling
@@ -35,20 +37,21 @@ const Dashboard = () => {
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Material"
-          getData={apiGetMaterialDashboard}
-          getDataDropdown={apiGetPabrik}
+          getData={pabrik ? (() => apiGetMaterialDashboard(pabrik)) : null}
           carouselName ="material"
-          dropdownLabel="Factory"
-          dropdownVal={pabrik}
-          setDropdownVal={setPabrik}
           carouselFields={['name']}
           enableDropdown
+          dropdownLabel={['Factory']}
+          dropdownVal={[pabrik]}
+          setDropdownVal={[setPabrik]}
+          getDataDropdown={[apiGetPabrik]}
+          customGetDataDropdown={[false]}
           enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Factory and Outsource Production"
           carouselName ="hasilproduksi"
           getData={apiGetHasilDashboard}
@@ -57,16 +60,17 @@ const Dashboard = () => {
           enableDownload/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Packaging"
-          getData={apiGetInputPackaging}
-          getDataDropdown={apiGetContainer}
+          getData={container ? (() => apiGetInputPackaging({ container_number: container })) : null}
           carouselName ="packaging"
-          dropdownLabel="Container"
-          enableDropdown
-          dropdownVal={container}
-          setDropdownVal={setContainer}
           carouselFields={['name', 'asal', 'package_name']}
+          enableDropdown
+          dropdownLabel={['Container']}
+          getDataDropdown={[apiGetContainer]}
+          dropdownVal={[container]}
+          setDropdownVal={[setContainer]}
+          customGetDataDropdown={[false]}
           enableDownload/>
       </Grid>
       <FactoryProduction />

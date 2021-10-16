@@ -25,18 +25,20 @@ import { apiGetPackaging } from '../../../../api/packaging.api';
 import { apiGetSupplierOutsource } from '../../../../api/supplier.api';
 import { apiPostInputPackaging } from '../../../../api/input-packaging.api';
 
-
 const Packaging = () => {
   const [containerNumber, setContainerNumber] = useState('');
   const [brand, setBrand] = useState('');
   const [date, setDate] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
   // Jenis dan Jumlah Packaging
   const [inputList, setInputList] = useState([
     {
       package_id: '',
+      package_name: '',
       amount: 0,
       asal: '',
       asal_id: '',
@@ -47,6 +49,54 @@ const Packaging = () => {
       },
     },
   ]);
+
+  // get producer name by its id
+  const getProducerName = async (idx, asal, asalID) => {
+    if (!loading) {
+      setLoading(true);
+      await (asal === 'pabrik' ? apiGetPabrik() : apiGetSupplierOutsource() )
+          .then((res) => {
+            const data = res?.response?.data.data || res?.data.data;
+            setLoading(false);
+
+            data.map( ({ id, name }) => {
+              if (id === asalID) {
+                const list = [...inputList];
+                list[idx].asal_name = name;
+                setInputList(list);
+              }
+            });
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
+
+  // get package type name by its id
+  const getPackagingTypeName = async (idx, packagingTypeID) => {
+    if (!loading) {
+      setLoading(true);
+      await ( apiGetPackaging() )
+          .then((res) => {
+            const data = res?.response?.data.data || res?.data.data;
+            setLoading(false);
+
+            data.map( ({ id, name }) => {
+              if (id === packagingTypeID) {
+                const list = [...inputList];
+                list[idx].package_name = name;
+                setInputList(list);
+              }
+            });
+          })
+          .catch((err) => {
+            setErrorMessage(err?.message ? err.message : 'Server Error');
+            setLoading(false);
+          });
+    }
+  };
 
   useEffect(() => {
     inputList.map((x, i) => {
@@ -60,6 +110,7 @@ const Packaging = () => {
     setBrand('');
     setInputList([{
       package_id: '',
+      package_name: '',
       amount: 0,
       asal: '',
       asal_id: '',
@@ -104,11 +155,21 @@ const Packaging = () => {
   // handle input change
   const handleInputChange = (name, value, index) => {
     const list = [...inputList];
-    if ( name == 'asal_id' ) {
-      list[index].asal_id = value.id;
-      list[index].asal_name = value.name;
+    if ( name === 'asal_id' ) {
+      list[index].asal_id = value;
+      getProducerName(index, inputList[index].asal, inputList[index].asal_id);
     } else {
       list[index][name] = value;
+    }
+
+    if ( name === 'asal' ) {
+      list[index].asal_name = '';
+      list[index].asal_id = '';
+    }
+
+    if ( name === 'package_id' ) {
+      list[index].package_name = '';
+      getPackagingTypeName(index, inputList[index].package_id);
     }
     setInputList(list);
   };
@@ -125,6 +186,7 @@ const Packaging = () => {
     setInputList([...inputList,
       {
         package_id: '',
+        package_name: '',
         amount: 0,
         asal: '',
         asal_id: '',
@@ -256,15 +318,15 @@ const Packaging = () => {
                   name="asal_id"
                   label="Producer"
                   value={x.asal_id}
-                  getValues={x.asal ? (x.asal=='pabrik'?
+                  getValues={x.asal ? (x.asal === 'pabrik'?
                     apiGetPabrik : apiGetSupplierOutsource) : null}
                   setValue={handleInputChange}
                   index={i}
                   parentValue={x.asal}
+                  customNoData={'Select Producer Type First'}
                   customSetFunction
                   required
                   haveParent
-                  twoValue
                 />
               </Grid>
             </Grid>
@@ -284,7 +346,7 @@ const Packaging = () => {
               className="packaging-jenis"
               key={i}
             >
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <TextField
                   className="input-field"
                   placeholder="Producer"
@@ -296,7 +358,19 @@ const Packaging = () => {
                   disabled
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3} className="packaging-jenis-item">
+                <TextField
+                  className="input-field"
+                  placeholder="Packaging Type"
+                  label="Packaging Type"
+                  size="medium"
+                  value={x.package_name}
+                  type="text"
+                  variant="outlined"
+                  disabled
+                />
+              </Grid>
+              <Grid item xs={3}>
                 <CurrencyTextField
                   label="Price Per kg"
                   variant="outlined"
@@ -310,7 +384,7 @@ const Packaging = () => {
                     handlePriceChange(value, i)}
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <CurrencyTextField
                   label="Total Price"
                   variant="outlined"

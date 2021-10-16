@@ -33,12 +33,14 @@ const NationalPrice = () => {
   const [container, setContainer] = useState('');
   const [nationalPrice, setNationalPrice] = useState(0);
   const [metadata, setMetadata] = useState();
+  const [currency, setCurrency] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const fetchMetadata = async () => {
+    // TODO: adjust params with currency
     const params = {
       container_number: container,
     };
@@ -105,6 +107,13 @@ const NationalPrice = () => {
       <CustomBreadcrumbs componentTree={componentTree} />
       <h3 className="shipping-warehouse-title">Input National Price</h3>
       <Grid container className="shipping-warehouse-form" direction="column">
+        {/* TODO: adjust the getValues */}
+        <CustomSelect
+          value={currency}
+          label={'Currency'}
+          getValues={apiGetContainer}
+          setValue={setCurrency}
+        />
         <CustomSelect
           label="No. Container"
           value={container}

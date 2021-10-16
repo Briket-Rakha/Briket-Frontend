@@ -2,11 +2,14 @@
 import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
 
-// Import views
-import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarousel';
+// Import Component
+import DashboardCarousel from '../../../../components/DashboardCarousel';
 
 // Import styling
 import '../../../../styles/views/dashboard.scss';
+
+// Import Constants
+import { currencyList } from '../../../../constants/currencyList';
 
 // Import API
 import {
@@ -18,33 +21,42 @@ import {
 
 const DashboardWarehoue = () => {
   const [brand, setBrand] = useState('');
+  const [currencyNP, setCurrencyNP] = useState(null);
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Total Charcoal"
           getData={apiGetTotalBrandDashboard}
           carouselName ="totalbrand"
           carouselFields={['name']}/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        <DashboardCarousel
           title="Charcoal Packaging Details"
-          getData={apiGetWarehouseSummary}
-          getDataDropdown={apiGetWarehouseBrand}
+          getData={brand ? (() => apiGetWarehouseSummary(brand)) : null}
           carouselName ="warehouse"
-          dropdownLabel="Brand"
+          carouselFields={['name', 'package']}
           enableDropdown
-          dropdownVal={brand}
-          setDropdownVal={setBrand}
-          carouselFields={['name', 'package']}/>
+          dropdownLabel={['Brand']}
+          dropdownVal={[brand]}
+          getDataDropdown={[apiGetWarehouseBrand]}
+          setDropdownVal={[setBrand]}
+          customGetDataDropdown={[false]}/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        {/* TODO: adjust getData with the currency */}
+        <DashboardCarousel
           title="National Price"
           getData={apiGetNationalPriceDashboard}
           carouselName ="nationalprice"
-          carouselFields={['name']}/>
+          carouselFields={['name']}
+          enableDropdown
+          getDataDropdown={[currencyList]}
+          dropdownLabel={['Currency']}
+          dropdownVal={[currencyNP]}
+          setDropdownVal={[setCurrencyNP]}
+          customGetDataDropdown={[true]}/>
       </Grid>
     </Grid>
   );

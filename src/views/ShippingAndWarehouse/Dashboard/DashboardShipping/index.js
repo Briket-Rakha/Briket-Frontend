@@ -2,8 +2,12 @@
 import { React, useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 
-// Import views
-import CustomizeCarousel from '../../../ProductionModel/Dashboard/CustomizeCarousel';
+// Import Component
+import CustomSelect from '../../../../components/Select';
+import DashboardCarousel from '../../../../components/DashboardCarousel';
+
+// Import Constants
+import { currencyList } from '../../../../constants/currencyList';
 
 // Import styling
 import '../../../../styles/views/dashboard.scss';
@@ -20,13 +24,18 @@ const DashboardShipping = () => {
   const [charcoalPrice, setCharcoalPrice] = useState('');
   const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
+  const [currency, setCurrency] = useState(null);
 
   const FALSY_STATE = ['', null, undefined];
   const noData = 'No Data Found!';
 
   const getShippingData = async () => {
     if (container) {
-      await apiGetShipping(container)
+      {/* TODO: adjust with the currency */}
+      const params = {
+        container_number: container,
+      };
+      await apiGetShipping(params)
           .then((res) => {
             const { response: { data } } = res;
             setTotalWeight(data.result.total_weight);
@@ -47,17 +56,34 @@ const DashboardShipping = () => {
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
-        <CustomizeCarousel
+        {/* TODO: adjust getData with the currency */}
+        <DashboardCarousel
           title="Shipping"
-          getData={apiGetShipping}
-          customResponse
-          getDataDropdown={apiGetContainerShipping}
+          getData={container ? (() => apiGetShipping({ container_number: container })) : null}
           carouselName ="shipping"
-          dropdownLabel="Container"
+          carouselFields={['name', 'asal', 'package_name']}
           enableDropdown
-          dropdownVal={container}
-          setDropdownVal={setContainer}
-          carouselFields={['name', 'asal', 'package_name']}/>
+          dropdownLabel={['Container']}
+          getDataDropdown={[apiGetContainerShipping]}
+          dropdownVal={[container]}
+          setDropdownVal={[setContainer]}
+          customGetDataDropdown={[false]}/>
+      </Grid>
+      <Grid container className="dashboard-section-header">
+        <Grid
+          container
+        >
+        </Grid>
+        <Grid container className="dashboard-section-header-input">
+          <CustomSelect
+            value={currency}
+            label={'Currency'}
+            getValues={currencyList}
+            setValue={setCurrency}
+            constantValues
+            size="small"
+          />
+        </Grid>
       </Grid>
       <Grid item className="dashboard-section-content">
         <Grid

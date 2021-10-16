@@ -5,18 +5,20 @@ import { Grid, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 // Import Component
-import CustomCarousel from '../../../components/Carousel';
-import CustomSelect from '../../../components/Select';
-import CustomAlert from '../../../components/Alert';
-import CustomModal from '../../../components/Modal';
-import PilihTanggal from './PilihTanggal';
+import CustomCarousel from '../Carousel';
+import CustomSelect from '../Select';
+import CustomAlert from '../Alert';
+import CustomModal from '../Modal';
+
+// Import View
+import PilihTanggal from '../../views/ProductionModel/Dashboard/PilihTanggal';
 
 
-const CarouselView = (props) => {
+const DashboardCarousel = (props) => {
   const { title, enableDropdown, dropdownLabel,
     getData, getDataDropdown, carouselName,
-    dropdownVal, setDropdownVal, customResponse, downloadCategory,
-    enableDownload, carouselFields } = props;
+    dropdownVal, setDropdownVal, downloadCategory,
+    enableDownload, carouselFields, customGetDataDropdown } = props;
   const [openTanggal, setOpenTanggal] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -36,24 +38,28 @@ const CarouselView = (props) => {
       )}
       <Grid container className="dashboard-section-header">
         <Grid
-          item xs={8}
+          container
           className="dashboard-section-header-title"
           direction="column"
         >
           <h3>{title}</h3>
         </Grid>
-
-        {enableDropdown &&
-          <Grid item xs={4} className="dashboard-section-header-input">
-            <CustomSelect
-              value={dropdownVal}
-              label={dropdownLabel}
-              getValues={getDataDropdown}
-              setValue={setDropdownVal}
-              size="small"
-            />
-          </Grid>
-        }
+        <Grid container className="dashboard-section-header-input">
+          {enableDropdown && dropdownLabel.map((el, idx) => {
+            return (
+              <CustomSelect
+                key={idx}
+                value={dropdownVal[idx]}
+                label={dropdownLabel[idx]}
+                getValues={getDataDropdown[idx]}
+                setValue={setDropdownVal[idx]}
+                constantValues={customGetDataDropdown[idx]}
+                size="small"
+              />
+            );
+          })
+          }
+        </Grid>
       </Grid>
 
       <Grid
@@ -68,11 +74,9 @@ const CarouselView = (props) => {
             parentID={dropdownVal}
             haveParent
             carouselName={carouselName}
-            customResponse={customResponse}
             carouselFields={carouselFields}/> :
           <CustomCarousel
             getData={getData}
-            customResponse={customResponse}
             carouselName={carouselName}
             carouselFields={carouselFields}/>
         }
@@ -97,31 +101,31 @@ const CarouselView = (props) => {
   );
 };
 
-CarouselView.defaultProps = {
+DashboardCarousel.defaultProps = {
   title: '',
   enableDropdown: false,
   carouselName: '',
-  dropdownLabel: '',
-  customResponse: false,
+  dropdownLabel: [],
   getDataDropdown: () => {},
-  setDropdownVal: () => {},
+  setDropdownVal: [],
   enableDownload: false,
   carouselFields: [],
+  customGetDataDropdown: [],
 };
 
-CarouselView.propTypes = {
+DashboardCarousel.propTypes = {
   title: PropTypes.string,
   enableDropdown: PropTypes.bool,
   getData: PropTypes.any.isRequired,
-  customResponse: PropTypes.bool,
-  getDataDropdown: PropTypes.func,
-  dropdownLabel: PropTypes.string,
+  getDataDropdown: PropTypes.array,
+  customGetDataDropdown: PropTypes.array,
+  dropdownLabel: PropTypes.array,
   carouselName: PropTypes.string.isRequired,
-  dropdownVal: PropTypes.any,
-  setDropdownVal: PropTypes.func,
+  dropdownVal: PropTypes.array,
+  setDropdownVal: PropTypes.array,
   downloadCategory: PropTypes.array,
   enableDownload: PropTypes.bool,
   carouselFields: PropTypes.array.isRequired,
 };
 
-export default CarouselView;
+export default DashboardCarousel;

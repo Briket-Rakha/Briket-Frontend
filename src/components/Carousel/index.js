@@ -15,7 +15,7 @@ import '../../styles/components/carousel.scss';
 import { formatCurrency, numberWithDots } from '../../utils/helper';
 
 const CustomCarousel = (props) => {
-  const { getData, parentID, haveParent, customResponse, carouselName, carouselFields } = props;
+  const { getData, parentID, haveParent, carouselName, carouselFields } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -35,18 +35,12 @@ const CustomCarousel = (props) => {
   const getDataCarousel = async () => {
     if (!loading) {
       setLoading(true);
-      await ( haveParent ? getData(parentID) : getData() )
+      await ( getData() )
           .then((res) => {
-            const { response: { data } } = res;
-            if ( customResponse ) {
-              setDataCarousel(data.result.data);
-              setLoading(false);
-              return (data.result.data);
-            } else {
-              setDataCarousel(data.data);
-              setLoading(false);
-              return (data.data);
-            }
+            const data = res?.response?.data?.result || res?.response?.data || res?.data;
+            setDataCarousel(data.data);
+            setLoading(false);
+            return data.data;
           })
           .catch((err) => {
             setErrorMessage(err?.message ? err.message : 'Server Error');
@@ -55,9 +49,15 @@ const CustomCarousel = (props) => {
     }
   };
 
-  const dynamicVal = haveParent ? [parentID] : [];
+  let dynamicVal;
+  if (Array.isArray(parentID)) {
+    dynamicVal = parentID;
+  } else {
+    dynamicVal = haveParent ? [parentID] : [];
+  }
+
   useEffect(() => {
-    if (!haveParent || (haveParent && parentID)) {
+    if (!haveParent || (haveParent && parentID[0])) {
       getDataCarousel().then((data) => {
         if (data) {
           setDataCarousel(data);
@@ -131,10 +131,8 @@ const CustomCarousel = (props) => {
 
 CustomCarousel.defaultProps = {
   dataCarousel: [],
-  parentID: '',
+  parentID: [],
   haveParent: false,
-  addition: false,
-  customResponse: false,
   carouselName: '',
   carouselFields: [],
 };
@@ -143,10 +141,8 @@ CustomCarousel.propTypes = {
   dataCarousel: PropTypes.any,
   getData: PropTypes.any.isRequired,
   carouselName: PropTypes.string.isRequired,
-  customResponse: PropTypes.bool,
-  parentID: PropTypes.any,
+  parentID: PropTypes.array,
   haveParent: PropTypes.bool,
-  addition: PropTypes.bool,
   carouselFields: PropTypes.array.isRequired,
 };
 
