@@ -49,7 +49,13 @@ const CustomCarousel = (props) => {
     }
   };
 
-  const dynamicVal = haveParent ? parentID : [];
+  let dynamicVal;
+  if (Array.isArray(parentID)) {
+    dynamicVal = parentID;
+  } else {
+    dynamicVal = haveParent ? [parentID] : [];
+  }
+
   useEffect(() => {
     if (!haveParent || (haveParent && parentID[0])) {
       getDataCarousel().then((data) => {

@@ -1,14 +1,14 @@
 export const currencyList = [
   {
-    id: '0',
+    id: 'IRD',
     name: 'Rupiah',
   },
   {
-    id: 1,
+    id: 'BRL',
     name: 'Reais',
   },
   {
-    id: 2,
+    id: 'USD',
     name: 'Dolar',
   },
 ];
