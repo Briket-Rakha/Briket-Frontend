@@ -20,7 +20,8 @@ import DatePicker from '../../../../components/DatePicker';
 
 // Import API
 import { apiGetPaymentType } from '../../../../api/payment.api';
-import { apiPostTrucking, apiGetTruckingContainer } from '../../../../api/trucking.api';
+import { apiPostTrucking } from '../../../../api/trucking.api';
+import { apiGetContainerShipping } from '../../../../api/shipping.api';
 // import { apiGetWarehouse } from '../../../../api/warehouse.api';
 
 // Import Utils
@@ -142,7 +143,7 @@ const WarehouseInput = () => {
         <CustomSelect
           label="No. Container"
           value={container}
-          getValues={apiGetTruckingContainer}
+          getValues={apiGetContainerShipping}
           setValue={setContainer}
           customField="container_number"
           required

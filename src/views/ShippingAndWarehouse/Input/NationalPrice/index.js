@@ -13,7 +13,7 @@ import CustomSelect from '../../../../components/Select';
 import DetailContainer from './DetailContainer';
 
 // Import API
-import { apiGetContainerShipping } from '../../../../api/shipping.api';
+import { apiGetTruckingContainer } from '../../../../api/trucking.api';
 import { apiGetNationalPriceData, apiPostNationalPrice } from '../../../../api/national-price.api';
 
 // Import Styling
@@ -120,7 +120,7 @@ const NationalPrice = () => {
         <CustomSelect
           label="No. Container"
           value={container}
-          getValues={apiGetContainerShipping}
+          getValues={apiGetTruckingContainer}
           setValue={setContainer}
           required
         />
