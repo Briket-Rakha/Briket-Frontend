@@ -23,6 +23,19 @@ export function apiGetNationalPriceData(params) {
   });
 }
 
+export function apiGetNationalPriceContainer() {
+  return new Promise((resolve, reject) => {
+    axios
+        .get(`${apiNationalPriceBaseUrl.root}/form/container`)
+        .then((response) => {
+          resolve({ response });
+        })
+        .catch((err) => {
+          reject(err.response);
+        });
+  });
+}
+
 export function apiPostNationalPrice(payload) {
   return new Promise((resolve, reject) => {
     axios

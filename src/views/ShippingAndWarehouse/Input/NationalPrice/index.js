@@ -13,8 +13,11 @@ import CustomSelect from '../../../../components/Select';
 import DetailContainer from './DetailContainer';
 
 // Import API
-import { apiGetTruckingContainer } from '../../../../api/trucking.api';
-import { apiGetNationalPriceData, apiPostNationalPrice } from '../../../../api/national-price.api';
+import {
+  apiGetNationalPriceData,
+  apiPostNationalPrice,
+  apiGetNationalPriceContainer,
+} from '../../../../api/national-price.api';
 
 // Import Styling
 import '../../../../styles/views/shipping-warehouse.scss';
@@ -120,8 +123,9 @@ const NationalPrice = () => {
         <CustomSelect
           label="No. Container"
           value={container}
-          getValues={apiGetTruckingContainer}
+          getValues={apiGetNationalPriceContainer}
           setValue={setContainer}
+          customField="container_number"
           required
         />
         <DetailContainer data={metadata} />
