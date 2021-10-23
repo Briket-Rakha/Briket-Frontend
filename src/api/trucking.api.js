@@ -33,17 +33,3 @@ export function apiGetTrucking(warehouseID) {
         });
   });
 }
-
-export async function apiGetTruckingContainer() {
-  return new Promise((resolve, reject) => {
-    axios
-        .get(apiTruckingBaseUrl.container)
-        .then((response) => {
-          resolve({ response });
-        })
-        .catch((err) => {
-          reject(err.response);
-        });
-  });
-}
-
