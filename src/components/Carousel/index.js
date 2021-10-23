@@ -18,9 +18,10 @@ const CustomCarousel = (props) => {
   const { getData, parentID, haveParent, carouselName, carouselFields } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [currencyType, setCurrencyType] = useState('');
 
   const [dataCarousel, setDataCarousel] = useState([]);
-  const isPrice = carouselName=='nationalprice';
+  const isPrice = carouselName === 'nationalprice';
 
   const getElements = (i) => {
     const result = [];
@@ -64,6 +65,10 @@ const CustomCarousel = (props) => {
         }
       });
     }
+
+    if (isPrice) {
+      setCurrencyType(parentID[0]);
+    }
   }, dynamicVal);
 
   const threeItemsRender = [];
@@ -74,7 +79,9 @@ const CustomCarousel = (props) => {
             <CarouselCard
               key={i}
               infix={isPrice ? '' : 'kg'}
-              total={isPrice ? formatCurrency(dataCarousel[i].national_price) : numberWithDots(dataCarousel[i].total)}
+              total={isPrice ?
+                formatCurrency(dataCarousel[i].national_price, currencyType) :
+                numberWithDots(dataCarousel[i].total)}
               elements={getElements(i)}/>
             {i+1 < dataCarousel.length &&
                   <CarouselCard
@@ -82,7 +89,8 @@ const CustomCarousel = (props) => {
                     infix={isPrice ? '' : 'kg'}
                     total={
                       isPrice ?
-                      formatCurrency(dataCarousel[i+1].national_price) : numberWithDots(dataCarousel[i+1].total)
+                      formatCurrency(dataCarousel[i+1].national_price, currencyType) :
+                      numberWithDots(dataCarousel[i+1].total)
                     }
                     elements={getElements(i+1)}/>
             }
@@ -92,7 +100,8 @@ const CustomCarousel = (props) => {
                     infix={isPrice ? '' : 'kg'}
                     total={
                       isPrice ?
-                      formatCurrency(dataCarousel[i+2].national_price) : numberWithDots(dataCarousel[i+2].total)
+                      formatCurrency(dataCarousel[i+2].national_price, currencyType) :
+                      numberWithDots(dataCarousel[i+2].total)
                     }
                     elements={getElements(i+2)}/>
             }
@@ -122,8 +131,6 @@ const CustomCarousel = (props) => {
               {threeItemsRender}
             </Carousel> : <p className="no-data">No Data Found!</p>
           )
-
-
       }
     </>
   );

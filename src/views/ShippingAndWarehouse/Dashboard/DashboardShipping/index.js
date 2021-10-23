@@ -24,9 +24,8 @@ const DashboardShipping = () => {
   const [charcoalPrice, setCharcoalPrice] = useState('');
   const [container, setContainer] = useState(null);
   const [tipePembayaran, setTipePembayaran] = useState([]);
-  const [currency, setCurrency] = useState(null);
+  const [currency, setCurrency] = useState('IDR');
 
-  const FALSY_STATE = ['', null, undefined];
   const noData = 'No Data Found!';
 
   const getShippingData = async () => {
@@ -98,17 +97,17 @@ const DashboardShipping = () => {
             <tr>
               <td>Total Weight</td>
               <td>:</td>
-              <td>{FALSY_STATE.includes(totalWeight) ? noData : numberWithDots(totalWeight) + ' kg'}</td>
+              <td>{totalWeight || totalWeight === 0 ? numberWithDots(totalWeight) + ' kg' : noData}</td>
             </tr>
             <tr>
               <td>Container Worth</td>
               <td>:</td>
-              <td>{FALSY_STATE.includes(containerWorth) ? noData : formatCurrency(containerWorth)}</td>
+              <td>{containerWorth || containerWorth === 0 ? formatCurrency(containerWorth, currency) : noData}</td>
             </tr>
             <tr>
               <td>Charcoal Price</td>
               <td>:</td>
-              <td>{FALSY_STATE.includes(charcoalPrice) ? noData : formatCurrency(charcoalPrice)}</td>
+              <td>{charcoalPrice || charcoalPrice === 0 ? formatCurrency(charcoalPrice, currency) : noData}</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -132,7 +131,7 @@ const DashboardShipping = () => {
               <tr key={el.idx}>
                 <td>{el.nama_pembayaran}</td>
                 <td>:</td>
-                <td>{FALSY_STATE.includes(el.harga) ? noData : formatCurrency(el.harga)}</td>
+                <td>{el.harga || el.harga === 0 ? formatCurrency(el.harga, currency) : noData}</td>
               </tr>
             )))}
             <tr>
