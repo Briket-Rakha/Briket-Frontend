@@ -67,7 +67,7 @@ const CustomCarousel = (props) => {
     }
 
     if (isPrice) {
-      setCurrencyType(parentID);
+      setCurrencyType(parentID[0]);
     }
   }, dynamicVal);
 
@@ -131,8 +131,6 @@ const CustomCarousel = (props) => {
               {threeItemsRender}
             </Carousel> : <p className="no-data">No Data Found!</p>
           )
-
-
       }
     </>
   );
