@@ -15,9 +15,10 @@ import '../../styles/components/carousel.scss';
 import { formatCurrency, numberWithDots } from '../../utils/helper';
 
 const CustomCarousel = (props) => {
-  const { getData, parentID, haveParent, carouselName, carouselFields, currencyType } = props;
+  const { getData, parentID, haveParent, carouselName, carouselFields } = props;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [currencyType, setCurrencyType] = useState('');
 
   const [dataCarousel, setDataCarousel] = useState([]);
   const isPrice = carouselName === 'nationalprice';
@@ -63,6 +64,10 @@ const CustomCarousel = (props) => {
           setDataCarousel(data);
         }
       });
+    }
+
+    if (isPrice) {
+      setCurrencyType(parentID);
     }
   }, dynamicVal);
 
@@ -139,7 +144,6 @@ CustomCarousel.defaultProps = {
   haveParent: false,
   carouselName: '',
   carouselFields: [],
-  currencyType: 'BRL',
 };
 
 CustomCarousel.propTypes = {
@@ -149,7 +153,6 @@ CustomCarousel.propTypes = {
   parentID: PropTypes.array,
   haveParent: PropTypes.bool,
   carouselFields: PropTypes.array.isRequired,
-  currencyType: PropTypes.string,
 };
 
 export default CustomCarousel;
