@@ -50,6 +50,7 @@ const DashboardWarehoue = () => {
           title="National Price"
           getData={apiGetNationalPriceDashboard}
           carouselName ="nationalprice"
+          currencyType="BRL"
           carouselFields={['name']}
           enableDropdown
           getDataDropdown={[currencyList]}

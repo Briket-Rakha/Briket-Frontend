@@ -103,12 +103,12 @@ const DashboardShipping = () => {
             <tr>
               <td>Container Worth</td>
               <td>:</td>
-              <td>{FALSY_STATE.includes(containerWorth) ? noData : formatCurrency(containerWorth)}</td>
+              <td>{FALSY_STATE.includes(containerWorth) ? noData : formatCurrency(containerWorth, 'IDR')}</td>
             </tr>
             <tr>
               <td>Charcoal Price</td>
               <td>:</td>
-              <td>{FALSY_STATE.includes(charcoalPrice) ? noData : formatCurrency(charcoalPrice)}</td>
+              <td>{FALSY_STATE.includes(charcoalPrice) ? noData : formatCurrency(charcoalPrice, 'IDR')}</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -132,7 +132,7 @@ const DashboardShipping = () => {
               <tr key={el.idx}>
                 <td>{el.nama_pembayaran}</td>
                 <td>:</td>
-                <td>{FALSY_STATE.includes(el.harga) ? noData : formatCurrency(el.harga)}</td>
+                <td>{FALSY_STATE.includes(el.harga) ? noData : formatCurrency(el.harga, 'IDR')}</td>
               </tr>
             )))}
             <tr>

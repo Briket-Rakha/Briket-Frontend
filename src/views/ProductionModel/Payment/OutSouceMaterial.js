@@ -15,12 +15,12 @@ const OutSouceMaterial = ({ data }) => {
             <tr>
               <td>Complete Payment</td>
               <td>:</td>
-              <td>{formatCurrency(data.timeline[0].complete_price)}</td>
+              <td>{formatCurrency(data.timeline[0].complete_price, 'IDR')}</td>
             </tr>
             <tr>
               <td>Commission Price</td>
               <td>:</td>
-              <td>{formatCurrency(data.timeline[0].commision_price)}</td>
+              <td>{formatCurrency(data.timeline[0].commision_price, 'IDR')}</td>
             </tr>
             <tr>
               <td>&nbsp;</td>
@@ -56,7 +56,7 @@ const OutSouceMaterial = ({ data }) => {
                 {
                   data.payment === 0 ?
                     'LUNAS' :
-                    formatCurrency(data.payment_remaining ?? 0)
+                    formatCurrency(data.payment_remaining ?? 0, 'IDR')
                 }
               </td>
             </tr>
