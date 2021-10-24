@@ -1,15 +1,9 @@
-export const formatCurrency = (data) => {
-  const datastring = data.toString().split('');
-  const stringLength = datastring.length;
-
+export const formatCurrency = (data, type) => {
   return (
-    `Rp. ${datastring.map((char, index) => {
-      if (index > 0 && index % 3 === stringLength % 3) {
-        return `.${char}`;
-      }
-
-      return char;
-    }).join('')}`
+    (data).toLocaleString('en-US', {
+      style: 'currency',
+      currency: type,
+    })
   );
 };
 

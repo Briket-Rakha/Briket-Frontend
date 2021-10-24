@@ -21,7 +21,7 @@ import {
 
 const DashboardWarehoue = () => {
   const [brand, setBrand] = useState('');
-  const [currencyNP, setCurrencyNP] = useState(null);
+  const [currencyNP, setCurrencyNP] = useState('IDR');
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
