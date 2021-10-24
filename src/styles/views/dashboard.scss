@@ -32,6 +32,11 @@
         & > * {
           margin-left: 20px;
         }
+
+        .MuiInputLabel-root {
+          position: absolute;
+          z-index: -1;
+        }
       }
     }
 
