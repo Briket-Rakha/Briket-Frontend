@@ -2,7 +2,10 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-const DetailContainer = ({ data }) => {
+// Import Utils
+import { formatCurrency } from '../../../../utils/helper';
+
+const DetailContainer = ({ data, currency }) => {
   return (
     <Grid item container className="container-detail">
       <h4>Description</h4>
@@ -23,7 +26,7 @@ const DetailContainer = ({ data }) => {
                 Container worth
               </Grid>
               <Grid item container xs={6}>
-                {`: ${data.container_worth} kg`}
+                {`: ${formatCurrency(data.container_worth, currency)}`}
               </Grid>
             </Grid>
             <Grid item container md={6} justify="space-between" className="container-detail-desc">
@@ -31,7 +34,7 @@ const DetailContainer = ({ data }) => {
                 Charcoal price (kg)
               </Grid>
               <Grid item container xs={6}>
-                {`: Rp${data.charcoal_price || 0}`}
+                {`: ${formatCurrency(data.charcoal_price, currency)}`}
               </Grid>
             </Grid>
             <Grid item container md={6} justify="space-between" className="container-detail-desc">
@@ -57,7 +60,7 @@ const DetailContainer = ({ data }) => {
                   {item.nama_pembayaran}
                 </Grid>
                 <Grid item container xs={6}>
-                  {`: Rp${item.harga}`}
+                  {`: ${formatCurrency(item.harga, currency)}`}
                 </Grid>
               </>
             )) : (
@@ -77,7 +80,7 @@ const DetailContainer = ({ data }) => {
                     {item.nama_pembayaran}
                   </Grid>
                   <Grid item container xs={6}>
-                    {`: Rp${item.harga}`}
+                    {`: ${formatCurrency(item.harga, currency)}`}
                   </Grid>
                 </>
               </>
@@ -111,6 +114,7 @@ DetailContainer.propTypes = {
     total_weight: PropTypes.number,
     warehouse_fee: PropTypes.array,
   }),
+  currency: PropTypes.string,
 };
 
 export default DetailContainer;

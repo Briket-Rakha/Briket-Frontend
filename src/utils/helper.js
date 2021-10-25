@@ -1,6 +1,6 @@
 export const formatCurrency = (data, type) => {
   return (
-    (data).toLocaleString('en-US', {
+    (Number(data || 0)).toLocaleString('en-US', {
       style: 'currency',
       currency: type,
     })

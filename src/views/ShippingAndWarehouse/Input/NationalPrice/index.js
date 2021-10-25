@@ -39,16 +39,16 @@ const NationalPrice = () => {
   const [container, setContainer] = useState('');
   const [nationalPrice, setNationalPrice] = useState(0);
   const [metadata, setMetadata] = useState();
-  const [currency, setCurrency] = useState(null);
+  const [currency, setCurrency] = useState('BRL');
 
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const fetchMetadata = async () => {
-    // TODO: adjust params with currency
     const params = {
       container_number: container,
+      to: currency,
     };
 
     await apiGetNationalPriceData(params)
@@ -96,7 +96,7 @@ const NationalPrice = () => {
 
   useEffect(() => {
     if (container) fetchMetadata();
-  }, [container]);
+  }, [container, currency]);
 
   return (
     <form className="shipping-warehouse" onSubmit={addNationalPrice}>
@@ -114,13 +114,6 @@ const NationalPrice = () => {
       <h3 className="shipping-warehouse-title">Input National Price</h3>
       <Grid container className="shipping-warehouse-form" direction="column">
         <CustomSelect
-          value={currency}
-          label={'Currency'}
-          getValues={currencyList}
-          setValue={setCurrency}
-          constantValues
-        />
-        <CustomSelect
           label="No. Container"
           value={container}
           getValues={apiGetNationalPriceContainer}
@@ -128,16 +121,23 @@ const NationalPrice = () => {
           customField="container_number"
           required
         />
-        <DetailContainer data={metadata} />
+        <CustomSelect
+          value={currency}
+          label={'Currency'}
+          getValues={currencyList}
+          setValue={setCurrency}
+          constantValues
+        />
+        <DetailContainer data={metadata} currency={currency}/>
         <CurrencyTextField
           label="National Price"
           variant="outlined"
           value={nationalPrice}
           name="nationalPrice"
-          currencySymbol="Rp"
+          currencySymbol="R$"
           outputFormat="number"
-          decimalCharacter=","
-          digitGroupSeparator="."
+          decimalCharacter="."
+          digitGroupSeparator=","
           onChange={(e, value)=> setNationalPrice(value)}
         />
         <Button className="align-end btn btn-lg simpan-btn" onClick={addNationalPrice}>
