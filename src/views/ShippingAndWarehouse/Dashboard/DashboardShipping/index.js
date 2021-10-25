@@ -33,6 +33,7 @@ const DashboardShipping = () => {
       {/* TODO: adjust with the currency */}
       const params = {
         container_number: container,
+        to: currency,
       };
       await apiGetShipping(params)
           .then((res) => {
@@ -50,7 +51,7 @@ const DashboardShipping = () => {
 
   useEffect(() => {
     getShippingData();
-  }, [container]);
+  }, [container, currency]);
 
   return (
     <Grid container className="dashboard" direction="column">
@@ -58,7 +59,7 @@ const DashboardShipping = () => {
         {/* TODO: adjust getData with the currency */}
         <DashboardCarousel
           title="Shipping"
-          getData={container ? (() => apiGetShipping({ container_number: container })) : null}
+          getData={container ? (() => apiGetShipping({ container_number: container, to: currency })) : null}
           carouselName ="shipping"
           carouselFields={['name', 'asal', 'package_name']}
           enableDropdown

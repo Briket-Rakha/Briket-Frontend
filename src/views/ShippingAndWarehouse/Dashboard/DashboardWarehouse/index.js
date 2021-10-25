@@ -48,7 +48,7 @@ const DashboardWarehoue = () => {
         {/* TODO: adjust getData with the currency */}
         <DashboardCarousel
           title="National Price"
-          getData={apiGetNationalPriceDashboard}
+          getData={currencyNP ? (() => apiGetNationalPriceDashboard({ to: currencyNP })) : null}
           carouselName ="nationalprice"
           carouselFields={['name']}
           enableDropdown

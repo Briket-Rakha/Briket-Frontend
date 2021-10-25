@@ -1,6 +1,7 @@
 
 /* eslint-disable require-jsdoc */
 import axios from 'axios';
+import querystring from 'querystring';
 
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -35,10 +36,12 @@ export async function apiGetWarehouseSummary(brand) {
   });
 }
 
-export function apiGetNationalPriceDashboard() {
+export function apiGetNationalPriceDashboard(params) {
+  const queries = querystring.stringify(params);
+
   return new Promise((resolve, reject) => {
     axios
-        .get((`${apiInputWarehouseBaseUrl.dashboard}/national-price`))
+        .get((`${apiInputWarehouseBaseUrl.dashboard}/national-price?${queries}`))
         .then((response) => {
           resolve({ response });
         })
