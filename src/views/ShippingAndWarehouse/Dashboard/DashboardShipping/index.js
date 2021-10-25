@@ -30,7 +30,6 @@ const DashboardShipping = () => {
 
   const getShippingData = async () => {
     if (container) {
-      {/* TODO: adjust with the currency */}
       const params = {
         container_number: container,
         to: currency,
@@ -56,7 +55,6 @@ const DashboardShipping = () => {
   return (
     <Grid container className="dashboard" direction="column">
       <Grid item className="dashboard-section-content">
-        {/* TODO: adjust getData with the currency */}
         <DashboardCarousel
           title="Shipping"
           getData={container ? (() => apiGetShipping({ container_number: container, to: currency })) : null}

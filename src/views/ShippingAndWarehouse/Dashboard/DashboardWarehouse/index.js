@@ -45,7 +45,6 @@ const DashboardWarehoue = () => {
           customGetDataDropdown={[false]}/>
       </Grid>
       <Grid item className="dashboard-section-content">
-        {/* TODO: adjust getData with the currency */}
         <DashboardCarousel
           title="National Price"
           getData={currencyNP ? (() => apiGetNationalPriceDashboard({ to: currencyNP })) : null}

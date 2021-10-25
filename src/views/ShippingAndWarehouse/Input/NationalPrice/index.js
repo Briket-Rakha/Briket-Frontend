@@ -46,7 +46,6 @@ const NationalPrice = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const fetchMetadata = async () => {
-    // TODO: adjust params with currency
     const params = {
       container_number: container,
       to: currency,
