@@ -38,8 +38,8 @@ export const getListOfYears = () => {
       const backward = 10;
       const data = Array.from({ length: backward }, (val, i) => {
         return ({
-          id: currentYear + i + 1,
-          name: currentYear + i + 1,
+          id: currentYear + i,
+          name: currentYear + i,
         });
       });
       const listOfYearsObj = {
