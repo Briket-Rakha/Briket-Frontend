@@ -23,9 +23,9 @@ const PilihTanggal = (props) => {
   // download api url
   const url = dropdownAddition ?
   `${apiBaseUrl}/excel/${category}?
-  start=${startDate?.toISOString().slice(0, 10)}&end=${endDate?.toISOString().slice(0, 10)}` :
+    start=${startDate?.toISOString().slice(0, 10)}&end=${endDate?.toISOString().slice(0, 10)}` :
   `${apiBaseUrl}/excel/${downloadName}?
-  start=${startDate?.toISOString().slice(0, 10)}&end=${endDate?.toISOString().slice(0, 10)}`;
+    start=${startDate?.toISOString().slice(0, 10)}&end=${endDate?.toISOString().slice(0, 10)}`;
   //   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
