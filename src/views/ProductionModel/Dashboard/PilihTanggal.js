@@ -16,21 +16,26 @@ import '../../../styles/views/pilih-tanggal.scss';
 const PilihTanggal = (props) => {
   const { downloadName, dropdownAddition } = props;
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-  const today = new Date();
   const [category, setCategory] = useState('');
   // Date State
-  const [startDate, setStartDate] = useState(today.toISOString().slice(0, 10));
-  const [endDate, setEndDate] = useState(today.toISOString().slice(0, 10));
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   // download api url
   const url = dropdownAddition ?
-  `${apiBaseUrl}/excel/${category}?start=${startDate}&end=${endDate}` :
-  `${apiBaseUrl}/excel/${downloadName}?start=${startDate}&end=${endDate}`;
+  `${apiBaseUrl}/excel/${category}?
+  start=${startDate?.toISOString().slice(0, 10)}&end=${endDate?.toISOString().slice(0, 10)}` :
+  `${apiBaseUrl}/excel/${downloadName}?
+  start=${startDate?.toISOString().slice(0, 10)}&end=${endDate?.toISOString().slice(0, 10)}`;
   //   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  const handleDownload = () => {
+    window.open(url);
+  };
+
   return (
-    <form className="pilih-tanggal">
+    <form className="pilih-tanggal" onSubmit={handleDownload}>
       {(Boolean(errorMessage) || Boolean(successMessage)) && (
         <CustomAlert
           type={successMessage ? 'success' : 'error'}
@@ -71,7 +76,7 @@ const PilihTanggal = (props) => {
         type="submit"
         className="btn btn-lg download-btn"
       >
-        <a href={url}>DOWNLOAD</a>
+        DOWNLOAD
       </Button>
     </form>
   );
