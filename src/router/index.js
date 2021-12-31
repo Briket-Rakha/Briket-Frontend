@@ -28,6 +28,9 @@ const ShippingInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Shi
 const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Trucking'));
 const NationalPrice = lazy(() => import('../views/ShippingAndWarehouse/Input/NationalPrice'));
 
+// Import Roles
+import { PAGE_ACCESS } from 'utils/roles';
+
 // Create Browser History
 const browserHistory = createBrowserHistory();
 
@@ -37,66 +40,79 @@ const MyRouter = () => {
       <LastLocationProvider watchOnlyPathname>
         <Switch>
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.DASHBOARD}
             path={Routes.production.dashboard}
             component={Dashboard}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.PAYMENT_TIMELINE}
             path={Routes.production.payment}
             component={PaymentTimeline}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.INPUT}
             path={Routes.production.input.selfProduce.rawMaterial}
             component={RawMaterial}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.INPUT}
             path={Routes.production.input.selfProduce.hasilProduksi}
             component={HasilProduksi}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.INPUT}
             path={Routes.production.input.packaging}
             component={Packaging}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.INPUT}
             path={Routes.production.input.outSource.charcoal}
             component={Charcoal}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.INPUT}
             path={Routes.production.input.outSource.payment}
             component={Payment}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.PRODUCTION.MANAGE}
             path={Routes.production.manage}
             component={Manage}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.SHIPPING.DASHBOARD}
             path={Routes.shipping.dashboard}
             component={ShippingDashboard}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.WAREHOUSE.DASHBOARD}
             path={Routes.warehouse.dashboard}
             component={WarehouseDashboard}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.SHIPPING.INPUT}
             path={Routes.shipping.input}
             component={ShippingInput}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.WAREHOUSE.INPUT}
             path={Routes.warehouse.input}
             component={WarehouseInput}
             exact
           />
           <PrivateRoute
+            pageAccess={PAGE_ACCESS.WAREHOUSE.NATIONAL_PRICE}
             path={Routes.warehouse.nationalPrice}
             component={NationalPrice}
             exact
