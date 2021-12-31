@@ -24,6 +24,12 @@ const RouteList = {
     input: '/warehouse/input',
     nationalPrice: '/warehouse/national-price',
   },
+  sales: {
+    dashboard: '/sales',
+    input: 'sales/input',
+    transaction: 'sales/transaction',
+    myPerformance: 'sales/my-performace',
+  },
   login: {
     root: '/login',
   },
