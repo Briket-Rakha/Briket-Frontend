@@ -10,24 +10,29 @@ import Routes from './RouteList';
 // Import Layout
 import Layout from '../Layout';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const user = localStorage.getItem('user') || false;
+// Import Utils
+import { hasAccess, DEFAULT_REDIRECT } from 'utils/roles';
 
+const PrivateRoute = ({ component: Component, pageAccess, ...rest }) => {
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+  const authorized = hasAccess(parseInt(user.role), pageAccess);
   return (
     <div>
       <Route
         {...rest}
-        render={(props) =>
-          user ? (
-            <Layout>
-              <Container className={rest.path === '/manage' ? 'custom-container' : ''} maxWidth="md" fixed>
-                <Component {...props} />
-              </Container>
-            </Layout>
-          ) : (
-            <Redirect to={Routes.login.root} />
-          )
-        }
+        render={(props) => {
+          if (user && authorized) {
+            return (
+              <Layout>
+                <Container className={rest.path === '/manage' ? 'custom-container' : ''} maxWidth="md" fixed>
+                  <Component {...props} />
+                </Container>
+              </Layout>
+            );
+          }
+          if (user) return <Redirect to={DEFAULT_REDIRECT[user.role]} />;
+          else return <Redirect to={Routes.login.root} />;
+        }}
       />
     </div>
   );
@@ -35,6 +40,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 PrivateRoute.propTypes = {
   component: PropTypes.any.isRequired,
+  pageAccess: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default PrivateRoute;
