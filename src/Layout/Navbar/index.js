@@ -26,6 +26,9 @@ import Routes from '../../router/RouteList';
 // Import Component
 import PopMenu from '../../components/PopMenu';
 
+// Import Menu
+import menu from './menuList';
+
 const Navbar = () => {
   const history = useHistory();
   const [item, setItem] = useState(history.location.pathname == '/' ? 0 : localStorage.getItem('tab'));
@@ -72,156 +75,6 @@ const Navbar = () => {
     setGChildAnchor(false);
   };
 
-  const tabs = [
-    {
-      id: 0,
-      name: 'PRODUCTION MODEL',
-      route: Routes.production.dashboard,
-      sub: [
-        {
-          id: 0,
-          name: 'DASHBOARD',
-          onClick: () => {
-            history.push(Routes.production.dashboard);
-          },
-        },
-        {
-          id: 1,
-          name: 'INPUT',
-          sub: [
-            {
-              id: 0,
-              name: 'SELF PRODUCE',
-              sub: [
-                {
-                  id: 0,
-                  name: 'RAW MATERIAL',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.selfProduce.rawMaterial,
-                    );
-                  },
-                },
-                {
-                  id: 1,
-                  name: 'FACTORY PRODUCTION',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.selfProduce.hasilProduksi,
-                    );
-                  },
-                },
-              ],
-              onClick: () => { },
-            },
-            {
-              id: 1,
-              name: 'OUTSOURCE',
-              sub: [
-                {
-                  id: 0,
-                  name: 'CHARCOAL',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.outSource.charcoal,
-                    );
-                  },
-                },
-                {
-                  id: 1,
-                  name: 'PAYMENT',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.outSource.payment,
-                    );
-                  },
-                },
-              ],
-            },
-            {
-              id: 2,
-              name: 'PACKAGING',
-              onClick: () => {
-                history.push(Routes.production.input.packaging);
-              },
-            },
-          ],
-          onClick: () => { },
-        },
-        {
-          id: 2,
-          name: 'PAYMENT TIMELINE',
-          onClick: () => {
-            history.push(Routes.production.payment);
-          },
-        },
-        {
-          id: 3,
-          name: 'MANAGE',
-          onClick: () => {
-            history.push(Routes.production.manage);
-          },
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: 'SHIPPING MODEL',
-      route: Routes.shipping.dashboard,
-      sub: [
-        {
-          id: 0,
-          name: 'DASHBOARD',
-          onClick: () => {
-            history.push(Routes.shipping.dashboard);
-          },
-        },
-        {
-          id: 1,
-          name: 'INPUT',
-          onClick: () => {
-            history.push(Routes.shipping.input);
-          },
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'WAREHOUSE MODEL',
-      route: Routes.warehouse.dashboard,
-      sub: [
-        {
-          id: 0,
-          name: 'DASHBOARD',
-          onClick: () => {
-            history.push(Routes.warehouse.dashboard);
-          },
-        },
-        {
-          id: 1,
-          name: 'INPUT',
-          sub: [
-            {
-              id: 0,
-              name: 'WAREHOUSE',
-              onClick: () => {
-                history.push(Routes.warehouse.input);
-              },
-            },
-            {
-              id: 1,
-              name: 'NATIONAL PRICE',
-              onClick: () => {
-                history.push(Routes.warehouse.nationalPrice);
-              },
-            },
-          ],
-          onClick: () => { },
-        },
-      ],
-    },
-  ];
-
   return (
     <AppBar position="absolute">
       <Toolbar className="navbar">
@@ -229,7 +82,7 @@ const Navbar = () => {
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />
         </Grid>
         <Grid container className="navbar-list" spacing={4}>
-          {tabs.map((tab) => (
+          {menu.map((tab) => (
             <Grid
               key={tab.id}
               item

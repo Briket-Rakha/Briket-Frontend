@@ -8,6 +8,7 @@ import { Grid, Popper, ClickAwayListener, Paper } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { ArrowForwardIos } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
 
 // Import actions
 import { setTab } from '../../actions';
@@ -26,11 +27,12 @@ function PopMenu(props) {
   const open = Boolean(anchorEl);
   const id = open ? `simple-popover-tab-${tabId}` : undefined;
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const handleRoute = (routeCallBack) => {
+  const handleRoute = (route) => {
     dispatch(setTab(tabId));
     handleClose();
-    routeCallBack();
+    history.push(route);
   };
 
   return (
@@ -99,7 +101,7 @@ function PopMenu(props) {
                                           id={`grandchild-item-${id}`}
                                           onClick={() =>
                                             handleRoute(
-                                                gchild.onClick,
+                                                gchild.route,
                                             )
                                           }
                                         >
@@ -124,7 +126,7 @@ function PopMenu(props) {
                                 key={child.id}
                                 onMouseEnter={handleGChild}
                                 onClick={() =>
-                                  handleRoute(child.onClick)
+                                  handleRoute(child.route)
                                 }
                               >
                                 <Grid container alignContent="space-between">
@@ -146,7 +148,7 @@ function PopMenu(props) {
                   item
                   onMouseEnter={handleChild}
                   key={item.id}
-                  onClick={() => handleRoute(item.onClick)}
+                  onClick={() => handleRoute(item.route)}
                 >
                   <Grid container alignContent="space-between">
                     {item.name}
