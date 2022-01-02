@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // Import Library
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -28,15 +28,25 @@ import PopMenu from '../../components/PopMenu';
 
 // Import Menu
 import menu from './menuList';
+import { setTab } from 'redux/actions/tabActions';
 
 const Navbar = () => {
   const history = useHistory();
-  const [item, setItem] = useState(history.location.pathname == '/' ? 0 : localStorage.getItem('tab'));
+  const { activeTab } = useSelector((state) => state.tab);
   const [anchorEl, setAnchorEl] = useState(null);
   const [childAnchor, setChildAnchor] = useState(false);
   const [gChildAnchor, setGChildAnchor] = useState(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const mapPathToTab = {
+      'shipping': 1,
+      'warehouse': 2,
+    };
+    const currentTab = mapPathToTab[history.location.pathname.split('/')[1]] || 0;
+    dispatch(setTab(currentTab));
+  }, []);
 
   // Close popper when route change
   useEffect(() => {
@@ -50,8 +60,6 @@ const Navbar = () => {
 
   const handleOpenPop = (e, value) => {
     setAnchorEl(e.currentTarget);
-    localStorage.setItem('tab', value);
-    setItem(localStorage.getItem('tab'));
   };
 
   const handleClose = () => {
@@ -66,7 +74,6 @@ const Navbar = () => {
   };
 
   const handleGChild = (e) => {
-    // setChildAnchor(e.currentTarget.parentNode);
     setGChildAnchor(e.currentTarget);
   };
 
@@ -87,7 +94,7 @@ const Navbar = () => {
               key={tab.id}
               item
               className={
-                tab.id == item ?
+                tab.id == activeTab ?
                   'navbar-list-item active-tab' :
                   'navbar-list-item'
               }

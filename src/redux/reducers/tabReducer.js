@@ -1,28 +1,14 @@
+import TAB_TYPES from 'redux/types/tabTypes';
+
 const initialState = {
   activeTab: 0,
 };
 
 const tabReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 0:
+    case TAB_TYPES.SET_TAB:
       return {
-        activeTab: 0,
-      };
-    case 1:
-      return {
-        activeTab: 1,
-      };
-    case 2:
-      return {
-        activeTab: 2,
-      };
-    case 3:
-      return {
-        activeTab: 3,
-      };
-    case 4:
-      return {
-        activeTab: 3,
+        activeTab: action.payload,
       };
     default:
       return state;

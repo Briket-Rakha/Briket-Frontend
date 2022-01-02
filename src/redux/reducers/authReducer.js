@@ -5,21 +5,13 @@ const initialState = {
   loggedIn: false,
   user: {},
 };
-// const savedUser = JSON.parse(localStorage.getItem('user'));
-// const initialState = savedUser ? {
-//   token: savedUser.token,
-//   userId: savedUser.ID,
-//   role: savedUser.role,
-//   isAuthenticated: false,
-//   isLoading: false,
-// } : notLoggedInState;
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_TYPE.USER_LOADING:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
       };
     case AUTH_TYPE.USER_LOADED:
       return {
