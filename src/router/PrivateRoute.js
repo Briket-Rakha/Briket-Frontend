@@ -4,6 +4,7 @@ import { Container } from '@material-ui/core';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
 
 // Import Routes List
 import Routes from './RouteList';
@@ -29,7 +30,7 @@ const PrivateRoute = ({ component: Component, pageAccess, ...rest }) => {
       <Route
         {...rest}
         render={(props) => {
-          if (auth && isAuthorized) {
+          if (!isEmpty(auth) && isAuthorized) {
             return (
               <Layout>
                 <Container className={rest.path === '/manage' ? 'custom-container' : ''} maxWidth="md" fixed>
@@ -38,7 +39,7 @@ const PrivateRoute = ({ component: Component, pageAccess, ...rest }) => {
               </Layout>
             );
           }
-          if (isAuthenticated) return <Redirect to={DEFAULT_REDIRECT[user.role]} />;
+          if (!isEmpty(auth)) return <Redirect to={DEFAULT_REDIRECT[user.role]} />;
           else return <Redirect to={Routes.login.root} />;
         }}
       />
