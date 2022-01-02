@@ -1,11 +1,10 @@
 import AUTH_TYPE from 'redux/types/authTypes';
 import { apiPostLogin } from 'api/auth.api';
-import { setUser } from 'actions';
 
 export const loadUser = () => (dispatch) =>
   dispatch({ type: AUTH_TYPE.USER_LOADING });
 
-export const User = (payload) => ({ type: AUTH_TYPE.USER_LOADED, payload });
+export const setUser = (payload) => ({ type: AUTH_TYPE.USER_LOADED, payload });
 
 export const login = (payload) => async (dispatch) => {
   dispatch({ type: AUTH_TYPE.USER_LOADING });

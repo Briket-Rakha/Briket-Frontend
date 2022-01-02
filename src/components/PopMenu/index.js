@@ -11,7 +11,7 @@ import { ArrowForwardIos } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
 
 // Import actions
-import { setTab } from '../../actions';
+import { setTab } from 'redux/actions/tabActions';
 
 function PopMenu(props) {
   const {

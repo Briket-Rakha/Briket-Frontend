@@ -18,7 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import '../../styles/layout/navbar.scss';
 
 // Import reducer action (Logout)
-import { logOut } from '../../actions';
+import { logout } from 'redux/actions/authActions';
 
 // Import Router list
 import Routes from '../../router/RouteList';
@@ -44,7 +44,7 @@ const Navbar = () => {
   }, [history.location.pathname]);
 
   const handleLogout = () => {
-    dispatch(logOut());
+    dispatch(logout());
     history.push(Routes.login.root);
   };
 
