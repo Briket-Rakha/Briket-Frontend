@@ -19,6 +19,7 @@
     ],
     "rules": {
         "object-curly-spacing": [2, "always"],
-        "max-len": [2, 120, 4, {"ignoreUrls": true}]
+        "max-len": [2, 120, 4, {"ignoreUrls": true}],
+        "no-unused-vars": "warn"
     }
 }
