@@ -3,8 +3,8 @@ import tabReducer from './tabReducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
-  authReducer,
-  tabReducer,
+  auth: authReducer,
+  tab: tabReducer,
 });
 
 export default rootReducer;

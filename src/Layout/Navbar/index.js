@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // Import Library
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   AppBar,
@@ -18,7 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import '../../styles/layout/navbar.scss';
 
 // Import reducer action (Logout)
-import { logOut } from '../../actions';
+import { logout } from 'redux/actions/authActions';
 
 // Import Router list
 import Routes from '../../router/RouteList';
@@ -26,14 +26,27 @@ import Routes from '../../router/RouteList';
 // Import Component
 import PopMenu from '../../components/PopMenu';
 
+// Import Menu
+import menu from './menuList';
+import { setTab } from 'redux/actions/tabActions';
+
 const Navbar = () => {
   const history = useHistory();
-  const [item, setItem] = useState(history.location.pathname == '/' ? 0 : localStorage.getItem('tab'));
+  const { activeTab } = useSelector((state) => state.tab);
   const [anchorEl, setAnchorEl] = useState(null);
   const [childAnchor, setChildAnchor] = useState(false);
   const [gChildAnchor, setGChildAnchor] = useState(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const mapPathToTab = {
+      'shipping': 1,
+      'warehouse': 2,
+    };
+    const currentTab = mapPathToTab[history.location.pathname.split('/')[1]] || 0;
+    dispatch(setTab(currentTab));
+  }, []);
 
   // Close popper when route change
   useEffect(() => {
@@ -41,14 +54,12 @@ const Navbar = () => {
   }, [history.location.pathname]);
 
   const handleLogout = () => {
-    dispatch(logOut());
+    dispatch(logout());
     history.push(Routes.login.root);
   };
 
   const handleOpenPop = (e, value) => {
     setAnchorEl(e.currentTarget);
-    localStorage.setItem('tab', value);
-    setItem(localStorage.getItem('tab'));
   };
 
   const handleClose = () => {
@@ -63,7 +74,6 @@ const Navbar = () => {
   };
 
   const handleGChild = (e) => {
-    // setChildAnchor(e.currentTarget.parentNode);
     setGChildAnchor(e.currentTarget);
   };
 
@@ -72,156 +82,6 @@ const Navbar = () => {
     setGChildAnchor(false);
   };
 
-  const tabs = [
-    {
-      id: 0,
-      name: 'PRODUCTION MODEL',
-      route: Routes.production.dashboard,
-      sub: [
-        {
-          id: 0,
-          name: 'DASHBOARD',
-          onClick: () => {
-            history.push(Routes.production.dashboard);
-          },
-        },
-        {
-          id: 1,
-          name: 'INPUT',
-          sub: [
-            {
-              id: 0,
-              name: 'SELF PRODUCE',
-              sub: [
-                {
-                  id: 0,
-                  name: 'RAW MATERIAL',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.selfProduce.rawMaterial,
-                    );
-                  },
-                },
-                {
-                  id: 1,
-                  name: 'FACTORY PRODUCTION',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.selfProduce.hasilProduksi,
-                    );
-                  },
-                },
-              ],
-              onClick: () => { },
-            },
-            {
-              id: 1,
-              name: 'OUTSOURCE',
-              sub: [
-                {
-                  id: 0,
-                  name: 'CHARCOAL',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.outSource.charcoal,
-                    );
-                  },
-                },
-                {
-                  id: 1,
-                  name: 'PAYMENT',
-                  onClick: () => {
-                    history.push(
-                        Routes.production.input.outSource.payment,
-                    );
-                  },
-                },
-              ],
-            },
-            {
-              id: 2,
-              name: 'PACKAGING',
-              onClick: () => {
-                history.push(Routes.production.input.packaging);
-              },
-            },
-          ],
-          onClick: () => { },
-        },
-        {
-          id: 2,
-          name: 'PAYMENT TIMELINE',
-          onClick: () => {
-            history.push(Routes.production.payment);
-          },
-        },
-        {
-          id: 3,
-          name: 'MANAGE',
-          onClick: () => {
-            history.push(Routes.production.manage);
-          },
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: 'SHIPPING MODEL',
-      route: Routes.shipping.dashboard,
-      sub: [
-        {
-          id: 0,
-          name: 'DASHBOARD',
-          onClick: () => {
-            history.push(Routes.shipping.dashboard);
-          },
-        },
-        {
-          id: 1,
-          name: 'INPUT',
-          onClick: () => {
-            history.push(Routes.shipping.input);
-          },
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'WAREHOUSE MODEL',
-      route: Routes.warehouse.dashboard,
-      sub: [
-        {
-          id: 0,
-          name: 'DASHBOARD',
-          onClick: () => {
-            history.push(Routes.warehouse.dashboard);
-          },
-        },
-        {
-          id: 1,
-          name: 'INPUT',
-          sub: [
-            {
-              id: 0,
-              name: 'WAREHOUSE',
-              onClick: () => {
-                history.push(Routes.warehouse.input);
-              },
-            },
-            {
-              id: 1,
-              name: 'NATIONAL PRICE',
-              onClick: () => {
-                history.push(Routes.warehouse.nationalPrice);
-              },
-            },
-          ],
-          onClick: () => { },
-        },
-      ],
-    },
-  ];
-
   return (
     <AppBar position="absolute">
       <Toolbar className="navbar">
@@ -229,12 +89,12 @@ const Navbar = () => {
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />
         </Grid>
         <Grid container className="navbar-list" spacing={4}>
-          {tabs.map((tab) => (
+          {menu.map((tab) => (
             <Grid
               key={tab.id}
               item
               className={
-                tab.id == item ?
+                tab.id == activeTab ?
                   'navbar-list-item active-tab' :
                   'navbar-list-item'
               }

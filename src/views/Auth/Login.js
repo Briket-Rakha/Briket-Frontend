@@ -8,11 +8,11 @@ import {
   Button,
   CircularProgress,
 } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Import redux action (signIn)
-import { signIn } from '../../actions';
+import { login } from 'redux/actions/authActions';
 
 // Import styling
 import '../../styles/views/login.scss';
@@ -24,12 +24,11 @@ import Routes from '../../router/RouteList';
 import CustomAlert from '../../components/Alert';
 
 const Login = (props) => {
-  const user = localStorage.getItem('user');
-
-  if (user) {
+  const auth = useSelector((state) => state.auth);
+  if (auth.isAuthenticated) {
     return <Redirect to="/" />;
   }
-
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const [credentials, setCredentials] = useState({
@@ -37,7 +36,6 @@ const Login = (props) => {
     password: '',
     remember: false,
   });
-  const [loading, setLoading] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [error] = useState({
@@ -62,22 +60,12 @@ const Login = (props) => {
   };
 
   const handleLogin = () => {
-    if (!loading) {
-      setLoading(true);
-      dispatch(signIn(credentials))
-          .then((res) => {
-            // eslint-disable-next-line react/prop-types
-            const { history } = props;
-            // eslint-disable-next-line react/prop-types
-            history.push(Routes.production.dashboard);
-          })
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage('Failed to Login');
-            setOpenAlert(true);
-            setLoading(false);
-          });
-    }
+    dispatch(login(credentials)).then(() => {
+      history.push(Routes.production.dashboard);
+    }).catch((err) => {
+      setErrorMessage(err.data.msg);
+      setOpenAlert(true);
+    });
   };
 
   const { email, password, remember } = credentials;
@@ -147,7 +135,7 @@ const Login = (props) => {
         </Grid>
         <Grid item className="login-box-button">
           <Button color="primary" onClick={handleLogin} size="small">
-            {loading ? <CircularProgress size={15} thickness={5} /> : 'SIGN IN'}
+            {auth.isLoading ? <CircularProgress size={15} thickness={5} /> : 'SIGN IN'}
           </Button>
         </Grid>
         <Grid item className="login-box-no-acc">
