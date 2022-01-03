@@ -23,7 +23,7 @@ const PrivateRoute = ({ component: Component, pageAccess, ...rest }) => {
   const auth = JSON.parse(localStorage.getItem('user')) || {};
   const isAuthorized = auth ? hasAccess(parseInt(auth.role), pageAccess) : false;
 
-  if (auth) dispatch(setUser(auth));
+  if (!isEmpty(auth)) dispatch(setUser(auth));
 
   return (
     <div>
