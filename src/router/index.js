@@ -27,7 +27,7 @@ const WarehouseDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dash
 const ShippingInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Shipping'));
 const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Trucking'));
 const NationalPrice = lazy(() => import('../views/ShippingAndWarehouse/Input/NationalPrice'));
-const AdminAssignUser = lazy(() => import('../views/Admin/AssignUser'));
+const AdminAssignUser = lazy(() => import('../views/Admin/index'));
 
 // Import Roles
 import { PAGE_ACCESS } from 'utils/roles';

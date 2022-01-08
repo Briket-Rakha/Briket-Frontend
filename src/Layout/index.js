@@ -7,7 +7,12 @@ import PropTypes from 'prop-types';
 import Navbar from './Navbar/index';
 
 const Layout = ({ children }) => {
+  const isAdminPage = window.location.pathname.includes('admin');
   return (
+    isAdminPage ?
+    <Grid item className="admin-page-wrapper">
+      <div>{children}</div>
+    </Grid> :
     <Grid item className="page-wrapper">
       <Navbar />
       <main>{children}</main>

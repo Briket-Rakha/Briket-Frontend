@@ -9,21 +9,29 @@ import { Menu, Close } from '@material-ui/icons';
 import '../../styles/components/sidebar.scss';
 
 const Sidebar = (props) => {
-  const { activeMenu, setActiveMenu, menu } = props;
-  const [open, setOpen] = useState(parseInt(localStorage.getItem('sidebar')) || 0);
+  const {
+    activeMenu,
+    setActiveMenu,
+    menu,
+    sidebarStyle,
+    buttonStyle,
+    menuStyle,
+    closeButtonStyle,
+  } = props;
+  const [open, setOpen] = useState(parseInt(localStorage.getItem('admin-sidebar')) || 0);
 
   const handleSidebar = () => {
     setOpen((prev) => prev === 0 ? 1 : 0);
   };
 
   useEffect(() => {
-    localStorage.setItem('sidebar', open);
+    localStorage.setItem('admin-sidebar', open);
   }, [open]);
 
   if (open) {
     return (
-      <Grid item container className="sidebar" direction="column">
-        <IconButton className="sidebar-close" onClick={handleSidebar}>
+      <Grid item container className="sidebar" direction="column" style={sidebarStyle}>
+        <IconButton className="sidebar-close" onClick={handleSidebar} style={closeButtonStyle}>
           <Close />
         </IconButton>
         {menu.map((item, index) => (
@@ -32,6 +40,7 @@ const Sidebar = (props) => {
             key={index}
             className={activeMenu === index ? 'sidebar-menu active' : 'sidebar-menu'}
             onClick={() => setActiveMenu(index)}
+            style={menuStyle}
           >
             {item}
           </Grid>
@@ -41,7 +50,7 @@ const Sidebar = (props) => {
   } else {
     return (
       <>
-        <IconButton className="sidebar-button" onClick={handleSidebar}>
+        <IconButton className="sidebar-button" onClick={handleSidebar} style={buttonStyle}>
           <Menu />
         </IconButton>
         <div className="sidebar-button-space" />
@@ -60,6 +69,10 @@ Sidebar.propTypes = {
   menu: PropTypes.arrayOf(
       PropTypes.string.isRequired,
   ).isRequired,
+  sidebarStyle: PropTypes.shape(),
+  buttonStyle: PropTypes.shape(),
+  menuStyle: PropTypes.shape(),
+  closeButtonStyle: PropTypes.shape(),
 };
 
 export default Sidebar;

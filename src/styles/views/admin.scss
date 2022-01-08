@@ -1,0 +1,12 @@
+.admin-page {
+  width: 100vw !important;
+  position: relative;
+  left: calc(-50vw + 480px);
+  margin: -64px 0;
+
+  &-content {
+    padding: 48px;
+    overflow: hidden;
+  }
+}
+
