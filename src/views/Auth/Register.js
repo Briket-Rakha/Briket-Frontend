@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import MaterialUiPhoneNumber from 'material-ui-phone-number';
 import { Redirect, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Import Component
 import CustomAlert from '../../components/Alert';
