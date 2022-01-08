@@ -54,8 +54,11 @@
   &-button {
     position: absolute !important;
     top: 8px;
-    left: 8px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+    left: -80px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .25),
+      -4px -4px 8px rgba(0, 0, 0, .15),
+      -4px 4px 8px rgba(0, 0, 0, .15),
+      4px -4px 8px rgba(0, 0, 0, .15);
 
     &-space {
       width: 100px;

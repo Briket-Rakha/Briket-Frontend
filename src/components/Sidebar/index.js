@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { menu } from './menu';
 import { IconButton } from '@material-ui/core';
 import { Menu, Close } from '@material-ui/icons';
 
@@ -10,7 +9,7 @@ import { Menu, Close } from '@material-ui/icons';
 import '../../styles/components/sidebar.scss';
 
 const Sidebar = (props) => {
-  const { activeMenu, setActiveMenu } = props;
+  const { activeMenu, setActiveMenu, menu } = props;
   const [open, setOpen] = useState(parseInt(localStorage.getItem('sidebar')) || 0);
 
   const handleSidebar = () => {
@@ -56,8 +55,11 @@ Sidebar.defaultProps = {
 };
 
 Sidebar.propTypes = {
-  activeMenu: PropTypes.oneOf(Array.from(Array(menu.length).keys())),
+  activeMenu: PropTypes.number,
   setActiveMenu: PropTypes.func.isRequired,
+  menu: PropTypes.arrayOf(
+      PropTypes.string.isRequired,
+  ).isRequired,
 };
 
 export default Sidebar;

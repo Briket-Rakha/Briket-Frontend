@@ -1,5 +1,5 @@
 // Import Modules
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Grid } from '@material-ui/core';
 // import PropTypes from 'prop-types';
 
@@ -33,6 +33,14 @@ const Manage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  const menu = useMemo(() => [
+    'Material',
+    'Factory',
+    'Brand',
+    'Material Supplier',
+    'Outsource Supplier',
+  ]);
+
   const handleChangeMenu = (menu) => {
     setActiveMenu(menu);
     localStorage.setItem('manage-active-menu', menu);
@@ -56,7 +64,7 @@ const Manage = () => {
           }
         />
       )}
-      <Sidebar open activeMenu={activeMenu} setActiveMenu={handleChangeMenu} />
+      <Sidebar open menu={menu} activeMenu={activeMenu} setActiveMenu={handleChangeMenu} />
       <Grid item container className="manage" wrap="nowrap">
         <Grid item container className="manage-container">
           {activeMenu === 0 && (

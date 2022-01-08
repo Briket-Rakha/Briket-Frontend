@@ -24,6 +24,9 @@ const RouteList = {
     input: '/warehouse/input',
     nationalPrice: '/warehouse/national-price',
   },
+  admin: {
+    assignUser: '/admin',
+  },
   sales: {
     dashboard: '/sales',
     input: 'sales/input',
