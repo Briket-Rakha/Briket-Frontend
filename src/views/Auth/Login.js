@@ -24,10 +24,11 @@ import Routes from '../../router/RouteList';
 import CustomAlert from '../../components/Alert';
 
 const Login = (props) => {
-  const auth = useSelector((state) => state.auth);
-  if (auth.isAuthenticated) {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user?.token) {
     return <Redirect to="/" />;
   }
+  const auth = useSelector((state) => state.auth);
   const history = useHistory();
   const dispatch = useDispatch();
 
