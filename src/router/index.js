@@ -27,6 +27,7 @@ const WarehouseDashboard = lazy(() => import('../views/ShippingAndWarehouse/Dash
 const ShippingInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Shipping'));
 const WarehouseInput = lazy(() => import('../views/ShippingAndWarehouse/Input/Trucking'));
 const NationalPrice = lazy(() => import('../views/ShippingAndWarehouse/Input/NationalPrice'));
+const AdminAssignUser = lazy(() => import('../views/Admin/index'));
 
 // Import Roles
 import { PAGE_ACCESS } from 'utils/roles';
@@ -115,6 +116,12 @@ const MyRouter = () => {
             pageAccess={PAGE_ACCESS.WAREHOUSE.NATIONAL_PRICE}
             path={Routes.warehouse.nationalPrice}
             component={NationalPrice}
+            exact
+          />
+          <PrivateRoute
+            pageAccess={PAGE_ACCESS.ADMIN}
+            path={Routes.admin.assignUser}
+            component={AdminAssignUser}
             exact
           />
           <Route path={Routes.login.root} component={Login} exact />
