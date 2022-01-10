@@ -56,7 +56,9 @@
       }
 
       &.active-tab {
-        border-bottom: 3px solid $primary;
+        & > div {
+          border-bottom: 3px solid $primary;
+        }
       }
 
       &-sub {

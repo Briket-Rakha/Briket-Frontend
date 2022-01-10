@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, CircularProgress } from '@material-ui/core';
 import MaterialUiPhoneNumber from 'material-ui-phone-number';
-import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { Redirect, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // Import Component
 import CustomAlert from '../../components/Alert';
@@ -14,18 +14,24 @@ import '../../styles/views/login.scss';
 // Import Route List
 import Routes from '../../router/RouteList';
 
-const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+// Import API
+import { apiPostRegister } from 'api/auth.api';
+import { login } from 'redux/actions/authActions';
 
 const Register = (props) => {
-  const user = localStorage.getItem('user');
-
-  if (user) {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user?.token) {
     return <Redirect to="/" />;
   }
+
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const [credentials, setCredentials] = useState({
     username: '',
     email: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: '',
     phone: '',
@@ -40,6 +46,8 @@ const Register = (props) => {
     email: '',
     phone: '',
     password: '',
+    firstName: '',
+    lastName: '',
     confirmPassword: '',
   });
 
@@ -86,14 +94,16 @@ const Register = (props) => {
           .every((x) => x !== '');
 
       if (isValid) {
-        await axios
-            .post(`${apiBaseUrl}/user/register`, credentials)
-            .then((res) => {
-              // eslint-disable-next-line react/prop-types
-              props.history.push(Routes.login.root);
+        await apiPostRegister(credentials)
+            .then(() => {
+              dispatch(login(credentials)).then(() => {
+                history.push(Routes.production.dashboard);
+              }).catch((err) => {
+                throw err;
+              });
             })
             .catch((err) => {
-              setErrorMessage(err.data.msg);
+              setErrorMessage(err?.data?.msg || 'An error has occured!');
               setOpenAlert(true);
             });
       }
@@ -102,7 +112,7 @@ const Register = (props) => {
     }
   };
 
-  const { username, password, email, confirmPassword } = credentials;
+  const { username, password, email, firstName, lastName, confirmPassword } = credentials;
 
   return (
     <Grid container className="login">
@@ -153,6 +163,38 @@ const Register = (props) => {
             onChange={handleChange}
             helperText={error.email}
           />
+        </Grid>
+        <Grid container spacing={2} style={{ padding: '10px 0' }}>
+          <Grid item md={6}>
+            <TextField
+              id="firstName"
+              name="firstName"
+              className="login-box-field"
+              placeholder="First Name*"
+              size="medium"
+              value={firstName}
+              type="text"
+              variant="outlined"
+              required
+              onChange={handleChange}
+              helperText={error.firstName}
+            />
+          </Grid>
+          <Grid item md={6}>
+            <TextField
+              id="lastName"
+              name="lastName"
+              className="login-box-field"
+              placeholder="Last Name*"
+              size="medium"
+              value={lastName}
+              type="text"
+              variant="outlined"
+              required
+              onChange={handleChange}
+              helperText={error.firstName}
+            />
+          </Grid>
         </Grid>
         <Grid item className="login-box-field">
           <MaterialUiPhoneNumber

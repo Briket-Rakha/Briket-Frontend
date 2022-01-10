@@ -88,7 +88,7 @@ const Navbar = () => {
         <Grid item className="navbar-brand">
           <img src={`${process.env.PUBLIC_URL}/images/logo-text.jpg`} />
         </Grid>
-        <Grid container className="navbar-list" spacing={4}>
+        <Grid container className="navbar-list" spacing={1}>
           {menu.map((tab) => (
             <Grid
               key={tab.id}
@@ -100,23 +100,25 @@ const Navbar = () => {
               }
               onClick={(e) => handleOpenPop(e, tab.id)}
             >
-              {tab.name}
-              {Boolean(anchorEl) && (
-                <ClickAwayListener onClickAway={handleClose}>
-                  <Grid item container onMouseLeave={leavePopper}>
-                    <PopMenu
-                      tabId={tab.id}
-                      anchorEl={anchorEl}
-                      items={tab.name === anchorEl.textContent ? tab.sub : []}
-                      handleClose={handleClose}
-                      childAnchor={childAnchor}
-                      handleChild={handleChild}
-                      gChildAnchor={gChildAnchor}
-                      handleGChild={handleGChild}
-                    />
-                  </Grid>
-                </ClickAwayListener>
-              )}
+              <Grid item style={{ padding: '8px 4px' }}>
+                {tab.name}
+                {Boolean(anchorEl) && (
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <Grid item container onMouseLeave={leavePopper}>
+                      <PopMenu
+                        tabId={tab.id}
+                        anchorEl={anchorEl}
+                        items={tab.name === anchorEl.textContent ? tab.sub : []}
+                        handleClose={handleClose}
+                        childAnchor={childAnchor}
+                        handleChild={handleChild}
+                        gChildAnchor={gChildAnchor}
+                        handleGChild={handleGChild}
+                      />
+                    </Grid>
+                  </ClickAwayListener>
+                )}
+              </Grid>
             </Grid>
           ))}
         </Grid>
